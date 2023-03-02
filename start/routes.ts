@@ -56,7 +56,11 @@ Route.post('/players', async ({ request }) => {
   }
 })
 
-Route.post('/players/:id/inventory', async ({ resquest }) => {})
+Route.post('/players/:id/inventory', async ({ auth }) => {
+  await auth.use('basic').authenticate()
+
+  return `You are logged in as ${auth.user!.name}`
+})
 
 Route.get('/scores', async ({ request }) => {
   const getTableScoreSchema = schema.create({

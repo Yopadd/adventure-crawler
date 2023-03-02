@@ -1,3 +1,4 @@
+
 /**
  * Config source: https://git.io/JY0mp
  *
@@ -66,7 +67,7 @@ const authConfig: AuthConfig = {
         | of the mentioned columns to find their user record.
         |
         */
-        uids: ['email'],
+        uids: ['name'],
 
         /*
         |--------------------------------------------------------------------------
@@ -79,7 +80,7 @@ const authConfig: AuthConfig = {
         | that time.
         |
         */
-        model: () => import('App/Models/User'),
+        model: () => import('App/Models/Player.model'),
       },
     },
   },

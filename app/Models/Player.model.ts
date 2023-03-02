@@ -7,10 +7,10 @@ export default class PlayerModel extends BaseModel {
   public id: number
 
   @column()
-  public email: string
+  public name: string
 
   @column({ serializeAs: null })
-  public password: string
+  public password: string = 'pass'
 
   @column()
   public rememberMeToken: string | null
