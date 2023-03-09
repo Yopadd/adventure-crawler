@@ -1,3 +1,5 @@
+import PlayerModel from 'App/Models/Player.model'
+import { DateTime } from 'luxon'
 import GetPageInput from '../pages/get-page-input'
 import Player from './player'
 import { PlayerServicePlayerRepository } from './player.service'
@@ -17,8 +19,13 @@ export default class PlayerRepository implements PlayerServicePlayerRepository {
     return this.players.size
   }
 
-  public async save(player: Player): Promise<Player> {
-    this.players.set(player.id, player)
+  public async save(player: Player, password: string): Promise<Player> {
+    await PlayerModel.create({
+      id: player.id,
+      name: player.name.get(),
+      createdAt: DateTime.now(),
+      password: password,
+    })
     return player
   }
 

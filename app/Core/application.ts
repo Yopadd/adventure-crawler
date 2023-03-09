@@ -57,6 +57,7 @@ const services = {
   ),
   playerService: new PlayerService(
     repositories.playerRepository,
+    repositories.inventoryRepository,
     repositories.exploreDungeonResult
   ),
   inventoryService: new InventoryService(repositories.inventoryRepository),
@@ -70,7 +71,7 @@ const init: ApplicationInit = {
 }
 
 export const app: Application = {
-  addPlayer: new AddPlayerUseCase(services.playerService, services.inventoryService),
+  addPlayer: new AddPlayerUseCase(services.playerService),
   addItems: new AddItemsUseCase(
     services.playerService,
     services.itemService,

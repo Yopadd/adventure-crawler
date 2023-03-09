@@ -13,7 +13,11 @@ export interface PlayerServicePlayerRepository {
   findByName(name: string): Promise<Player | undefined>
   findAll(input: GetPageInput): Promise<Player[]>
   countAll(): Promise<number>
-  save(player: Player): Promise<Player>
+  save(player: Player, password: string): Promise<Player>
+}
+
+export interface InventoryServiceInventoryRepository {
+  save(inventory: Inventory): Promise<Inventory>
 }
 
 export interface PlayerServiceExploreDungeonResultRepository {
@@ -29,6 +33,7 @@ export default class PlayerService
 {
   constructor(
     private readonly playerRepository: PlayerServicePlayerRepository,
+    private readonly inventoryRepository: InventoryServiceInventoryRepository,
     private readonly exploreResultRepository: PlayerServiceExploreDungeonResultRepository
   ) {}
 
@@ -54,11 +59,12 @@ export default class PlayerService
     return this.playerRepository.countAll()
   }
 
-  public async create(name: string, inventory: Inventory): Promise<Player> {
+  public async create(name: string, password: string): Promise<Player> {
     const player = await this.playerRepository.findByName(name)
     if (player) {
       throw new PlayerAlreadyExistError(player)
     }
-    return this.playerRepository.save(new Player(name, 0, inventory))
+    const inventory = await this.inventoryRepository.save(new Inventory())
+    return this.playerRepository.save(new Player(name, 0, inventory), password)
   }
 }
