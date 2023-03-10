@@ -44,6 +44,7 @@ Route.get('/dungeons', async ({ request }) => {
 Route.post('/players', async ({ request }) => {
   const addPlayerSchema = schema.create({
     name: schema.string([rules.alpha({ allow: ['space', 'dash'] })]),
+    password: schema.string(),
   })
 
   const payload = await request.validate({ schema: addPlayerSchema })

@@ -1,9 +1,10 @@
 import { DateTime } from 'luxon'
 import Hash from '@ioc:Adonis/Core/Hash'
 import { column, beforeSave, BaseModel } from '@ioc:Adonis/Lucid/Orm'
-import Player from 'App/Core/player/player'
 
 export default class PlayerModel extends BaseModel {
+  public static table = 'players'
+
   @column({ isPrimary: true })
   public id: string
 
@@ -12,9 +13,6 @@ export default class PlayerModel extends BaseModel {
 
   @column({ serializeAs: null })
   public password: string = 'pass'
-
-  @column()
-  public rememberMeToken: string | null
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

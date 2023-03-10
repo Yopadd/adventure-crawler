@@ -5,7 +5,8 @@ import { faker } from '@faker-js/faker'
 test('add player', async ({ client, expect }) => {
   await client.post('/install')
   const name = faker.name.firstName()
-  const response = await client.post('/players').json({ name })
+  const password = faker.internet.password()
+  const response = await client.post('/players').json({ name, password })
 
   expect(response.status()).toBe(200)
   expect(response.body()).toStrictEqual({
