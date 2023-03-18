@@ -23,6 +23,15 @@ export enum ItemName {
   POTION_FIRE_RESISTANCE = 'Potion fire resistance',
 }
 
+export function mapToItemName(name: string): ItemName | undefined {
+  switch (name) {
+    case ItemName.COAT:
+      return ItemName.COAT
+    case ItemName.POTION_FIRE_RESISTANCE:
+      return ItemName.POTION_FIRE_RESISTANCE
+  }
+}
+
 export class ItemDescription extends StringValidation {
   constructor(description: string) {
     super(description, { maxLength: 300 })

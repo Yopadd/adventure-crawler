@@ -1,6 +1,8 @@
 import { DateTime } from 'luxon'
 import Hash from '@ioc:Adonis/Core/Hash'
-import { column, beforeSave, BaseModel } from '@ioc:Adonis/Lucid/Orm'
+import { column, beforeSave, BaseModel, hasOne, HasOne } from '@ioc:Adonis/Lucid/Orm'
+import Player from 'App/Core/player/player'
+import InventoryModel from 'App/Models/Inventory.model'
 
 export default class PlayerModel extends BaseModel {
   public static table = 'players'
@@ -12,7 +14,10 @@ export default class PlayerModel extends BaseModel {
   public name: string
 
   @column({ serializeAs: null })
-  public password: string = 'pass'
+  public password: string
+
+  @hasOne(() => InventoryModel)
+  public inventory: HasOne<typeof InventoryModel>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
@@ -25,5 +30,9 @@ export default class PlayerModel extends BaseModel {
     if (user.$dirty.password) {
       user.password = await Hash.make(user.password)
     }
+  }
+
+  public toPlayer(): Player {
+    return new Player(this.name, 0, this.inventory.toInventory())
   }
 }

@@ -12,8 +12,9 @@ test.group('Add player', (group) => {
 
   test('Add 1 player', async ({ expect }) => {
     const name = faker.name.firstName()
+    const password = faker.internet.password()
 
-    const player = await app.addPlayer.apply({ name })
+    const player = await app.addPlayer.apply({ name, password })
 
     expect(player.name.get()).toBe(name)
     expect(player.score.get()).toBe(0)
@@ -21,10 +22,11 @@ test.group('Add player', (group) => {
 
   test('When player already exist then throw an error', async ({ expect }) => {
     const name = faker.name.firstName()
+    const password = faker.internet.password()
 
-    const player = await app.addPlayer.apply({ name })
+    const player = await app.addPlayer.apply({ name, password })
 
-    expect(app.addPlayer.apply({ name })).rejects.toMatchObject({
+    expect(app.addPlayer.apply({ name, password })).rejects.toMatchObject({
       message: `player "${player.name.get()}" already exist`,
     })
   })

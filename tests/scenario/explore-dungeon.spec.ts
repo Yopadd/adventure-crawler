@@ -13,9 +13,11 @@ test.group('Explore dungeon', (group) => {
 
   test('Explore dungeon with no item in inventory player', async ({ expect }) => {
     const playerName = faker.name.firstName()
+    const playerPassword = faker.internet.password()
 
     await app.addPlayer.apply({
       name: playerName,
+      password: playerPassword,
     })
 
     const dungeons = await app.getDungeons.apply({
@@ -33,9 +35,11 @@ test.group('Explore dungeon', (group) => {
 
   test('Explore lava dungeon with fire potion item in inventory player', async ({ expect }) => {
     const playerName = faker.name.firstName()
+    const playerPassword = faker.internet.password()
 
     await app.addPlayer.apply({
       name: playerName,
+      password: playerPassword,
     })
 
     await app.addItems.apply({

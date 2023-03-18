@@ -4,8 +4,9 @@ import { faker } from '@faker-js/faker'
 
 test('get table score', async ({ client, expect }) => {
   const name = faker.name.firstName()
+  const password = faker.internet.password()
   await client.post('/install')
-  await client.post('/players').json({ name })
+  await client.post('/players').json({ name, password })
   const response = await client.get('/scores').qs({
     limit: 10,
     page: 1,

@@ -84,10 +84,8 @@ export const app: Application = {
   exploreDungeon: new ExploreDungeonUseCase(services.dungeonService, services.playerService),
   flush() {
     repositories.dungeonRepository.flush()
-    repositories.inventoryRepository.flush()
-    repositories.itemRepository.flush()
-    repositories.playerRepository.flush()
     repositories.exploreDungeonResult.flush()
+    return Promise.all([repositories.itemRepository.flush(), repositories.playerRepository.flush()])
   },
 }
 export async function install(options: ApplicationOptions): Promise<Application> {

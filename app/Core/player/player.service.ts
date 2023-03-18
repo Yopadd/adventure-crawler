@@ -17,7 +17,7 @@ export interface PlayerServicePlayerRepository {
 }
 
 export interface InventoryServiceInventoryRepository {
-  save(inventory: Inventory): Promise<Inventory>
+  save(player: Player): Promise<Inventory>
 }
 
 export interface PlayerServiceExploreDungeonResultRepository {
@@ -60,11 +60,13 @@ export default class PlayerService
   }
 
   public async create(name: string, password: string): Promise<Player> {
-    const player = await this.playerRepository.findByName(name)
+    let player = await this.playerRepository.findByName(name)
     if (player) {
       throw new PlayerAlreadyExistError(player)
     }
-    const inventory = await this.inventoryRepository.save(new Inventory())
-    return this.playerRepository.save(new Player(name, 0, inventory), password)
+    player = new Player(name, 0, new Inventory())
+    await this.playerRepository.save(player, password)
+    await this.inventoryRepository.save(player)
+    return player
   }
 }

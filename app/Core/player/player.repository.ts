@@ -1,35 +1,40 @@
 import PlayerModel from 'App/Models/Player.model'
-import { DateTime } from 'luxon'
 import GetPageInput from '../pages/get-page-input'
 import Player from './player'
 import { PlayerServicePlayerRepository } from './player.service'
 
 export default class PlayerRepository implements PlayerServicePlayerRepository {
-  private readonly players = new Map<string, Player>()
-
   public async findAll(input: GetPageInput): Promise<Player[]> {
-    return input.getPage(this.players.values())
+    const models = await PlayerModel.query()
+      .preload('inventory', (inventory) => inventory.preload('items'))
+      .forPage(input.page.get(), input.limit.get())
+
+    return models.map((model) => model.toPlayer())
   }
 
   public async findByName(name: string): Promise<Player | undefined> {
-    return Array.from(this.players.values()).find((player) => player.name.get() === name)
+    const model = await PlayerModel.findBy('name', name)
+    if (model) {
+      await model.load('inventory', (inventory) => inventory.preload('items'))
+      return model.toPlayer()
+    }
   }
 
   public async countAll(): Promise<number> {
-    return this.players.size
+    const { length } = await PlayerModel.query().count('*')
+    return length
   }
 
   public async save(player: Player, password: string): Promise<Player> {
     await PlayerModel.create({
       id: player.id,
       name: player.name.get(),
-      createdAt: DateTime.now(),
       password: password,
     })
     return player
   }
 
   public flush() {
-    this.players.clear()
+    return PlayerModel.truncate(true)
   }
 }

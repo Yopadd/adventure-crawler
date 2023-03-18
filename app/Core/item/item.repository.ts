@@ -1,24 +1,28 @@
 import GetPageInput from '../pages/get-page-input'
 import Item from './item'
 import { InventoryServiceItemRepository } from '../inventory/inventory.service'
+import ItemModel from 'App/Models/Item.model'
 
 export default class ItemRepository implements InventoryServiceItemRepository {
-  private readonly items = new Map<string, Item>()
-
   public async findAll(input: GetPageInput): Promise<Item[]> {
-    return input.getPage(this.items.values())
+    const models = await ItemModel.query().forPage(input.page.get(), input.limit.get())
+    return models.map((model) => model.toItem())
   }
 
   public async findByName(name: string): Promise<Item | undefined> {
-    return this.items.get(name)
+    const model = await ItemModel.findBy('id', name)
+    return model ? model.toItem() : undefined
   }
 
   public async save(item: Item): Promise<Item> {
-    this.items.set(item.name, item)
+    await ItemModel.create({
+      id: item.name,
+      description: item.description.get(),
+    })
     return item
   }
 
   public flush() {
-    this.items.clear()
+    return ItemModel.truncate(true)
   }
 }

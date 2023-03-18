@@ -13,7 +13,8 @@ test.group('Add item', (group) => {
 
   test('Add 1 item to inventory', async ({ expect }) => {
     const name = faker.name.firstName()
-    let player = await app.addPlayer.apply({ name })
+    const password = faker.internet.password()
+    let player = await app.addPlayer.apply({ name, password })
     player = await app.addItems.apply({
       itemNames: [ItemName.COAT],
       playerName: player.name.get(),
@@ -22,9 +23,10 @@ test.group('Add item', (group) => {
     expect(player.has(ItemName.COAT)).toBe(true)
   })
 
-  test('Add 2 item to inventory', async ({ expect }) => {
+  test('Add 2 items to inventory', async ({ expect }) => {
     const name = faker.name.firstName()
-    let player = await app.addPlayer.apply({ name })
+    const password = faker.internet.password()
+    let player = await app.addPlayer.apply({ name, password })
     player = await app.addItems.apply({
       itemNames: [ItemName.COAT, ItemName.POTION_FIRE_RESISTANCE],
       playerName: player.name.get(),

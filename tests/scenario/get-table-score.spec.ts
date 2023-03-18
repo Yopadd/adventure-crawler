@@ -5,11 +5,14 @@ import { Application, install } from 'App/Core/application'
 let app: Application
 
 test('Get table score with 5 player', async ({ expect }) => {
-  const names = Array(5)
+  const playersData = Array(5)
     .fill(undefined)
-    .map(() => faker.name.firstName())
+    .map(() => ({
+      name: faker.name.firstName(),
+      password: faker.internet.password(),
+    }))
 
-  await Promise.all(names.map((name) => app.addPlayer.apply({ name })))
+  await Promise.all(playersData.map((data) => app.addPlayer.apply(data)))
 
   const tableScore = await app.getTableScore.apply({
     limit: 5,
@@ -17,7 +20,9 @@ test('Get table score with 5 player', async ({ expect }) => {
   })
 
   expect(
-    names.every((item) => tableScore.rows.map((player) => player.name.get()).includes(item))
+    playersData.every(({ name }) =>
+      tableScore.rows.map((player) => player.name.get()).includes(name)
+    )
   ).toBe(true)
 }).setup(async () => {
   app = await install({ countOfDungeon: 20 })

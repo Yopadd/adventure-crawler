@@ -17,7 +17,7 @@ export interface AddItemsUseCaseItemService {
 }
 
 export interface AddItemsUseCaseInventoryService {
-  add(player: Player, item: Item): Promise<Inventory>
+  add(player: Player, item: Item): Promise<Inventory | undefined>
 }
 
 export class AddItemsUseCase implements UseCase<AddItemUseCaseInput, Promise<Player>> {

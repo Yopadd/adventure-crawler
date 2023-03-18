@@ -14,8 +14,6 @@ test('add item', async ({ client, expect }) => {
     .basicAuth(name, password)
     .json({})
 
-  console.log(response.text())
-
   expect(response.status()).toBe(200)
 }).teardown(() => {
   app.flush()
