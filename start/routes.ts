@@ -41,6 +41,18 @@ Route.get('/dungeons', async ({ request }) => {
   return dungeons
 })
 
+Route.post('/dungeons/:id', async ({ auth, request }) => {
+  await auth.use('basic').authenticate()
+
+  const playerName = auth.user!.name
+  const exploreResult = await app.exploreDungeon.apply({
+    dungeonId: request.param('id'),
+    playerName,
+  })
+
+  return { score: exploreResult.score }
+})
+
 Route.post('/players', async ({ request }) => {
   const addPlayerSchema = schema.create({
     name: schema.string([rules.alpha({ allow: ['space', 'dash'] })]),

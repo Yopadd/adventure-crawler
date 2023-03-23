@@ -14,7 +14,7 @@ export default class ExploreDungeonResultRepository
   public async save(result: ExploreDungeonResult): Promise<ExploreDungeonResult> {
     this.exploreDungeonResultHistory.push(result)
     const topResult = this.exploreDungeonResultTop.get(result.player.id)
-    if (!topResult || topResult.score.get() < result.score.get()) {
+    if (!topResult || topResult._score.get() < result._score.get()) {
       this.exploreDungeonResultTop.set(result.player.id + result.dungeon.id, result)
     }
     return result

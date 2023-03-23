@@ -1,14 +1,14 @@
-import Dungeon from "../dungeon/dungeon";
-import Player from "../player/player";
-import { NumberValidation } from "../validations/number-validation";
-import { StringValidation } from "../validations/string-validation";
+import Dungeon from '../dungeon/dungeon'
+import Player from '../player/player'
+import { NumberValidation } from '../validations/number-validation'
+import { StringValidation } from '../validations/string-validation'
 
 export default class ExploreDungeonResult {
-  readonly score: ExploreDungeonResultScore;
-  readonly message: ExploreDungeonResultMessage;
-  readonly player: Player;
-  readonly dungeon: Dungeon;
-  readonly exploreAt: Date;
+  private readonly _score: ExploreDungeonResultScore
+  public readonly message: ExploreDungeonResultMessage
+  public readonly player: Player
+  public readonly dungeon: Dungeon
+  public readonly exploreAt: Date
 
   constructor(
     player: Player,
@@ -17,22 +17,26 @@ export default class ExploreDungeonResult {
     message: string,
     exploreAt = new Date()
   ) {
-    this.score = new ExploreDungeonResultScore(score);
-    this.message = new ExploreDungeonResultMessage(message);
-    this.player = player;
-    this.dungeon = dungeon;
-    this.exploreAt = exploreAt;
+    this._score = new ExploreDungeonResultScore(score)
+    this.message = new ExploreDungeonResultMessage(message)
+    this.player = player
+    this.dungeon = dungeon
+    this.exploreAt = exploreAt
+  }
+
+  public get score() {
+    return this._score.get()
   }
 }
 
 class ExploreDungeonResultScore extends NumberValidation {
   constructor(score: number) {
-    super(score, { min: 0, max: Infinity });
+    super(score, { min: 0, max: Infinity })
   }
 }
 
 class ExploreDungeonResultMessage extends StringValidation {
   constructor(message: string) {
-    super(message, { maxLength: 10_000 });
+    super(message, { maxLength: 10_000 })
   }
 }

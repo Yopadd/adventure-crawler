@@ -52,7 +52,7 @@ export default class PlayerService
 
   private async getScore(name: string): Promise<PlayerScore> {
     const results = await this.exploreResultRepository.findByPlayerName(name)
-    return new PlayerScore(results.reduce((acc, r) => r.score.get() + acc, 0))
+    return new PlayerScore(results.reduce((acc, r) => r._score.get() + acc, 0))
   }
 
   public countAll(): Promise<number> {

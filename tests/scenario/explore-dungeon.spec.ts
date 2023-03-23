@@ -30,7 +30,7 @@ test.group('Explore dungeon', (group) => {
       playerName,
     })
 
-    expect(result.score.get()).toBe(0)
+    expect(result._score.get()).toBe(0)
   })
 
   test('Explore lava dungeon with fire potion item in inventory player', async ({ expect }) => {
@@ -57,6 +57,6 @@ test.group('Explore dungeon', (group) => {
       playerName,
     })
 
-    expect(result.score.get()).toBe(100)
+    expect(result._score.get()).toBe(100)
   })
 })
