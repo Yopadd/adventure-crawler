@@ -1,10 +1,9 @@
 import { test } from '@japa/runner'
 import { app } from 'App/Core/application'
-import { faker } from '@faker-js/faker'
 
 test('get table score', async ({ client, expect }) => {
-  const name = faker.name.firstName()
-  const password = faker.internet.password()
+  const name = 'Scott'
+  const password = '1234'
   await client.post('/install')
   await client.post('/players').json({ name, password })
   const response = await client.get('/scores').qs({

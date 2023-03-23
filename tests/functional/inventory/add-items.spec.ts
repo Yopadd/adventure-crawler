@@ -1,10 +1,9 @@
 import { test } from '@japa/runner'
 import { app } from 'App/Core/application'
-import { faker } from '@faker-js/faker'
 
 test('add item', async ({ client, expect }) => {
-  const name = faker.name.firstName()
-  const password = faker.internet.password()
+  const name = 'Jean'
+  const password = '1234'
   await client.post('/install')
   const playerResponse = await client.post('/players').json({ name, password })
   const player = playerResponse.body()
