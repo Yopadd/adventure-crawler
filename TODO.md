@@ -8,3 +8,4 @@
 - [ ] Finir le test fonctionnel sur les inventory.
 - [ ] Faire des vrais tests de UseCase (unitaire !!!)
 - [ ] Réfléchir au bounded contexts
+- [ ] Finir le test get player

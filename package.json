@@ -8,6 +8,7 @@
     "start": "node server.js",
     "lint": "eslint . --ext=.ts",
     "format": "prettier --write .",
+    "pretest": "node ace migration:run",
     "test": "node ace test"
   },
   "eslintConfig": {
