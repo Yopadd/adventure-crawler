@@ -1,0 +1,68 @@
+---
+title: EscAPI Exploration domain
+---
+classDiagram
+  namespace exploration {
+    class Dungeon {
+      name
+      events
+    }
+
+    class DungeonEvent {
+      name
+      description
+      resolve(EventResolver) Score
+    }
+
+    class EventResolver {
+      <<interface>>
+      hasTag() bool
+    }
+
+    class Player {
+      name
+      explore(Dungeon) Report
+      hasTag(Tag) bool
+    }
+
+    class Backpack {
+      add(Item)
+      hasTag(Tag) bool
+    }
+
+    class Item {
+      name
+      description
+      hasTag(Tag) bool
+    }
+
+    class Tag {
+      <<enumeration>>
+      FireResistance
+      Blessed
+      Injured
+    }
+
+    class LogBook {
+      write(Report)
+      dungeonReports(dungeon) []Report
+      bestReports() []Report
+    }
+
+    class Report {
+      score
+      dungeon
+      note
+    }
+  }
+
+Dungeon --* DungeonEvent
+
+Player --|> EventResolver
+
+Player --* Backpack
+Player --* Tag
+Backpack --* Item
+Item --* Tag
+Player --* LogBook
+LogBook --* Report

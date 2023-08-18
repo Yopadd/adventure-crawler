@@ -7,18 +7,12 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.string('id').primary()
       table.text('description')
-
+      table.string('tags')
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
-    })
-
-    this.schema.createTable('inventories_items', (table) => {
-      table.string('inventory_id').references('inventories.id')
-      table.string('item_id').references('items.id')
-      table.primary(['inventory_id', 'item_id'])
     })
   }
 

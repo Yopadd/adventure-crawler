@@ -1,9 +1,9 @@
 import { UseCase } from '../application'
-import Dungeon, { DungeonProperty } from '../dungeon/dungeon'
-import DungeonPropertyLava from '../dungeon/properties/dungeon-property-lava'
+import Dungeon, { DungeonEvent } from 'App/Core/exploration/dungeon/dungeon'
+import CrossingLavaRiver from 'App/Core/exploration/dungeon/events/crossing-lava-river'
 
 export interface InitiateDungeonsUseCaseDungeonService {
-  create(properties: DungeonProperty[]): Promise<Dungeon>
+  create(properties: DungeonEvent[]): Promise<Dungeon>
   countAll(): Promise<number>
 }
 
@@ -17,7 +17,7 @@ export default class InitiateDungeonsUseCase implements UseCase<InitiateDungeons
   public async apply(input: InitiateDungeonsUseCaseInput) {
     const countOfExistingDungeons = await this.dungeonsService.countAll()
     for (let i = input.countOfDungeon - countOfExistingDungeons; i > 0; i--) {
-      await this.dungeonsService.create([new DungeonPropertyLava()])
+      await this.dungeonsService.create([new CrossingLavaRiver()])
     }
   }
 }

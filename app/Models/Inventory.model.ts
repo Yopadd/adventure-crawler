@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column, manyToMany, ManyToMany } from '@ioc:Adonis/Lucid/Orm'
 import ItemModel from 'App/Models/Item.model'
-import Inventory from 'App/Core/inventory/inventory'
+import Backpack from 'App/Core/exploration/player/backpack/backpack'
 
 export default class InventoryModel extends BaseModel {
   public static table = 'inventories'
@@ -25,8 +25,8 @@ export default class InventoryModel extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  public toInventory(): Inventory {
-    return new Inventory(
+  public toInventory(): Backpack {
+    return new Backpack(
       this.id,
       this.items.map((item) => item.toItem())
     )

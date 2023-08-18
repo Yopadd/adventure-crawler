@@ -1,7 +1,7 @@
 import { test } from '@japa/runner'
 import { app } from 'App/Core/application'
 
-test('Explore dungeon with no item in inventory player', async ({ client, expect }) => {
+test('Explore dungeon with no item in backpack player', async ({ client, expect }) => {
   await client.post('/install')
   const name = 'test'
   const password = '1234'
@@ -13,6 +13,6 @@ test('Explore dungeon with no item in inventory player', async ({ client, expect
 
   expect(result.status()).toBe(200)
   expect(result.body().score).toBe(0)
-}).teardown(() => {
-  app.flush()
+}).teardown(async () => {
+  await app.uninstall()
 })

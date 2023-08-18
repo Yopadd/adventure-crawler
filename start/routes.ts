@@ -23,6 +23,7 @@ import { app, install } from '../app/Core/application'
 import { schema, rules } from '@ioc:Adonis/Core/Validator'
 import { PageLimit, PageNumber } from '../app/Core/pages/get-page-input'
 import Env from '@ioc:Adonis/Core/Env'
+import { ItemName } from 'App/Core/exploration/player/backpack/item/item'
 
 Route.post('/install', async () => {
   await install({ countOfDungeon: Env.get('COUNT_OF_DUNGEON') })
@@ -69,10 +70,45 @@ Route.post('/players', async ({ request }) => {
   }
 })
 
-Route.post('/players/:id/inventory', async ({ auth }) => {
+Route.get('/player', async ({ auth }) => {
   await auth.use('basic').authenticate()
 
-  return `You are logged in as ${auth.user!.name}`
+  const player = await app.getPlayer.apply({
+    name: auth.user!.name,
+  })
+
+  return {
+    name: player.name.get(),
+    score: player.score.get(),
+    inventory: player.backpack.items.map((item) => ({
+      name: item.name.get(),
+      description: item.description.get(),
+    })),
+  }
+})
+
+Route.post('/player', async ({ auth, request }) => {
+  await auth.use('basic').authenticate()
+
+  const addItemsSchema = schema.create({
+    itemNames: schema.array().members(schema.string()),
+  })
+
+  const { itemNames } = await request.validate({ schema: addItemsSchema })
+
+  const player = await app.addItems.apply({
+    playerName: auth.user!.name,
+    itemNames: itemNames.map((name) => new ItemName(name)),
+  })
+
+  return {
+    name: player.name.get(),
+    score: player.score.get(),
+    inventory: player.backpack.items.map((item) => ({
+      name: item.name.get(),
+      description: item.description.get(),
+    })),
+  }
 })
 
 Route.get('/scores', async ({ request }) => {
@@ -83,7 +119,7 @@ Route.get('/scores', async ({ request }) => {
 
   const payload = await request.validate({ schema: getTableScoreSchema })
 
-  const tableScore = await app.getTableScore.apply(payload)
+  const tableScore = await app.getScoreBoard.apply(payload)
   return tableScore.rows.map((row) => ({
     name: row.name.get(),
     score: row.score.get(),
@@ -100,7 +136,7 @@ Route.get('/items', async ({ request }) => {
 
   const items = await app.getItems.apply(payload)
   return items.map((item) => ({
-    name: item.name,
-    description: item.description,
+    name: item.name.get(),
+    description: item.description.get(),
   }))
 })

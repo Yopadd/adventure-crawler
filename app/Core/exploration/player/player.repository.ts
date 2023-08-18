@@ -1,5 +1,5 @@
 import PlayerModel from 'App/Models/Player.model'
-import GetPageInput from '../pages/get-page-input'
+import GetPageInput from '../../pages/get-page-input'
 import Player from './player'
 import { PlayerServicePlayerRepository } from './player.service'
 

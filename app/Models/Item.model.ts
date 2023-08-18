@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
-import Item, { mapToItemName } from 'App/Core/item/item'
+import Item from 'App/Core/exploration/player/backpack/item/item'
 
 export default class ItemModel extends BaseModel {
   public static table = 'items'
@@ -17,8 +17,10 @@ export default class ItemModel extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
+  @column()
+  public tags: string
+
   public toItem(): Item {
-    const name = mapToItemName(this.id)
-    return new Item(name!, this.description)
+    return new Item(this.id, this.description, this.tags.split(';'))
   }
 }

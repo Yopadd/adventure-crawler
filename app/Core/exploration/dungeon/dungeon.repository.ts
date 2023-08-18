@@ -1,4 +1,4 @@
-import GetPageInput from '../pages/get-page-input'
+import GetPageInput from '../../pages/get-page-input'
 import Dungeon from './dungeon'
 import { DungeonServiceDungeonRepository } from './dungeon.service'
 

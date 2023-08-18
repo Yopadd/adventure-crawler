@@ -1,9 +1,9 @@
-import GetPageInput from '../pages/get-page-input'
+import GetPageInput from '../../../../pages/get-page-input'
 import Item from './item'
-import { InventoryServiceItemRepository } from '../inventory/inventory.service'
+import { BackpackServiceItemRepository } from 'App/Core/exploration/player/backpack/backpack.service'
 import ItemModel from 'App/Models/Item.model'
 
-export default class ItemRepository implements InventoryServiceItemRepository {
+export default class ItemRepository implements BackpackServiceItemRepository {
   public async findAll(input: GetPageInput): Promise<Item[]> {
     const models = await ItemModel.query().forPage(input.page.get(), input.limit.get())
     return models.map((model) => model.toItem())
@@ -16,8 +16,9 @@ export default class ItemRepository implements InventoryServiceItemRepository {
 
   public async save(item: Item): Promise<Item> {
     await ItemModel.create({
-      id: item.name,
+      id: item.name.get(),
       description: item.description.get(),
+      tags: Array.from(item.tags.values()).join(';'),
     })
     return item
   }

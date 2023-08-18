@@ -1,0 +1,23 @@
+---
+title: EscAPI Dependencies schema
+---
+classDiagram
+  Presentation --> UseCase
+  UseCase -- Service
+  Service <-- Repository
+
+  namespace Domain {
+    class UseCase
+    class Service
+  }
+
+  class Presentation {
+    POST /install
+    GET /dungeons
+    POST /dungeons/id
+    GET /player
+    POST /player
+    POST /players
+    GET /scores
+    GET /items
+  }

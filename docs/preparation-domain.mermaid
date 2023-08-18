@@ -1,0 +1,28 @@
+---
+title: EscAPI Preparation domain
+---
+classDiagram
+  namespace preparation {
+    class Player {
+      take(inventory, item)
+      empty()
+      lookInBackpack() Item[]
+      lookMap(dungeonMap) Dungeon[]
+    }
+
+    class Backpack {
+      open() Item[]
+      add(Item)
+      remove(Item)
+    }
+
+    class Inventory {
+      items Item[]
+    }
+
+    class DungeonMap {
+      dungeons Dungeon[]
+    }
+  }
+
+Player --* Backpack

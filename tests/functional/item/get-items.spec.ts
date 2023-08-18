@@ -10,6 +10,6 @@ test('get item list', async ({ client, expect }) => {
   })
 
   expect(response.status()).toBe(200)
-}).teardown(() => {
-  app.flush()
+}).teardown(async () => {
+  await app.uninstall()
 })

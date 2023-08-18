@@ -10,6 +10,6 @@ test('get 10 first dungeons', async ({ client, expect }) => {
 
   expect(response.status()).toBe(200)
   expect(response.body()).toHaveLength(10)
-}).teardown(() => {
-  app.flush()
+}).teardown(async () => {
+  await app.uninstall()
 })

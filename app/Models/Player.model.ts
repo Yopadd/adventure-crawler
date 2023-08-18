@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 import Hash from '@ioc:Adonis/Core/Hash'
 import { column, beforeSave, BaseModel, hasOne, HasOne } from '@ioc:Adonis/Lucid/Orm'
-import Player from 'App/Core/player/player'
+import Player from 'App/Core/exploration/player/player'
 import InventoryModel from 'App/Models/Inventory.model'
 
 export default class PlayerModel extends BaseModel {
@@ -33,6 +33,6 @@ export default class PlayerModel extends BaseModel {
   }
 
   public toPlayer(): Player {
-    return new Player(this.name, 0, this.inventory.toInventory())
+    return new Player(this.name, this.inventory.toInventory())
   }
 }

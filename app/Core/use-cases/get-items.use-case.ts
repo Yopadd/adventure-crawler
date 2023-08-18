@@ -1,5 +1,5 @@
 import { UseCase } from '../application'
-import Item from '../item/item'
+import Item from 'App/Core/exploration/player/backpack/item/item'
 import GetPageInput from '../pages/get-page-input'
 
 export interface GetItemsUseCaseInput {

@@ -1,5 +1,5 @@
 import { UseCase } from '../application'
-import Dungeon from '../dungeon/dungeon'
+import Dungeon from 'App/Core/exploration/dungeon/dungeon'
 import GetPageInput from '../pages/get-page-input'
 
 interface GetDungeonsUseCaseInput {

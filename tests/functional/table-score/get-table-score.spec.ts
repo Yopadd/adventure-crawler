@@ -14,6 +14,6 @@ test('get table score', async ({ client, expect }) => {
   expect(response.status()).toBe(200)
   expect(response.body()).toHaveLength(1)
   expect(response.body().at(0)).toStrictEqual({ name, score: 0 })
-}).teardown(() => {
-  app.flush()
+}).teardown(async () => {
+  await app.uninstall()
 })

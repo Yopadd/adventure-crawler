@@ -1,7 +1,7 @@
 import { UseCase } from '../application'
-import Inventory from '../inventory/inventory'
-import Item, { ItemName } from '../item/item'
-import Player from '../player/player'
+import Backpack from 'App/Core/exploration/player/backpack/backpack'
+import Item, { ItemName } from 'App/Core/exploration/player/backpack/item/item'
+import Player from 'App/Core/exploration/player/player'
 
 interface AddItemUseCaseInput {
   itemNames: ItemName[]
@@ -17,7 +17,7 @@ export interface AddItemsUseCaseItemService {
 }
 
 export interface AddItemsUseCaseInventoryService {
-  add(player: Player, item: Item): Promise<Inventory | undefined>
+  add(player: Player, item: Item): Promise<Backpack | undefined>
 }
 
 export class AddItemsUseCase implements UseCase<AddItemUseCaseInput, Promise<Player>> {

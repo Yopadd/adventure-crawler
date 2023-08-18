@@ -13,6 +13,6 @@ test('add player', async ({ client, expect }) => {
     name,
     score: 0,
   })
-}).teardown(() => {
-  app.flush()
+}).teardown(async () => {
+  await app.uninstall()
 })

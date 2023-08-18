@@ -1,5 +1,5 @@
 import { UseCase } from '../application'
-import Player from '../player/player'
+import Player from 'App/Core/exploration/player/player'
 
 interface GetPlayerUseCaseInput {
   name: string
