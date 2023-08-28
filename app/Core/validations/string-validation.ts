@@ -21,4 +21,8 @@ export abstract class StringValidation {
   public get(): string {
     return this.value
   }
+
+  public equal<T extends StringValidation>(str: T): boolean {
+    return str.value === this.value
+  }
 }

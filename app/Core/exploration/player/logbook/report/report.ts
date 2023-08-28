@@ -1,22 +1,21 @@
 import Dungeon from 'App/Core/exploration/dungeon/dungeon'
-import Player, { PlayerScore } from '../../player'
+import { PlayerScore } from '../../player'
 import { StringValidation } from '../../../../validations/string-validation'
 
 export default class Report {
-  public readonly message: ExplorationResultMessage
+  public readonly note: Note
 
   constructor(
-    public readonly player: Player,
     public readonly dungeon: Dungeon,
     public readonly score: PlayerScore,
-    message: string,
-    public readonly exploreAt = new Date()
+    note: string,
+    public readonly exploredAt = new Date()
   ) {
-    this.message = new ExplorationResultMessage(message)
+    this.note = new Note(note)
   }
 }
 
-class ExplorationResultMessage extends StringValidation {
+export class Note extends StringValidation {
   constructor(message: string) {
     super(message, { maxLength: 10_000 })
   }

@@ -1,11 +1,14 @@
-import { randomUUID } from 'crypto'
 import { StringValidation } from '../../validations/string-validation'
 import Player, { PlayerScore } from 'App/Core/exploration/player/player'
 
 export default class Dungeon {
-  public readonly id = randomUUID()
+  constructor(public readonly name: DungeonName, public readonly events: DungeonEvent[] = []) {}
+}
 
-  constructor(public readonly events: DungeonEvent[] = []) {}
+export class DungeonName extends StringValidation {
+  constructor(name: string) {
+    super(name, { maxLength: 150 })
+  }
 }
 
 export interface DungeonEvent {
