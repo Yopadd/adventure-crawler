@@ -8,11 +8,11 @@ import { ItemService } from 'App/Core/exploration/player/backpack/item/item.serv
 import PlayerRepository from 'App/Core/exploration/player/player.repository'
 import PlayerService from 'App/Core/exploration/player/player.service'
 import ScoreBoardService from 'App/Core/scoring/score-board/score-board.service'
-import { AddItemsUseCase } from './use-cases/add-items.use-case'
+import { AddItemsUseCase } from './preparation/use-cases/add-items.use-case'
 import { AddPlayerUseCase } from './use-cases/add-player.use-case'
-import ExploreDungeonUseCase from './use-cases/explore-dungeon.use-case'
-import GetDungeonsUseCase from './use-cases/get-dungeons.use-case'
-import GetItemsUseCase from './use-cases/get-items.use-case'
+import ExploreDungeonUseCase from './exploration/use-cases/explore-dungeon.use-case'
+import GetDungeonsUseCase from './preparation/use-cases/get-dungeons.use-case'
+import GetItemsUseCase from './preparation/use-cases/get-items.use-case'
 import { GetPlayerUseCase } from './use-cases/get-player.use-case'
 import GetScoreBoardUseCase from './use-cases/get-table-score'
 import InitiateDungeonsUseCase from './use-cases/initiate-dungeons.use-case'
@@ -26,7 +26,7 @@ export interface ApplicationOptions {
   countOfDungeon: number
 }
 
-export interface ApplicationInit {
+export interface ApplicationInstaller {
   initiateDungeons: InitiateDungeonsUseCase
   initiateItems: InitiateItemsUseCase
 }
@@ -39,7 +39,6 @@ export interface Application {
   getDungeons: GetDungeonsUseCase
   getScoreBoard: GetScoreBoardUseCase
   exploreDungeon: ExploreDungeonUseCase
-  uninstall: () => void
 }
 
 const repositories = {
@@ -62,7 +61,7 @@ const services = {
   scoreBoardService: new ScoreBoardService(),
 }
 
-const init: ApplicationInit = {
+const installer: ApplicationInstaller = {
   initiateDungeons: new InitiateDungeonsUseCase(services.dungeonService),
   initiateItems: new InitiateItemsUseCase(services.itemService),
 }
@@ -79,15 +78,17 @@ export const app: Application = {
   getDungeons: new GetDungeonsUseCase(services.dungeonService),
   getScoreBoard: new GetScoreBoardUseCase(services.playerService, services.scoreBoardService),
   exploreDungeon: new ExploreDungeonUseCase(services.dungeonService, services.playerService),
-  async uninstall() {
-    repositories.dungeonRepository.flush()
-    repositories.exploreDungeonResult.flush()
-    return Promise.all([repositories.itemRepository.flush(), repositories.playerRepository.flush()])
-  },
 }
+
 export async function install(options: ApplicationOptions): Promise<Application> {
-  await init.initiateDungeons.apply(options)
-  await init.initiateItems.apply()
+  await installer.initiateDungeons.apply(options)
+  await installer.initiateItems.apply()
 
   return app
+}
+
+export async function uninstall() {
+  repositories.dungeonRepository.flush()
+  repositories.exploreDungeonResult.flush()
+  return Promise.all([repositories.itemRepository.flush(), repositories.playerRepository.flush()])
 }

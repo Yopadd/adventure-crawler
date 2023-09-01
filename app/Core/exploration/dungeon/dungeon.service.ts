@@ -1,8 +1,8 @@
 import NotFoundError from '../../errors/not-found.error'
 import Report from 'App/Core/exploration/player/logbook/report/report'
 import { default as GetPageInput, default as getPageInput } from '../../pages/get-page-input'
-import { ExploreDungeonUseCaseDungeonService } from '../../use-cases/explore-dungeon.use-case'
-import { GetDungeonsUseCaseDungeonService } from '../../use-cases/get-dungeons.use-case'
+import { ExploreDungeonUseCaseDungeonService } from '../use-cases/explore-dungeon.use-case'
+import { GetDungeonsUseCaseDungeonService } from '../../preparation/use-cases/get-dungeons.use-case'
 import { InitiateDungeonsUseCaseDungeonService } from '../../use-cases/initiate-dungeons.use-case'
 import Dungeon, { DungeonEvent } from './dungeon'
 

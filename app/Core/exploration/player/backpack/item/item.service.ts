@@ -1,7 +1,7 @@
 import NotFoundError from '../../../../errors/not-found.error'
 import GetPageInput from '../../../../pages/get-page-input'
-import { AddItemsUseCaseItemService } from '../../../../use-cases/add-items.use-case'
-import { GetItemsUseCaseItemService } from '../../../../use-cases/get-items.use-case'
+import { AddItemsUseCaseItemService } from '../../../../preparation/use-cases/add-items.use-case'
+import { GetItemsUseCaseItemService } from '../../../../preparation/use-cases/get-items.use-case'
 import { InitiateItemsUseCaseItemService } from '../../../../use-cases/initiate-items.use-case'
 import Item, { ItemName } from './item'
 

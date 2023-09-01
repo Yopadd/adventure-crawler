@@ -1,5 +1,5 @@
 import { test } from '@japa/runner'
-import { app } from 'App/Core/application'
+import { uninstall } from 'App/Core/application'
 
 test('get table score', async ({ client, expect }) => {
   const name = 'Scott'
@@ -15,5 +15,5 @@ test('get table score', async ({ client, expect }) => {
   expect(response.body()).toHaveLength(1)
   expect(response.body().at(0)).toStrictEqual({ name, score: 0 })
 }).teardown(async () => {
-  await app.uninstall()
+  await uninstall()
 })

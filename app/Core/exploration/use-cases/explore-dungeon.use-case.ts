@@ -1,4 +1,4 @@
-import { UseCase } from '../application'
+import { UseCase } from '../../application'
 import Dungeon from 'App/Core/exploration/dungeon/dungeon'
 import Report from 'App/Core/exploration/player/logbook/report/report'
 import Player from 'App/Core/exploration/player/player'

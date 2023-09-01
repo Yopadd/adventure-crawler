@@ -1,5 +1,5 @@
 import { test } from '@japa/runner'
-import { app } from 'App/Core/application'
+import { uninstall } from 'App/Core/application'
 
 test('add player', async ({ client, expect }) => {
   await client.post('/install')
@@ -14,5 +14,5 @@ test('add player', async ({ client, expect }) => {
     score: 0,
   })
 }).teardown(async () => {
-  await app.uninstall()
+  await uninstall()
 })

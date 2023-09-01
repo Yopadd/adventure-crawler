@@ -1,5 +1,5 @@
 import { test } from '@japa/runner'
-import { app } from 'App/Core/application'
+import { uninstall } from 'App/Core/application'
 
 test('get item list', async ({ client, expect }) => {
   await client.post('/install')
@@ -11,5 +11,5 @@ test('get item list', async ({ client, expect }) => {
 
   expect(response.status()).toBe(200)
 }).teardown(async () => {
-  await app.uninstall()
+  await uninstall()
 })

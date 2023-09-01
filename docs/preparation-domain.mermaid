@@ -16,12 +16,22 @@ classDiagram
       remove(Item)
     }
 
-    class Inventory {
+    class Camp {
       items Item[]
     }
 
-    class DungeonMap {
+    class DungeonsMap {
       dungeons Dungeon[]
+    }
+
+    class Dungeon {
+      name
+      description
+    }
+
+    class Item {
+      name
+      description
     }
   }
 

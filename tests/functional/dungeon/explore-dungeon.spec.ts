@@ -1,5 +1,5 @@
 import { test } from '@japa/runner'
-import { app } from 'App/Core/application'
+import { uninstall } from 'App/Core/application'
 
 test('Explore dungeon with no item in backpack player', async ({ client, expect }) => {
   await client.post('/install')
@@ -14,5 +14,5 @@ test('Explore dungeon with no item in backpack player', async ({ client, expect 
   expect(result.status()).toBe(200)
   expect(result.body().score).toBe(0)
 }).teardown(async () => {
-  await app.uninstall()
+  await uninstall()
 })

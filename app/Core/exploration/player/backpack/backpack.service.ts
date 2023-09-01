@@ -1,6 +1,6 @@
 import NotFoundError from '../../../errors/not-found.error'
 import Player from '../player'
-import { AddItemsUseCaseInventoryService } from '../../../use-cases/add-items.use-case'
+import { AddItemsUseCaseInventoryService } from '../../../preparation/use-cases/add-items.use-case'
 import Backpack from './backpack'
 import Item from 'App/Core/exploration/player/backpack/item/item'
 

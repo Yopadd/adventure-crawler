@@ -1,6 +1,6 @@
-import { UseCase } from '../application'
+import { UseCase } from '../../application'
 import Dungeon from 'App/Core/exploration/dungeon/dungeon'
-import GetPageInput from '../pages/get-page-input'
+import GetPageInput from '../../pages/get-page-input'
 
 interface GetDungeonsUseCaseInput {
   limit: number

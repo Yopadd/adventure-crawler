@@ -1,4 +1,4 @@
-import { UseCase } from '../application'
+import { UseCase } from '../../application'
 import Backpack from 'App/Core/exploration/player/backpack/backpack'
 import Item, { ItemName } from 'App/Core/exploration/player/backpack/item/item'
 import Player from 'App/Core/exploration/player/player'

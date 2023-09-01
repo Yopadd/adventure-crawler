@@ -1,5 +1,5 @@
 import { test } from '@japa/runner'
-import { app } from 'App/Core/application'
+import { uninstall } from 'App/Core/application'
 
 test('add item', async ({ client, expect }) => {
   const name = 'Jean'
@@ -25,5 +25,5 @@ test('add item', async ({ client, expect }) => {
   expect(response.status()).toBe(200)
   expect(response.body().inventory).toEqual(items)
 }).teardown(async () => {
-  await app.uninstall()
+  await uninstall()
 })
