@@ -1,6 +1,7 @@
 import ValidationError from '../../../errors/validation.error'
 import { DungeonEvent, DungeonEventDescription, DungeonEventName } from '../dungeon'
 import Player, { PlayerScore } from 'App/Core/exploration/player/player'
+import Note, { Comment } from 'App/Core/exploration/player/logbook/report/note/note'
 
 export default class CrossingLavaRiver implements DungeonEvent {
   public readonly description: DungeonEventDescription
@@ -17,10 +18,10 @@ export default class CrossingLavaRiver implements DungeonEvent {
     }
   }
 
-  public resolve(player: Player): PlayerScore {
+  public resolve(player: Player): Note {
     if (player.backpack.hasTag('Fire Resistance')) {
-      return new PlayerScore(1)
+      return new Note(new Comment(this.description.get()), new PlayerScore(1))
     }
-    return PlayerScore.Zero
+    return new Note(new Comment(this.description.get()), PlayerScore.Zero)
   }
 }

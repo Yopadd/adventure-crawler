@@ -1,33 +1,49 @@
-import { UseCase } from '../../application'
+import NotFoundError from 'App/Core/errors/not-found.error'
 import Dungeon from 'App/Core/exploration/dungeon/dungeon'
-import Report from 'App/Core/exploration/player/logbook/report/report'
-import Player from 'App/Core/exploration/player/player'
+import Player, { PlayerName } from 'App/Core/exploration/player/player'
 
 export interface ExploreDungeonUseCaseInput {
-  dungeonId: string
+  dungeonName: string
   playerName: string
 }
 
-export interface ExploreDungeonUseCaseDungeonService {
-  get(id: string): Promise<Dungeon>
+export type ExploreDungeonUseCaseOutput = {
+  score: number
+  note: string
 }
 
-export interface ExploreDungeonUseCasePlayerService {
-  getByName(id: string): Promise<Player>
-  explore(player: Player, dungeon: Dungeon): Promise<Report>
+export interface DungeonRepository {
+  getByName(id: string): Promise<Dungeon>
 }
 
-export default class ExploreDungeonUseCase
-  implements UseCase<ExploreDungeonUseCaseInput, Promise<Report>>
-{
+export interface PlayerRepository {
+  getByName(id: string): Promise<Player | undefined>
+}
+
+export default class ExploreDungeonUseCase {
   constructor(
-    private readonly dungeonService: ExploreDungeonUseCaseDungeonService,
-    private readonly playerService: ExploreDungeonUseCasePlayerService
+    private readonly dungeonRepository: DungeonRepository,
+    private readonly playerRepository: PlayerRepository
   ) {}
 
-  public async apply(input: ExploreDungeonUseCaseInput): Promise<Report> {
-    const player = await this.playerService.getByName(input.playerName)
-    const dungeon = await this.dungeonService.get(input.dungeonId)
-    return this.playerService.explore(player, dungeon)
+  public async apply(input: ExploreDungeonUseCaseInput): Promise<ExploreDungeonUseCaseOutput> {
+    const player = await this.playerRepository.getByName(input.playerName)
+
+    if (!player) {
+      throw new NotFoundError(`player ${input.playerName} not found`)
+    }
+
+    const dungeon = await this.dungeonRepository.getByName(input.dungeonName)
+    const report = player.explore(dungeon)
+    await player.write(report)
+
+    return {
+      score: report.score.get(),
+      note: report.comment.get(),
+    }
+  }
+
+  public static ExploreDungeonUseCaseInputValidator = {
+    playerName: PlayerName.rules,
   }
 }

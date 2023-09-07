@@ -18,12 +18,12 @@
 |
 */
 
-import Route from '@ioc:Adonis/Core/Route'
-import { app, install } from '../app/Core/application'
-import { schema, rules } from '@ioc:Adonis/Core/Validator'
-import { PageLimit, PageNumber } from '../app/Core/pages/get-page-input'
 import Env from '@ioc:Adonis/Core/Env'
+import Route from '@ioc:Adonis/Core/Route'
+import { rules, schema } from '@ioc:Adonis/Core/Validator'
 import { ItemName } from 'App/Core/exploration/player/backpack/item/item'
+import { app, install } from '../app/Core/application'
+import { PageLimit, PageNumber } from '../app/Core/pages/get-page-input'
 
 Route.post('/install', async () => {
   await install({ countOfDungeon: Env.get('COUNT_OF_DUNGEON') })
@@ -42,12 +42,13 @@ Route.get('/dungeons', async ({ request }) => {
   return dungeons
 })
 
-Route.post('/dungeons/:id', async ({ auth, request }) => {
+Route.post('/dungeons/:name', async ({ auth, request }) => {
   await auth.use('basic').authenticate()
 
   const playerName = auth.user!.name
+
   const exploreResult = await app.exploreDungeon.apply({
-    dungeonId: request.param('id'),
+    dungeonName: request.param('name'),
     playerName,
   })
 
@@ -64,7 +65,6 @@ Route.post('/players', async ({ request }) => {
 
   const player = await app.addPlayer.apply(payload)
   return {
-    id: player.id,
     name: player.name.get(),
     score: player.score.get(),
   }

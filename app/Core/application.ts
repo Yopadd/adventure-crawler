@@ -1,26 +1,22 @@
 import DungeonRepository from 'App/Core/exploration/dungeon/dungeon.repository'
 import DungeonService from 'App/Core/exploration/dungeon/dungeon.service'
-import ReportRepository from 'App/Core/exploration/player/logbook/report/report.repository'
 import BackpackRepository from 'App/Core/exploration/player/backpack/backpack.repository'
 import BackpackService from 'App/Core/exploration/player/backpack/backpack.service'
 import ItemRepository from 'App/Core/exploration/player/backpack/item/item.repository'
 import { ItemService } from 'App/Core/exploration/player/backpack/item/item.service'
+import ReportRepository from 'App/Core/exploration/player/logbook/report/report.repository'
 import PlayerRepository from 'App/Core/exploration/player/player.repository'
 import PlayerService from 'App/Core/exploration/player/player.service'
 import ScoreBoardService from 'App/Core/scoring/score-board/score-board.service'
-import { AddItemsUseCase } from './preparation/use-cases/add-items.use-case'
-import { AddPlayerUseCase } from './use-cases/add-player.use-case'
 import ExploreDungeonUseCase from './exploration/use-cases/explore-dungeon.use-case'
+import { AddItemsUseCase } from './preparation/use-cases/add-items.use-case'
 import GetDungeonsUseCase from './preparation/use-cases/get-dungeons.use-case'
 import GetItemsUseCase from './preparation/use-cases/get-items.use-case'
+import { AddPlayerUseCase } from './use-cases/add-player.use-case'
 import { GetPlayerUseCase } from './use-cases/get-player.use-case'
 import GetScoreBoardUseCase from './use-cases/get-table-score'
 import InitiateDungeonsUseCase from './use-cases/initiate-dungeons.use-case'
 import InitiateItemsUseCase from './use-cases/initiate-items.use-case'
-
-export interface UseCase<Input = undefined, Output = Promise<void>> {
-  apply(input: Input): Output
-}
 
 export interface ApplicationOptions {
   countOfDungeon: number

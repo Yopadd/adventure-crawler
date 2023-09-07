@@ -1,16 +1,13 @@
-import { DateTime } from 'luxon'
 import Hash from '@ioc:Adonis/Core/Hash'
-import { column, beforeSave, BaseModel, hasOne, HasOne } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, HasOne, beforeSave, column, hasOne } from '@ioc:Adonis/Lucid/Orm'
 import Player from 'App/Core/exploration/player/player'
 import InventoryModel from 'App/Models/Inventory.model'
+import { DateTime } from 'luxon'
 
 export default class PlayerModel extends BaseModel {
   public static table = 'players'
 
   @column({ isPrimary: true })
-  public id: string
-
-  @column()
   public name: string
 
   @column({ serializeAs: null })

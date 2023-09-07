@@ -6,12 +6,13 @@ classDiagram
     class Dungeon {
       name
       events
+      resolve(EventResolver) Note
     }
 
     class DungeonEvent {
       name
       description
-      resolve(EventResolver) Score
+      resolve(EventResolver) Note
     }
 
     class EventResolver {
@@ -50,10 +51,14 @@ classDiagram
     }
 
     class Report {
-      score
       dungeon
       note
       exploredAt
+    }
+
+    class Note {
+      score
+      comment
     }
   }
 
@@ -67,3 +72,4 @@ Backpack --* Item
 Item --* Tag
 Player --* LogBook
 LogBook --* Report
+Report --* Note

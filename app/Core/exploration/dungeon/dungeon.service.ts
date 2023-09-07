@@ -1,9 +1,9 @@
-import NotFoundError from '../../errors/not-found.error'
 import Report from 'App/Core/exploration/player/logbook/report/report'
-import { default as GetPageInput, default as getPageInput } from '../../pages/get-page-input'
-import { ExploreDungeonUseCaseDungeonService } from '../use-cases/explore-dungeon.use-case'
+import GetPageInput from 'App/Core/pages/get-page-input'
+import NotFoundError from '../../errors/not-found.error'
 import { GetDungeonsUseCaseDungeonService } from '../../preparation/use-cases/get-dungeons.use-case'
 import { InitiateDungeonsUseCaseDungeonService } from '../../use-cases/initiate-dungeons.use-case'
+import { ExploreDungeonUseCaseDungeonRepository } from '../use-cases/explore-dungeon.use-case'
 import Dungeon, { DungeonEvent } from './dungeon'
 
 export interface DungeonServiceDungeonRepository {
@@ -21,11 +21,11 @@ export default class DungeonService
   implements
     InitiateDungeonsUseCaseDungeonService,
     GetDungeonsUseCaseDungeonService,
-    ExploreDungeonUseCaseDungeonService
+    ExploreDungeonUseCaseDungeonRepository
 {
   constructor(private readonly dungeonRepository: DungeonServiceDungeonRepository) {}
 
-  public getAll(input: getPageInput): Promise<Dungeon[]> {
+  public getAll(input: GetPageInput): Promise<Dungeon[]> {
     return this.dungeonRepository.findAll(input)
   }
 
