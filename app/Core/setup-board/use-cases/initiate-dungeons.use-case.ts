@@ -2,7 +2,7 @@ import { randomUUID } from 'crypto'
 import Dungeon, { DungeonEventName, DungeonName } from '../dungeon/dungeon'
 
 export interface DungeonRepository {
-  create(dungeon: Dungeon): Promise<Dungeon>
+  create(dungeon: Dungeon): Promise<void>
   countAll(): Promise<number>
 }
 

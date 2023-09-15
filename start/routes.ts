@@ -26,7 +26,7 @@ import { app, install } from '../app/Core/application'
 import { PageLimit, PageNumber } from '../app/Core/pages/get-page-input'
 
 Route.post('/install', async () => {
-  await install({ countOfDungeon: Env.get('COUNT_OF_DUNGEON') })
+  await install({ dungeonCount: Env.get('DUNGEON_COUNT') })
   return 'App is correctly installed'
 })
 

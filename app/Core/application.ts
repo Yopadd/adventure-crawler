@@ -4,16 +4,16 @@ import ItemRepository from 'App/Core/exploration/player/backpack/item/item.repos
 import LogbookRepositoryDatabase from 'App/Core/exploration/player/logbook/logbook.repository'
 import PlayerRepository from 'App/Core/exploration/player/player.repository'
 import ExploreDungeonUseCase from './exploration/use-cases/explore-dungeon.use-case'
+import DungeonRepositoryDatabase from './setup-board/dungeon/dungeon.repository'
 import InitiateDungeonsUseCase from './setup-board/use-cases/initiate-dungeons.use-case'
-import InitiateItemsUseCase from './use-cases/initiate-items.use-case'
 
 export interface ApplicationOptions {
-  countOfDungeon: number
+  dungeonCount: number
 }
 
 export interface ApplicationInstaller {
   initiateDungeons: InitiateDungeonsUseCase
-  initiateItems: InitiateItemsUseCase
+  // initiateItems: InitiateItemsUseCase
 }
 
 export interface Application {
@@ -35,8 +35,8 @@ const repositories = {
 }
 
 const installer: ApplicationInstaller = {
-  initiateDungeons: new InitiateDungeonsUseCase(services.dungeonService),
-  initiateItems: new InitiateItemsUseCase(services.itemService),
+  initiateDungeons: new InitiateDungeonsUseCase(new DungeonRepositoryDatabase()),
+  // initiateItems: new InitiateItemsUseCase(services.itemService),
 }
 
 export const app: Application = {
@@ -48,7 +48,7 @@ export const app: Application = {
 
 export async function install(options: ApplicationOptions): Promise<Application> {
   await installer.initiateDungeons.apply(options)
-  await installer.initiateItems.apply()
+  // await installer.initiateItems.apply()
 
   return app
 }

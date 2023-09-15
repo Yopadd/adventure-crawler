@@ -1,6 +1,6 @@
 import Hash from '@ioc:Adonis/Core/Hash'
 import { BaseModel, HasOne, beforeSave, column, hasOne } from '@ioc:Adonis/Lucid/Orm'
-import BackpackModel from 'App/Models/Inventory.model'
+import BackpackModel from 'App/Models/Backpack.model'
 import { DateTime } from 'luxon'
 import LogbookModel from './Logbook.model'
 
