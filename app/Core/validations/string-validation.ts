@@ -7,7 +7,10 @@ interface StringValidationOptions {
 export abstract class StringValidation {
   protected value: string
 
-  protected constructor(value: string, private readonly options: StringValidationOptions) {
+  protected constructor(
+    value: string,
+    private readonly options: StringValidationOptions = { maxLength: Infinity }
+  ) {
     if (!this.isValid(value)) {
       throw new ValidationError(`"${value}" must be lower than ${this.options.maxLength}`)
     }
