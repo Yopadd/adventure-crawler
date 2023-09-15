@@ -1,4 +1,3 @@
-import NotFoundError from 'App/Core/errors/not-found.error'
 import Dungeon from 'App/Core/exploration/dungeon/dungeon'
 import Player, { PlayerName } from 'App/Core/exploration/player/player'
 
@@ -17,7 +16,7 @@ export interface DungeonRepository {
 }
 
 export interface PlayerRepository {
-  getByName(id: string): Promise<Player | undefined>
+  getByName(id: string): Promise<Player>
 }
 
 export default class ExploreDungeonUseCase {
@@ -28,11 +27,6 @@ export default class ExploreDungeonUseCase {
 
   public async apply(input: ExploreDungeonUseCaseInput): Promise<ExploreDungeonUseCaseOutput> {
     const player = await this.playerRepository.getByName(input.playerName)
-
-    if (!player) {
-      throw new NotFoundError(`player ${input.playerName} not found`)
-    }
-
     const dungeon = await this.dungeonRepository.getByName(input.dungeonName)
     const report = player.explore(dungeon)
     await player.write(report)

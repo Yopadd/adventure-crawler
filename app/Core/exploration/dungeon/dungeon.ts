@@ -1,7 +1,7 @@
-import { StringValidation } from '../../validations/string-validation'
-import { PlayerScore } from 'App/Core/exploration/player/player'
 import { EventResolver } from 'App/Core/exploration/player/event-resolver'
 import Note, { Comment } from 'App/Core/exploration/player/logbook/report/note/note'
+import { PlayerScore } from 'App/Core/exploration/player/player'
+import { StringValidation } from '../../validations/string-validation'
 
 export default class Dungeon {
   constructor(public readonly name: DungeonName, public readonly events: DungeonEvent[] = []) {}
@@ -13,11 +13,7 @@ export default class Dungeon {
   }
 }
 
-export class DungeonName extends StringValidation {
-  constructor(name: string) {
-    super(name, { maxLength: 150 })
-  }
-}
+export class DungeonName extends StringValidation {}
 
 export interface DungeonEvent {
   description: DungeonEventDescription

@@ -1,12 +1,12 @@
+import Player from 'App/Core/exploration/player/player'
+import BackpackModel from 'App/Models/Inventory.model'
+import ItemModel from 'App/Models/Item.model'
 import Backpack from './backpack'
 import { BackpackServiceInventoryRepository } from './backpack.service'
-import InventoryModel from 'App/Models/Inventory.model'
-import Player from 'App/Core/exploration/player/player'
-import ItemModel from 'App/Models/Item.model'
 
 export default class BackpackRepository implements BackpackServiceInventoryRepository {
   public async save(player: Player): Promise<Backpack> {
-    await InventoryModel.create({
+    await BackpackModel.create({
       id: player.backpack.id,
       playerModelId: player.id,
     })
@@ -14,7 +14,7 @@ export default class BackpackRepository implements BackpackServiceInventoryRepos
   }
 
   public async findById(id: string): Promise<Backpack | undefined> {
-    const model = await InventoryModel.findBy('id', id)
+    const model = await BackpackModel.findBy('id', id)
     if (model) {
       await model.load('items')
       return model.toInventory()
@@ -22,9 +22,9 @@ export default class BackpackRepository implements BackpackServiceInventoryRepos
   }
 
   public async update(inventory: Backpack): Promise<Backpack | undefined> {
-    const model = await InventoryModel.findBy('id', inventory.id)
+    const model = await BackpackModel.findBy('id', inventory.id)
 
-    function addMissing(model: InventoryModel, items: ItemModel[]) {
+    function addMissing(model: BackpackModel, items: ItemModel[]) {
       for (const item of items) {
         if (model.items.every(({ id }) => id !== item.id)) {
           model.items.push(item)

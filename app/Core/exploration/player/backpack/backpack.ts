@@ -1,13 +1,12 @@
-import { randomUUID } from 'crypto'
 import Item from 'App/Core/exploration/player/backpack/item/item'
-import BackpackFullError from './backpack-full.error'
 import { Tag } from 'App/Core/exploration/tag/tag'
+import BackpackFullError from './backpack-full.error'
 
 export default class Backpack {
   private readonly size = 5
   private readonly _items: Item[]
 
-  constructor(public readonly id: string = randomUUID(), items: Item[] = []) {
+  constructor(items: Item[] = []) {
     this._items = items
   }
 
