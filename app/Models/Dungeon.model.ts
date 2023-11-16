@@ -2,6 +2,8 @@ import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
 import { DateTime } from 'luxon'
 
 export default class DungeonModel extends BaseModel {
+  public static table = 'dungeons'
+
   @column({ isPrimary: true })
   public name: string
 
