@@ -17,7 +17,7 @@ export interface ApplicationInstaller {
 }
 
 export interface Application {
-  // addPlayer: AddPlayerUseCase
+  addPlayer: AddPlayerUseCase
   // addItems: AddItemsUseCase
   // getItems: GetItemsUseCase
   // getPlayer: GetPlayerUseCase
