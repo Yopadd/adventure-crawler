@@ -13,7 +13,11 @@ export default class Dungeon {
   }
 }
 
-export class DungeonName extends StringValidation {}
+export class DungeonName extends StringValidation {
+  constructor(name: string) {
+    super(name)
+  }
+}
 
 export interface DungeonEvent {
   description: DungeonEventDescription

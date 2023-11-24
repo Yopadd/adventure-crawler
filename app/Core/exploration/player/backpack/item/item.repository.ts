@@ -1,7 +1,7 @@
-import GetPageInput from '../../../../pages/get-page-input'
-import Item from './item'
 import { BackpackServiceItemRepository } from 'App/Core/exploration/player/backpack/backpack.service'
 import ItemModel from 'App/Models/Item.model'
+import GetPageInput from '../../../../pages/get-page-input'
+import Item from './item'
 
 export default class ItemRepository implements BackpackServiceItemRepository {
   public async findAll(input: GetPageInput): Promise<Item[]> {
@@ -21,9 +21,5 @@ export default class ItemRepository implements BackpackServiceItemRepository {
       tags: Array.from(item.tags.values()).join(';'),
     })
     return item
-  }
-
-  public flush() {
-    return ItemModel.truncate(true)
   }
 }

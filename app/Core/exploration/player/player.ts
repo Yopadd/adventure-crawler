@@ -26,10 +26,8 @@ export default class Player implements Explorer {
 
 export class PlayerName extends StringValidation {
   constructor(name: string) {
-    super(name, PlayerName.rules)
+    super(name)
   }
-
-  public static rules = { maxLength: 50 }
 }
 
 export class PlayerScore extends NumberValidation {

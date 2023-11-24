@@ -22,8 +22,4 @@ export default class LogbookRepositoryDatabase implements Logbook {
   public async dungeonReports(dungeon: Dungeon): Promise<Report[]> {
     return []
   }
-
-  public flush() {
-    ReportModel.truncate()
-  }
 }

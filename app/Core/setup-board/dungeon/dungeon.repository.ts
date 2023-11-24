@@ -6,6 +6,7 @@ export default class DungeonRepositoryDatabase implements DungeonRepository {
   public async create(dungeon: Dungeon): Promise<void> {
     await DungeonModel.create({
       name: dungeon.name.get(),
+      // TODO : https://docs.adonisjs.com/reference/orm/decorators#column use serialize and consume
       events: dungeon.events.join(';'),
     })
   }

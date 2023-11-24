@@ -14,10 +14,6 @@ export default class PlayerRepositoryDatabase implements PlayerRepository {
     return PlayerRepositoryDatabase.toPlayer(model)
   }
 
-  public flush() {
-    return PlayerModel.truncate(true)
-  }
-
   private static toPlayer(model: PlayerModel): Player {
     return new Player(
       PlayerRepositoryDatabase.toBackpack(model.backpack),

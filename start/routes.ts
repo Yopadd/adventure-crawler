@@ -63,11 +63,7 @@ Route.post('/players', async ({ request }) => {
 
   const payload = await request.validate({ schema: addPlayerSchema })
 
-  const player = await app.addPlayer.apply(payload)
-  return {
-    name: player.name.get(),
-    score: player.score.get(),
-  }
+  await app.addPlayer.apply(payload)
 })
 
 Route.get('/player', async ({ auth }) => {

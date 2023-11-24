@@ -8,11 +8,6 @@ test('add player', async ({ client, expect }) => {
   const response = await client.post('/players').json({ name, password })
 
   expect(response.status()).toBe(200)
-  expect(response.body()).toStrictEqual({
-    id: expect.any(String),
-    name,
-    score: 0,
-  })
 }).teardown(async () => {
   await uninstall()
 })
