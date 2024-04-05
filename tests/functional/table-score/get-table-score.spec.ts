@@ -1,5 +1,5 @@
 import { test } from '@japa/runner'
-import { uninstall } from 'App/Core/application'
+import { uninstall } from '#app/core/game'
 
 test('get table score', async ({ client, expect }) => {
   const name = 'Scott'

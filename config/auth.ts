@@ -1,89 +1,27 @@
+import { defineConfig } from '@adonisjs/auth'
+import { InferAuthEvents, Authenticators } from '@adonisjs/auth/types'
+import { basicAuthUserProvider, basicAuthGuard } from '@adonisjs/auth/basic_auth'
 
-/**
- * Config source: https://git.io/JY0mp
- *
- * Feel free to let us know via PR, if you find something broken in this config
- * file.
- */
-
-import type { AuthConfig } from '@ioc:Adonis/Addons/Auth'
-
-/*
-|--------------------------------------------------------------------------
-| Authentication Mapping
-|--------------------------------------------------------------------------
-|
-| List of available authentication mapping. You must first define them
-| inside the `contracts/auth.ts` file before mentioning them here.
-|
-*/
-const authConfig: AuthConfig = {
-  guard: 'basic',
+const authConfig = defineConfig({
+  default: 'basic',
   guards: {
-    /*
-    |--------------------------------------------------------------------------
-    | Basic Auth Guard
-    |--------------------------------------------------------------------------
-    |
-    | Uses Basic auth to authenticate an HTTP request. There is no concept of
-    | "login" and "logout" with basic auth. You just authenticate the requests
-    | using a middleware and browser will prompt the user to enter their login
-    | details
-    |
-    */
-    basic: {
-      driver: 'basic',
-      realm: 'Login',
-
-      provider: {
-        /*
-        |--------------------------------------------------------------------------
-        | Driver
-        |--------------------------------------------------------------------------
-        |
-        | Name of the driver
-        |
-        */
-        driver: 'lucid',
-
-        /*
-        |--------------------------------------------------------------------------
-        | Identifier key
-        |--------------------------------------------------------------------------
-        |
-        | The identifier key is the unique key on the model. In most cases specifying
-        | the primary key is the right choice.
-        |
-        */
-        identifierKey: 'id',
-
-        /*
-        |--------------------------------------------------------------------------
-        | Uids
-        |--------------------------------------------------------------------------
-        |
-        | Uids are used to search a user against one of the mentioned columns. During
-        | login, the auth module will search the user mentioned value against one
-        | of the mentioned columns to find their user record.
-        |
-        */
-        uids: ['name'],
-
-        /*
-        |--------------------------------------------------------------------------
-        | Model
-        |--------------------------------------------------------------------------
-        |
-        | The model to use for fetching or finding users. The model is imported
-        | lazily since the config files are read way earlier in the lifecycle
-        | of booting the app and the models may not be in a usable state at
-        | that time.
-        |
-        */
-        model: () => import('App/Models/Player.model'),
-      },
-    },
+    basic: basicAuthGuard({
+      provider: basicAuthUserProvider({
+        model: () => import('#models/player.model'),
+      }),
+    }),
   },
-}
+})
 
 export default authConfig
+
+/**
+ * Inferring types from the configured auth
+ * guards.
+ */
+declare module '@adonisjs/auth/types' {
+  interface Authenticators extends InferAuthenticators<typeof authConfig> {}
+}
+declare module '@adonisjs/core/types' {
+  interface EventsList extends InferAuthEvents<Authenticators> {}
+}

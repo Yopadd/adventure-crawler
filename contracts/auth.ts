@@ -5,7 +5,7 @@
  * file.
  */
 
-import PlayerModel from 'App/Models/Player.model'
+import PlayerModel from '#models/player.model'
 
 declare module '@ioc:Adonis/Addons/Auth' {
   /*

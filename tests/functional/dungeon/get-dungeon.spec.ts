@@ -1,5 +1,5 @@
 import { test } from '@japa/runner'
-import { uninstall } from 'App/Core/application'
+import { uninstall } from '#app/core/game'
 
 test('get 10 first dungeons', async ({ client, expect }) => {
   await client.post('/install')

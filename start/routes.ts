@@ -18,22 +18,22 @@
 |
 */
 
-import Env from '@ioc:Adonis/Core/Env'
-import Route from '@ioc:Adonis/Core/Route'
-import { rules, schema } from '@ioc:Adonis/Core/Validator'
-import { ItemName } from 'App/Core/exploration/player/backpack/item/item'
-import { app, install } from '../app/Core/application'
-import { PageLimit, PageNumber } from '../app/Core/pages/get-page-input'
+import env from '#start/env'
+import router from '@adonisjs/core/services/router'
+import { rules, schema } from '@adonisjs/validator'
+import { ItemName } from '#app/core/exploration/player/backpack/item/item'
+import { app, install } from '#app/core/game'
 
-Route.post('/install', async () => {
-  await install({ dungeonCount: Env.get('DUNGEON_COUNT') })
+router.post('/install', async () => {
+  const DUNGEON_COUNT = env.get('DUNGEON_COUNT')
+  await install({ dungeonCount: DUNGEON_COUNT })
   return 'App is correctly installed'
 })
 
-Route.get('/dungeons', async ({ request }) => {
+router.get('/dungeons', async ({ request }) => {
   const getDungeonsSchema = schema.create({
-    limit: schema.number([rules.range(PageLimit.min, PageLimit.max)]),
-    page: schema.number([rules.range(PageNumber.min, PageNumber.max)]),
+    limit: schema.number([rules.range(0, 1000)]),
+    page: schema.number([rules.range(0, 10_000)]),
   })
 
   const payload = await request.validate({ schema: getDungeonsSchema })
@@ -42,7 +42,7 @@ Route.get('/dungeons', async ({ request }) => {
   return dungeons
 })
 
-Route.post('/dungeons/:name', async ({ auth, request }) => {
+router.post('/dungeons/:name', async ({ auth, request }) => {
   await auth.use('basic').authenticate()
 
   const playerName = auth.user!.name
@@ -55,7 +55,7 @@ Route.post('/dungeons/:name', async ({ auth, request }) => {
   return { score: exploreResult.score }
 })
 
-Route.post('/players', async ({ request }) => {
+router.post('/players', async ({ request }) => {
   const addPlayerSchema = schema.create({
     name: schema.string([rules.alpha({ allow: ['space', 'dash'] })]),
     password: schema.string(),
@@ -66,7 +66,7 @@ Route.post('/players', async ({ request }) => {
   await app.addPlayer.apply(payload)
 })
 
-Route.get('/player', async ({ auth }) => {
+router.get('/player', async ({ auth }) => {
   await auth.use('basic').authenticate()
 
   const player = await app.getPlayer.apply({
@@ -83,7 +83,7 @@ Route.get('/player', async ({ auth }) => {
   }
 })
 
-Route.post('/player', async ({ auth, request }) => {
+router.post('/player', async ({ auth, request }) => {
   await auth.use('basic').authenticate()
 
   const addItemsSchema = schema.create({
@@ -107,10 +107,10 @@ Route.post('/player', async ({ auth, request }) => {
   }
 })
 
-Route.get('/scores', async ({ request }) => {
+router.get('/scores', async ({ request }) => {
   const getTableScoreSchema = schema.create({
-    limit: schema.number([rules.range(PageLimit.min, PageLimit.max)]),
-    page: schema.number([rules.range(PageNumber.min, PageNumber.max)]),
+    limit: schema.number([rules.range(0, 1000)]),
+    page: schema.number([rules.range(0, 10_000)]),
   })
 
   const payload = await request.validate({ schema: getTableScoreSchema })
@@ -122,10 +122,10 @@ Route.get('/scores', async ({ request }) => {
   }))
 })
 
-Route.get('/items', async ({ request }) => {
+router.get('/items', async ({ request }) => {
   const getItemsSchema = schema.create({
-    limit: schema.number([rules.range(PageLimit.min, PageLimit.max)]),
-    page: schema.number([rules.range(PageNumber.min, PageNumber.max)]),
+    limit: schema.number([rules.range(0, 1000)]),
+    page: schema.number([rules.range(0, 10_000)]),
   })
 
   const payload = await request.validate({ schema: getItemsSchema })
@@ -133,6 +133,5 @@ Route.get('/items', async ({ request }) => {
   const items = await app.getItems.apply(payload)
   return items.map((item) => ({
     name: item.name.get(),
-    description: item.description.get(),
   }))
 })
