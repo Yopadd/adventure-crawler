@@ -1,11 +1,11 @@
+import BackpackModel from '#models/backpack.model'
+import LogbookModel from '#models/logbook.model'
+import { withAuthFinder } from '@adonisjs/auth/mixins/lucid'
+import { compose } from '@adonisjs/core/helpers'
 import hash from '@adonisjs/core/services/hash'
 import { BaseModel, beforeSave, column, hasOne } from '@adonisjs/lucid/orm'
-import BackpackModel from '#models/backpack.model'
-import { DateTime } from 'luxon'
-import LogbookModel from '#models/logbook.model'
 import type { HasOne } from '@adonisjs/lucid/types/relations'
-import { compose } from '@adonisjs/core/helpers'
-import { withAuthFinder } from '@adonisjs/auth/mixins/lucid'
+import { DateTime } from 'luxon'
 
 const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
   uids: ['name'],
@@ -14,6 +14,7 @@ const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
 
 export default class PlayerModel extends compose(BaseModel, AuthFinder) {
   public static table = 'players'
+  static selfAssignPrimaryKey = true
 
   @column({ isPrimary: true })
   public name: string

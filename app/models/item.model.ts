@@ -1,9 +1,10 @@
-import { BaseModel, column } from '@adonisjs/lucid/orm'
 import Item from '#app/core/exploration/player/backpack/item/item'
+import { BaseModel, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 
 export default class ItemModel extends BaseModel {
   public static table = 'items'
+  static selfAssignPrimaryKey = true
 
   @column({ isPrimary: true })
   public name: string

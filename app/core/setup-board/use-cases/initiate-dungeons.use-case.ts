@@ -15,9 +15,9 @@ export default class InitiateDungeonsUseCase {
 
   public async apply(input: InitiateDungeonsUseCaseInput) {
     const countOfExistingDungeons = await this.dungeonRepository.countAll()
-    for (let i = input.dungeonCount - countOfExistingDungeons; i > 0; i--) {
+    for (let i = input.dungeonCount - countOfExistingDungeons; i >= 0; i--) {
       await this.dungeonRepository.create(
-        new Dungeon(new DungeonName(randomUUID().toString()), [DungeonEventName.LAVA])
+        new Dungeon(new DungeonName(randomUUID()), [DungeonEventName.LAVA])
       )
     }
   }

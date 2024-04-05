@@ -1,10 +1,11 @@
-import { BaseModel, column, manyToMany } from '@adonisjs/lucid/orm'
 import ItemModel from '#models/item.model'
-import { DateTime } from 'luxon'
+import { BaseModel, column, manyToMany } from '@adonisjs/lucid/orm'
 import type { ManyToMany } from '@adonisjs/lucid/types/relations'
+import { DateTime } from 'luxon'
 
 export default class BackpackModel extends BaseModel {
   public static table = 'backpacks'
+  static selfAssignPrimaryKey = true
 
   @column({ columnName: 'player_name', isPrimary: true })
   public playerName: string

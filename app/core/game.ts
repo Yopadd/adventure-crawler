@@ -1,17 +1,20 @@
+import { default as ExplorationDungeonRepositoryDatabase } from '#app/core/exploration/dungeon/dungeon.repository'
+import LogbookRepositoryDatabase from '#app/core/exploration/player/logbook/logbook.repository'
 import PlayerRepository from '#app/core/exploration/player/player.repository'
+import ExploreDungeonUseCase from '#app/core/exploration/use-cases/explore-dungeon.use-case'
+import PlayerSheetRepositoryDatabase from '#app/core/inscription/player-sheet/player-sheet.repository'
+import AddPlayerUseCase from '#app/core/inscription/use-cases/add-player.use-case'
+import { default as PreparationDungeonRepositoryDatabase } from '#app/core/preparation/dungeon/dungeon.repository'
+import ItemRepositoryDatabase from '#app/core/preparation/item/item.repository'
+import GetDungeonsUseCase from '#app/core/preparation/use-cases/get-dungeons.use-case'
+import GetItemsUseCase from '#app/core/preparation/use-cases/get-items.use-case'
+import GetScoreboardUseCase from '#app/core/score-board/use-case/get-score-board'
+import { default as SetupBoardDungeonRepositoryDatabase } from '#app/core/setup-board/dungeon/dungeon.repository'
+import InitiateDungeonsUseCase from '#app/core/setup-board/use-cases/initiate-dungeons.use-case'
 import DungeonModel from '#models/dungeon.model'
 import ItemModel from '#models/item.model'
 import PlayerModel from '#models/player.model'
 import ReportModel from '#models/report.model'
-import { default as ExplorationDungeonRepositoryDatabase } from '#app/core/exploration/dungeon/dungeon.repository'
-import ExploreDungeonUseCase from '#app/core/exploration/use-cases/explore-dungeon.use-case'
-import PlayerSheetRepositoryDatabase from '#app/core/inscription/player-sheet/player-sheet.repository'
-import AddPlayerUseCase from '#app/core/inscription/use-cases/add-player.use-case'
-import ItemRepositoryDatabase from '#app/core/preparation/item/item.repository'
-import GetItemsUseCase from '#app/core/preparation/use-cases/get-items.use-case'
-import { default as SetupBoardDungeonRepositoryDatabase } from '#app/core/setup-board/dungeon/dungeon.repository'
-import InitiateDungeonsUseCase from '#app/core/setup-board/use-cases/initiate-dungeons.use-case'
-import LogbookRepositoryDatabase from '#app/core/exploration/player/logbook/logbook.repository'
 
 export interface ApplicationOptions {
   dungeonCount: number
@@ -27,8 +30,8 @@ export interface Game {
   // addItems: AddItemsUseCase
   getItems: GetItemsUseCase
   // getPlayer: GetPlayerUseCase
-  // getDungeons: GetDungeonsUseCase
-  // getScoreBoard: GetScoreBoardUseCase
+  getDungeons: GetDungeonsUseCase
+  getScoreBoard: GetScoreboardUseCase
   exploreDungeon: ExploreDungeonUseCase
 }
 
@@ -40,6 +43,9 @@ const repositories = {
     dungeonRepository: new ExplorationDungeonRepositoryDatabase(),
     logbookRepository: new LogbookRepositoryDatabase(),
     playerRepository: new PlayerRepository(),
+  },
+  preparation: {
+    dungeonRepository: new PreparationDungeonRepositoryDatabase(),
   },
   itemRepository: new ItemRepositoryDatabase(),
   playerSheetRepository: new PlayerSheetRepositoryDatabase(),
@@ -58,6 +64,8 @@ export const app: Game = {
     repositories.exploration.playerRepository,
     repositories.exploration.logbookRepository
   ),
+  getScoreBoard: new GetScoreboardUseCase(),
+  getDungeons: new GetDungeonsUseCase(repositories.preparation.dungeonRepository),
 }
 
 export async function install(options: ApplicationOptions): Promise<Game> {

@@ -3,6 +3,7 @@ import { DateTime } from 'luxon'
 
 export default class ReportModel extends BaseModel {
   public static table = 'reports'
+  static selfAssignPrimaryKey = true
 
   @column({ columnName: 'id', isPrimary: true })
   public id: string

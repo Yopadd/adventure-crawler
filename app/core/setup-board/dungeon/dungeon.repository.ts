@@ -1,6 +1,6 @@
+import Dungeon from '#app/core/setup-board/dungeon/dungeon'
+import { DungeonRepository } from '#app/core/setup-board/use-cases/initiate-dungeons.use-case'
 import DungeonModel from '#models/dungeon.model'
-import { DungeonRepository } from '../use-cases/initiate-dungeons.use-case'
-import Dungeon from './dungeon.js'
 
 export default class DungeonRepositoryDatabase implements DungeonRepository {
   public async create(dungeon: Dungeon): Promise<void> {

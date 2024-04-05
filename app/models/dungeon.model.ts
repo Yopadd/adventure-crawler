@@ -3,6 +3,7 @@ import { DateTime } from 'luxon'
 
 export default class DungeonModel extends BaseModel {
   public static table = 'dungeons'
+  static selfAssignPrimaryKey = true
 
   @column({ isPrimary: true })
   public name: string

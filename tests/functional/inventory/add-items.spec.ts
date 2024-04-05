@@ -1,5 +1,5 @@
-import { test } from '@japa/runner'
 import { uninstall } from '#app/core/game'
+import { test } from '@japa/runner'
 
 test('add item', async ({ client, expect }) => {
   const name = 'Jean'
@@ -12,7 +12,6 @@ test('add item', async ({ client, expect }) => {
     page: 1,
   })
   expect(response.status()).toBe(200)
-  console.log(response.body())
   const items = response.body().map((item) => item.name)
 
   response = await client.get(`/player`).basicAuth(name, password)

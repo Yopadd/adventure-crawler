@@ -18,11 +18,15 @@
 |
 */
 
-import env from '#start/env'
-import router from '@adonisjs/core/services/router'
-import { rules, schema } from '@adonisjs/validator'
 import { ItemName } from '#app/core/exploration/player/backpack/item/item'
 import { app, install } from '#app/core/game'
+import env from '#start/env'
+import { middleware } from '#start/kernel'
+import { getDungeonsValidator } from '#validators/dungeon'
+import { addItemsValidator, getItemsValidator } from '#validators/item'
+import { addPlayerValidator } from '#validators/player'
+import { getScoreBoardValidator } from '#validators/score_board'
+import router from '@adonisjs/core/services/router'
 
 router.post('/install', async () => {
   const DUNGEON_COUNT = env.get('DUNGEON_COUNT')
@@ -31,104 +35,73 @@ router.post('/install', async () => {
 })
 
 router.get('/dungeons', async ({ request }) => {
-  const getDungeonsSchema = schema.create({
-    limit: schema.number([rules.range(0, 1000)]),
-    page: schema.number([rules.range(0, 10_000)]),
-  })
-
-  const payload = await request.validate({ schema: getDungeonsSchema })
+  const payload = await getDungeonsValidator.validate(request.all())
 
   const dungeons = await app.getDungeons.apply(payload)
-  return dungeons
+  return dungeons.map((dungeon) => ({
+    name: dungeon.name.get(),
+  }))
 })
 
-router.post('/dungeons/:name', async ({ auth, request }) => {
-  await auth.use('basic').authenticate()
+router
+  .post('/dungeons/:name', async ({ auth, request }) => {
+    const playerName = auth.user!.name
 
-  const playerName = auth.user!.name
+    const exploreResult = await app.exploreDungeon.apply({
+      dungeonName: request.param('name'),
+      playerName,
+    })
 
-  const exploreResult = await app.exploreDungeon.apply({
-    dungeonName: request.param('name'),
-    playerName,
+    return { score: exploreResult.score }
   })
-
-  return { score: exploreResult.score }
-})
+  .use(
+    middleware.auth({
+      guards: ['basic'],
+    })
+  )
 
 router.post('/players', async ({ request }) => {
-  const addPlayerSchema = schema.create({
-    name: schema.string([rules.alpha({ allow: ['space', 'dash'] })]),
-    password: schema.string(),
-  })
-
-  const payload = await request.validate({ schema: addPlayerSchema })
+  const payload = await addPlayerValidator.validate(request.all())
 
   await app.addPlayer.apply(payload)
 })
 
-router.get('/player', async ({ auth }) => {
-  await auth.use('basic').authenticate()
+router
+  .post('/player', async ({ auth, request }) => {
+    const { itemNames } = await addItemsValidator.validate(request.all())
 
-  const player = await app.getPlayer.apply({
-    name: auth.user!.name,
+    const player = await app.addItems.apply({
+      playerName: auth.user!.name,
+      itemNames: itemNames.map((name) => new ItemName(name)),
+    })
+
+    return {
+      name: player.name.get(),
+      score: player.score.get(),
+      inventory: player.backpack.items.map((item) => ({
+        name: item.name.get(),
+        description: item.description.get(),
+      })),
+    }
   })
-
-  return {
-    name: player.name.get(),
-    score: player.score.get(),
-    inventory: player.backpack.items.map((item) => ({
-      name: item.name.get(),
-      description: item.description.get(),
-    })),
-  }
-})
-
-router.post('/player', async ({ auth, request }) => {
-  await auth.use('basic').authenticate()
-
-  const addItemsSchema = schema.create({
-    itemNames: schema.array().members(schema.string()),
-  })
-
-  const { itemNames } = await request.validate({ schema: addItemsSchema })
-
-  const player = await app.addItems.apply({
-    playerName: auth.user!.name,
-    itemNames: itemNames.map((name) => new ItemName(name)),
-  })
-
-  return {
-    name: player.name.get(),
-    score: player.score.get(),
-    inventory: player.backpack.items.map((item) => ({
-      name: item.name.get(),
-      description: item.description.get(),
-    })),
-  }
-})
+  .use(
+    middleware.auth({
+      guards: ['basic'],
+    })
+  )
 
 router.get('/scores', async ({ request }) => {
-  const getTableScoreSchema = schema.create({
-    limit: schema.number([rules.range(0, 1000)]),
-    page: schema.number([rules.range(0, 10_000)]),
-  })
-
-  const payload = await request.validate({ schema: getTableScoreSchema })
+  const payload = await getScoreBoardValidator.validate(request.all())
 
   const tableScore = await app.getScoreBoard.apply(payload)
   return tableScore.rows.map((row) => ({
-    name: row.name.get(),
-    score: row.score.get(),
+    name: row.playerName,
+    score: row.score,
   }))
 })
 
 router.get('/items', async ({ request }) => {
-  const getItemsSchema = schema.create({
-    limit: schema.number([rules.range(0, 1000)]),
-    page: schema.number([rules.range(0, 10_000)]),
-  })
-
-  const payload = await request.validate({ schema: getItemsSchema })
+  const payload = await getItemsValidator.validate(request.all())
 
   const items = await app.getItems.apply(payload)
   return items.map((item) => ({

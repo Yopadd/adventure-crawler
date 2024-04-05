@@ -1,19 +1,24 @@
-import Dungeon from '#app/core/exploration/dungeon/dungeon'
+import Dungeon, {
+  DungeonPageLimit,
+  DungeonPageNumber,
+  DungeonPaginationInput,
+} from '#app/core/preparation/dungeon/dungeon'
 
 interface GetDungeonsUseCaseInput {
   limit: number
   page: number
 }
 
-export interface GetDungeonsUseCaseDungeonService {
-  getAll(input: GetPageInput): Promise<Dungeon[]>
+export interface DungeonRepository {
+  getAll(input: DungeonPaginationInput): Promise<Dungeon[]>
 }
 
 export default class GetDungeonsUseCase {
-  constructor(private readonly dungeonService: GetDungeonsUseCaseDungeonService) {}
+  constructor(private readonly dungeonRepository: DungeonRepository) {}
 
-  public async apply(input: GetDungeonsUseCaseInput): Promise<string[]> {
-    const dungeons = await this.dungeonService.getAll(new GetPageInput(input))
-    return dungeons.map((d) => d.id)
+  public async apply(input: GetDungeonsUseCaseInput): Promise<Dungeon[]> {
+    const limit = new DungeonPageLimit(input.limit)
+    const page = new DungeonPageNumber(input.page)
+    return this.dungeonRepository.getAll({ page, limit })
   }
 }
