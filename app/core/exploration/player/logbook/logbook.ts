@@ -1,9 +1,9 @@
-import env from '#start/env'
 import Report from '#app/core/exploration/player/logbook/report/report'
+import env from '#start/env'
 
 export default class Logbook {
   public readonly maxSize: number
-  public readonly reports: Report[]
+  private readonly reports: Report[] = []
 
   constructor(public readonly size: number) {
     this.maxSize = env.get('LOGBOOK_SIZE')
@@ -14,5 +14,9 @@ export default class Logbook {
       throw new Error('Logbook is full')
     }
     this.reports.push(report)
+  }
+
+  public read(): readonly Report[] {
+    return this.reports
   }
 }

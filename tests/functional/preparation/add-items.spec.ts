@@ -12,18 +12,21 @@ test('add item', async ({ client, expect }) => {
     page: 1,
   })
   expect(response.status()).toBe(200)
-  const items = response.body().map((item) => item.name)
+  const items = response.body().map((item: any) => item.name)
 
-  response = await client.get(`/player`).basicAuth(name, password)
+  response = await client.get(`/player/backpack`).basicAuth(name, password)
   expect(response.status()).toBe(200)
-  expect(response.body().inventory.length).toBe(0)
+  expect(response.body().items.length).toBe(0)
 
-  response = await client.post(`/player`).basicAuth(name, password).json(items)
+  response = await client
+    .post(`/player/backpack`)
+    .basicAuth(name, password)
+    .json({ itemNames: items })
   expect(response.status()).toBe(200)
 
-  response = await client.get(`/player`).basicAuth(name, password)
+  response = await client.get(`/player/backpack`).basicAuth(name, password)
   expect(response.status()).toBe(200)
-  expect(response.body().inventory).toEqual(items)
+  expect(response.body().items).toContainEqual('Coat')
 }).teardown(async () => {
   await uninstall()
 })

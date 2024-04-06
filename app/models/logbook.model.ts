@@ -12,8 +12,10 @@ export default class LogbookModel extends BaseModel {
 
   @manyToMany(() => ReportModel, {
     pivotTable: 'logbooks_reports',
+    localKey: 'playerName',
     pivotForeignKey: 'player_name',
-    pivotRelatedForeignKey: 'id',
+    relatedKey: 'id',
+    pivotRelatedForeignKey: 'report_id',
   })
   public reports: ManyToMany<typeof ReportModel>
 

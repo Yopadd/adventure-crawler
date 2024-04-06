@@ -4,13 +4,18 @@ import PlayerRepository from '#app/core/exploration/player/player.repository'
 import ExploreDungeonUseCase from '#app/core/exploration/use-cases/explore-dungeon.use-case'
 import PlayerSheetRepositoryDatabase from '#app/core/inscription/player-sheet/player-sheet.repository'
 import AddPlayerUseCase from '#app/core/inscription/use-cases/add-player.use-case'
+import { default as InstallDungeonRepositoryDatabase } from '#app/core/install/dungeon/dungeon.repository'
+import { default as InstallItemRepositoryDatabase } from '#app/core/install/item/item.repository'
+import InitiateDungeonsUseCase from '#app/core/install/use-cases/initiate-dungeons.use-case'
+import InitiateItemsUseCase from '#app/core/install/use-cases/initiate-items.use-case'
+import { BackPackRepositoryDatabase } from '#app/core/preparation/backpack/backpack.repository'
 import { default as PreparationDungeonRepositoryDatabase } from '#app/core/preparation/dungeon/dungeon.repository'
-import ItemRepositoryDatabase from '#app/core/preparation/item/item.repository'
+import { default as PreparationItemRepositoryDatabase } from '#app/core/preparation/item/item.repository'
+import AddItemsUseCase from '#app/core/preparation/use-cases/add-items.use-case'
+import GetBackUseCase from '#app/core/preparation/use-cases/get-backpack.use-case'
 import GetDungeonsUseCase from '#app/core/preparation/use-cases/get-dungeons.use-case'
 import GetItemsUseCase from '#app/core/preparation/use-cases/get-items.use-case'
 import GetScoreboardUseCase from '#app/core/score-board/use-case/get-score-board'
-import { default as SetupBoardDungeonRepositoryDatabase } from '#app/core/setup-board/dungeon/dungeon.repository'
-import InitiateDungeonsUseCase from '#app/core/setup-board/use-cases/initiate-dungeons.use-case'
 import DungeonModel from '#models/dungeon.model'
 import ItemModel from '#models/item.model'
 import PlayerModel from '#models/player.model'
@@ -20,24 +25,25 @@ export interface ApplicationOptions {
   dungeonCount: number
 }
 
-export interface ApplicationInstaller {
+export interface GameInstaller {
   initiateDungeons: InitiateDungeonsUseCase
-  // initiateItems: InitiateItemsUseCase
+  initiateItems: InitiateItemsUseCase
 }
 
 export interface Game {
   addPlayer: AddPlayerUseCase
-  // addItems: AddItemsUseCase
+  addItems: AddItemsUseCase
   getItems: GetItemsUseCase
-  // getPlayer: GetPlayerUseCase
+  getBackpack: GetBackUseCase
   getDungeons: GetDungeonsUseCase
   getScoreBoard: GetScoreboardUseCase
   exploreDungeon: ExploreDungeonUseCase
 }
 
 const repositories = {
-  setupBoard: {
-    dungeonRepository: new SetupBoardDungeonRepositoryDatabase(),
+  install: {
+    dungeonRepository: new InstallDungeonRepositoryDatabase(),
+    itemRepository: new InstallItemRepositoryDatabase(),
   },
   exploration: {
     dungeonRepository: new ExplorationDungeonRepositoryDatabase(),
@@ -46,31 +52,39 @@ const repositories = {
   },
   preparation: {
     dungeonRepository: new PreparationDungeonRepositoryDatabase(),
+    backpackRepository: new BackPackRepositoryDatabase(),
+    itemRepository: new PreparationItemRepositoryDatabase(),
   },
-  itemRepository: new ItemRepositoryDatabase(),
-  playerSheetRepository: new PlayerSheetRepositoryDatabase(),
+  inscription: {
+    playerSheetRepository: new PlayerSheetRepositoryDatabase(),
+  },
 }
 
-const installer: ApplicationInstaller = {
-  initiateDungeons: new InitiateDungeonsUseCase(repositories.setupBoard.dungeonRepository),
-  // initiateItems: new InitiateItemsUseCase(services.itemService),
+const installer: GameInstaller = {
+  initiateDungeons: new InitiateDungeonsUseCase(repositories.install.dungeonRepository),
+  initiateItems: new InitiateItemsUseCase(repositories.install.itemRepository),
 }
 
 export const app: Game = {
-  addPlayer: new AddPlayerUseCase(repositories.playerSheetRepository),
-  getItems: new GetItemsUseCase(repositories.itemRepository),
+  addPlayer: new AddPlayerUseCase(repositories.inscription.playerSheetRepository),
   exploreDungeon: new ExploreDungeonUseCase(
     repositories.exploration.dungeonRepository,
     repositories.exploration.playerRepository,
     repositories.exploration.logbookRepository
   ),
   getScoreBoard: new GetScoreboardUseCase(),
+  addItems: new AddItemsUseCase(
+    repositories.preparation.itemRepository,
+    repositories.preparation.backpackRepository
+  ),
+  getItems: new GetItemsUseCase(repositories.preparation.itemRepository),
   getDungeons: new GetDungeonsUseCase(repositories.preparation.dungeonRepository),
+  getBackpack: new GetBackUseCase(repositories.preparation.backpackRepository),
 }
 
 export async function install(options: ApplicationOptions): Promise<Game> {
   await installer.initiateDungeons.apply(options)
-  // await installer.initiateItems.apply()
+  await installer.initiateItems.apply()
 
   return app
 }

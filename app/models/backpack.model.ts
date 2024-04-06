@@ -12,8 +12,10 @@ export default class BackpackModel extends BaseModel {
 
   @manyToMany(() => ItemModel, {
     pivotTable: 'backpacks_items',
+    localKey: 'playerName',
     pivotForeignKey: 'player_name',
-    pivotRelatedForeignKey: 'item_id',
+    relatedKey: 'name',
+    pivotRelatedForeignKey: 'item_name',
   })
   public items: ManyToMany<typeof ItemModel>
 

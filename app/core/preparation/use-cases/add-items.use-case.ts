@@ -1,36 +1,27 @@
-import Backpack from '#app/core/exploration/player/backpack/backpack'
-import Item, { ItemName } from '#app/core/exploration/player/backpack/item/item'
-import Player from '#app/core/exploration/player/player'
+import Item, { ItemName } from '#app/core/preparation/item/item'
 
 interface AddItemUseCaseInput {
   itemNames: ItemName[]
   playerName: string
 }
 
-export interface AddItemsUseCasePlayerService {
-  getByName(name: string): Promise<Player>
-}
-
-export interface AddItemsUseCaseItemService {
+export interface ItemRepository {
   getByName(name: ItemName): Promise<Item>
 }
 
-export interface AddItemsUseCaseInventoryService {
-  add(player: Player, item: Item): Promise<Backpack | undefined>
+export interface BackpackRepository {
+  add(playerName: string, item: Item): Promise<void>
 }
 
-export class AddItemsUseCase {
+export default class AddItemsUseCase {
   constructor(
-    private readonly playerService: AddItemsUseCasePlayerService,
-    private readonly itemService: AddItemsUseCaseItemService,
-    private readonly inventoryService: AddItemsUseCaseInventoryService
+    private readonly itemRepository: ItemRepository,
+    private readonly backpackRepository: BackpackRepository
   ) {}
 
-  public async apply(input: AddItemUseCaseInput): Promise<Player> {
-    const player = await this.playerService.getByName(input.playerName)
-    for await (const item of input.itemNames.map((item) => this.itemService.getByName(item))) {
-      await this.inventoryService.add(player, item)
+  public async apply(input: AddItemUseCaseInput): Promise<void> {
+    for await (const item of input.itemNames.map((item) => this.itemRepository.getByName(item))) {
+      await this.backpackRepository.add(input.playerName, item)
     }
-    return player
   }
 }

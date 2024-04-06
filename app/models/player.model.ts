@@ -3,7 +3,7 @@ import LogbookModel from '#models/logbook.model'
 import { withAuthFinder } from '@adonisjs/auth/mixins/lucid'
 import { compose } from '@adonisjs/core/helpers'
 import hash from '@adonisjs/core/services/hash'
-import { BaseModel, beforeSave, column, hasOne } from '@adonisjs/lucid/orm'
+import { BaseModel, column, hasOne } from '@adonisjs/lucid/orm'
 import type { HasOne } from '@adonisjs/lucid/types/relations'
 import { DateTime } from 'luxon'
 
@@ -22,10 +22,14 @@ export default class PlayerModel extends compose(BaseModel, AuthFinder) {
   @column({ serializeAs: null })
   public password: string
 
-  @hasOne(() => BackpackModel)
+  @hasOne(() => BackpackModel, {
+    foreignKey: 'playerName',
+  })
   public backpack: HasOne<typeof BackpackModel>
 
-  @hasOne(() => LogbookModel)
+  @hasOne(() => LogbookModel, {
+    foreignKey: 'playerName',
+  })
   public logbook: HasOne<typeof LogbookModel>
 
   @column.dateTime({ autoCreate: true })
@@ -33,11 +37,4 @@ export default class PlayerModel extends compose(BaseModel, AuthFinder) {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
-
-  @beforeSave()
-  public static async hashPassword(user: PlayerModel) {
-    if (user.$dirty.password) {
-      user.password = await hash.make(user.password)
-    }
-  }
 }

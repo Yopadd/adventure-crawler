@@ -18,6 +18,6 @@ export default class AddPlayerUseCase {
       new PlayerPassword(input.password)
     )
 
-    return this.playerSheetRepository.create(playerSheet)
+    await this.playerSheetRepository.create(playerSheet)
   }
 }

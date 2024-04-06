@@ -67,21 +67,28 @@ router.post('/players', async ({ request }) => {
 })
 
 router
-  .post('/player', async ({ auth, request }) => {
+  .post('/player/backpack', async ({ auth, request }) => {
     const { itemNames } = await addItemsValidator.validate(request.all())
 
-    const player = await app.addItems.apply({
+    await app.addItems.apply({
       playerName: auth.user!.name,
       itemNames: itemNames.map((name) => new ItemName(name)),
     })
+  })
+  .use(
+    middleware.auth({
+      guards: ['basic'],
+    })
+  )
+
+router
+  .get('/player/backpack', async ({ auth }) => {
+    const backpack = await app.getBackpack.apply({
+      playerName: auth.user!.name,
+    })
 
     return {
-      name: player.name.get(),
-      score: player.score.get(),
-      inventory: player.backpack.items.map((item) => ({
-        name: item.name.get(),
-        description: item.description.get(),
-      })),
+      items: backpack.open().map((item) => item.name.get()),
     }
   })
   .use(
