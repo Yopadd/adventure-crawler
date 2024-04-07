@@ -1,4 +1,4 @@
-import { uninstall } from '#app/core/game'
+import testUtils from '@adonisjs/core/services/test_utils'
 import { test } from '@japa/runner'
 
 test('add player', async ({ client, expect }) => {
@@ -8,6 +8,4 @@ test('add player', async ({ client, expect }) => {
   const response = await client.post('/inscription').json({ name, password })
 
   expect(response.status()).toBe(200)
-}).teardown(async () => {
-  await uninstall()
-})
+}).setup(() => testUtils.db().truncate())

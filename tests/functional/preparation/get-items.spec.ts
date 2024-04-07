@@ -1,4 +1,4 @@
-import { uninstall } from '#app/core/game'
+import testUtils from '@adonisjs/core/services/test_utils'
 import { test } from '@japa/runner'
 
 test('get item list', async ({ client, expect }) => {
@@ -10,6 +10,4 @@ test('get item list', async ({ client, expect }) => {
   })
 
   expect(response.status()).toBe(200)
-}).teardown(async () => {
-  await uninstall()
-})
+}).setup(() => testUtils.db().truncate())

@@ -1,4 +1,4 @@
-import { uninstall } from '#app/core/game'
+import testUtils from '@adonisjs/core/services/test_utils'
 import { test } from '@japa/runner'
 
 test('add item', async ({ client, expect }) => {
@@ -27,6 +27,4 @@ test('add item', async ({ client, expect }) => {
   response = await client.get(`/preparation/player/backpack`).basicAuth(name, password)
   expect(response.status()).toBe(200)
   expect(response.body().items).toContainEqual('Coat')
-}).teardown(async () => {
-  await uninstall()
-})
+}).setup(() => testUtils.db().truncate())

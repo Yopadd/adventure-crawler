@@ -1,14 +1,11 @@
 /*
 |--------------------------------------------------------------------------
-| Validating Environment Variables
+| Environment variables service
 |--------------------------------------------------------------------------
 |
-| In this file we define the rules for validating environment variables.
-| By performing validation we ensure that your application is running in
-| a stable environment with correct configuration values.
-|
-| This file is read automatically by the framework during the boot lifecycle
-| and hence do not rename or move this file to a different location.
+| The `Env.create` method creates an instance of the Env service. The
+| service validates the environment variables and also cast values
+| to JavaScript data types.
 |
 */
 import { Env } from '@adonisjs/core/env'

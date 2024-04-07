@@ -1,4 +1,4 @@
-import { uninstall } from '#app/core/game'
+import testUtils from '@adonisjs/core/services/test_utils'
 import { test } from '@japa/runner'
 
 test('get table score', async ({ client, expect }) => {
@@ -13,6 +13,4 @@ test('get table score', async ({ client, expect }) => {
 
   expect(response.status()).toBe(200)
   expect(response.body()).toHaveLength(0)
-}).teardown(async () => {
-  await uninstall()
-})
+}).setup(() => testUtils.db().truncate())

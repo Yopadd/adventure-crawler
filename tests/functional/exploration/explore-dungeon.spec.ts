@@ -1,4 +1,4 @@
-import { uninstall } from '#app/core/game'
+import testUtils from '@adonisjs/core/services/test_utils'
 import { test } from '@japa/runner'
 
 test('Explore dungeon with no item in backpack player', async ({ client, expect }) => {
@@ -15,6 +15,4 @@ test('Explore dungeon with no item in backpack player', async ({ client, expect 
 
   expect(result.status()).toBe(200)
   expect(result.body().score).toBe(0)
-}).teardown(async () => {
-  await uninstall()
-})
+}).setup(() => testUtils.db().truncate())
