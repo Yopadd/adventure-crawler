@@ -10,4 +10,10 @@ test('get item list', async ({ client, expect }) => {
   })
 
   expect(response.status()).toBe(200)
+  expect(response.body().length).toBeGreaterThan(0)
+  response.body().forEach((item: unknown) => {
+    expect(item).toEqual({
+      name: expect.any(String),
+    })
+  })
 }).setup(() => testUtils.db().truncate())

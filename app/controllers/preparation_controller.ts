@@ -1,4 +1,4 @@
-import { app } from '#app/core/game'
+import { game } from '#app/core/game'
 import { ItemName } from '#app/core/preparation/item/item'
 import { getDungeonsValidator } from '#validators/dungeon'
 import { addItemsValidator, getItemsValidator } from '#validators/item'
@@ -8,14 +8,14 @@ export default class PreparationController {
   async addItems({ auth, request }: HttpContext) {
     const { itemNames } = await addItemsValidator.validate(request.all())
 
-    await app.addItems.apply({
+    await game.addItems.apply({
       playerName: auth.user!.name,
       itemNames: itemNames.map((name) => new ItemName(name)),
     })
   }
 
   async openBackpack({ auth }: HttpContext) {
-    const backpack = await app.getBackpack.apply({
+    const backpack = await game.getBackpack.apply({
       playerName: auth.user!.name,
     })
 
@@ -27,7 +27,7 @@ export default class PreparationController {
   async getDungeons({ request }: HttpContext) {
     const payload = await getDungeonsValidator.validate(request.all())
 
-    const dungeons = await app.getDungeons.apply(payload)
+    const dungeons = await game.getDungeons.apply(payload)
     return dungeons.map((dungeon) => ({
       name: dungeon.name.get(),
     }))
@@ -36,7 +36,7 @@ export default class PreparationController {
   async getItems({ request }: HttpContext) {
     const payload = await getItemsValidator.validate(request.all())
 
-    const items = await app.getItems.apply(payload)
+    const items = await game.getItems.apply(payload)
     return items.map((item) => ({
       name: item.name.get(),
     }))

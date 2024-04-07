@@ -21,25 +21,6 @@ import ItemModel from '#models/item.model'
 import PlayerModel from '#models/player.model'
 import ReportModel from '#models/report.model'
 
-export interface ApplicationOptions {
-  dungeonCount: number
-}
-
-export interface GameInstaller {
-  initiateDungeons: InitiateDungeonsUseCase
-  initiateItems: InitiateItemsUseCase
-}
-
-export interface Game {
-  addPlayer: AddPlayerUseCase
-  addItems: AddItemsUseCase
-  getItems: GetItemsUseCase
-  getBackpack: GetBackUseCase
-  getDungeons: GetDungeonsUseCase
-  getScoreBoard: GetScoreboardUseCase
-  exploreDungeon: ExploreDungeonUseCase
-}
-
 const repositories = {
   install: {
     dungeonRepository: new InstallDungeonRepositoryDatabase(),
@@ -60,12 +41,49 @@ const repositories = {
   },
 }
 
+export interface ApplicationOptions {
+  dungeonCount: number
+}
+
+export interface GameInstaller {
+  initiateDungeons: InitiateDungeonsUseCase
+  initiateItems: InitiateItemsUseCase
+}
+
+export interface Game {
+  install: (options: ApplicationOptions) => Promise<void>
+  uninstall: () => Promise<void>
+  addPlayer: AddPlayerUseCase
+  addItems: AddItemsUseCase
+  getItems: GetItemsUseCase
+  getBackpack: GetBackUseCase
+  getDungeons: GetDungeonsUseCase
+  getScoreBoard: GetScoreboardUseCase
+  exploreDungeon: ExploreDungeonUseCase
+}
+
 const installer: GameInstaller = {
   initiateDungeons: new InitiateDungeonsUseCase(repositories.install.dungeonRepository),
   initiateItems: new InitiateItemsUseCase(repositories.install.itemRepository),
 }
 
-export const app: Game = {
+async function install(options: ApplicationOptions): Promise<void> {
+  await installer.initiateDungeons.apply(options)
+  await installer.initiateItems.apply()
+}
+
+async function uninstall(): Promise<void> {
+  await Promise.all([
+    DungeonModel.truncate(true),
+    ReportModel.truncate(true),
+    PlayerModel.truncate(true),
+    ItemModel.truncate(true),
+  ])
+}
+
+export const game: Game = {
+  install,
+  uninstall,
   addPlayer: new AddPlayerUseCase(repositories.inscription.playerSheetRepository),
   exploreDungeon: new ExploreDungeonUseCase(
     repositories.exploration.dungeonRepository,
@@ -80,18 +98,4 @@ export const app: Game = {
   getItems: new GetItemsUseCase(repositories.preparation.itemRepository),
   getDungeons: new GetDungeonsUseCase(repositories.preparation.dungeonRepository),
   getBackpack: new GetBackUseCase(repositories.preparation.backpackRepository),
-}
-
-export async function install(options: ApplicationOptions): Promise<void> {
-  await installer.initiateDungeons.apply(options)
-  await installer.initiateItems.apply()
-}
-
-export function uninstall() {
-  return Promise.all([
-    DungeonModel.truncate(true),
-    ReportModel.truncate(true),
-    PlayerModel.truncate(true),
-    ItemModel.truncate(true),
-  ])
 }

@@ -9,5 +9,10 @@ test('get 10 first dungeons', async ({ client, expect }) => {
   })
 
   expect(response.status()).toBe(200)
-  expect(response.body()).toHaveLength(10)
+  expect(response.body().length).toBe(10)
+  response.body().forEach((dungeon: unknown) => {
+    expect(dungeon).toEqual({
+      name: expect.any(String),
+    })
+  })
 }).setup(() => testUtils.db().truncate())

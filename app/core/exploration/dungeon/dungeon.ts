@@ -10,7 +10,7 @@ export default class Dungeon {
   ) {}
 
   public resolve(resolver: EventResolver): Note {
-    return this.events.length
+    return this.events.length > 0
       ? new Note(new Comment(''), PlayerScore.Zero)
       : this.events.reduce((acc, event) => event.resolve(resolver).add(acc), Note.Empty)
   }
