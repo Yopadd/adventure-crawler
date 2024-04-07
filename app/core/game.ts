@@ -82,11 +82,9 @@ export const app: Game = {
   getBackpack: new GetBackUseCase(repositories.preparation.backpackRepository),
 }
 
-export async function install(options: ApplicationOptions): Promise<Game> {
+export async function install(options: ApplicationOptions): Promise<void> {
   await installer.initiateDungeons.apply(options)
   await installer.initiateItems.apply()
-
-  return app
 }
 
 export function uninstall() {

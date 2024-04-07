@@ -5,8 +5,8 @@ test('get table score', async ({ client, expect }) => {
   const name = 'Scott'
   const password = '1234'
   await client.post('/install')
-  await client.post('/players').json({ name, password })
-  const response = await client.get('/scores').qs({
+  await client.post('/inscription').json({ name, password })
+  const response = await client.get('/score-board').qs({
     limit: 10,
     page: 1,
   })

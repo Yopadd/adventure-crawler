@@ -18,100 +18,42 @@
 |
 */
 
-import { ItemName } from '#app/core/exploration/player/backpack/item/item'
-import { app, install } from '#app/core/game'
-import env from '#start/env'
 import { middleware } from '#start/kernel'
-import { getDungeonsValidator } from '#validators/dungeon'
-import { addItemsValidator, getItemsValidator } from '#validators/item'
-import { addPlayerValidator } from '#validators/player'
-import { getScoreBoardValidator } from '#validators/score_board'
 import router from '@adonisjs/core/services/router'
 
-router.post('/install', async () => {
-  const DUNGEON_COUNT = env.get('DUNGEON_COUNT')
-  await install({ dungeonCount: DUNGEON_COUNT })
-  return 'App is correctly installed'
-})
+const PreparationController = () => import('#controllers/preparation_controller')
+const ScoreBoardController = () => import('#controllers/score_board_controller')
+const ExploreDungeonController = () => import('#controllers/explore_dungeon_controller')
+const InscriptionController = () => import('#controllers/inscription_controller')
+const InstallController = () => import('#controllers/install_controller')
 
-router.get('/dungeons', async ({ request }) => {
-  const payload = await getDungeonsValidator.validate(request.all())
+router.post('/install', [InstallController])
 
-  const dungeons = await app.getDungeons.apply(payload)
-  return dungeons.map((dungeon) => ({
-    name: dungeon.name.get(),
-  }))
-})
+router.post('/inscription', [InscriptionController])
+
+router.post('/exploration/dungeons/:name', [ExploreDungeonController]).use(
+  middleware.auth({
+    guards: ['basic'],
+  })
+)
 
 router
-  .post('/dungeons/:name', async ({ auth, request }) => {
-    const playerName = auth.user!.name
+  .group(() => {
+    router.get('/dungeons', [PreparationController, 'getDungeons'])
+    router.get('/items', [PreparationController, 'getItems'])
 
-    const exploreResult = await app.exploreDungeon.apply({
-      dungeonName: request.param('name'),
-      playerName,
-    })
-
-    return { score: exploreResult.score }
+    router
+      .group(() => {
+        router.post('/backpack', [PreparationController, 'addItems'])
+        router.get('/backpack', [PreparationController, 'openBackpack'])
+      })
+      .prefix('/player')
+      .use(
+        middleware.auth({
+          guards: ['basic'],
+        })
+      )
   })
-  .use(
-    middleware.auth({
-      guards: ['basic'],
-    })
-  )
+  .prefix('/preparation')
 
-router.post('/players', async ({ request }) => {
-  const payload = await addPlayerValidator.validate(request.all())
-
-  await app.addPlayer.apply(payload)
-})
-
-router
-  .post('/player/backpack', async ({ auth, request }) => {
-    const { itemNames } = await addItemsValidator.validate(request.all())
-
-    await app.addItems.apply({
-      playerName: auth.user!.name,
-      itemNames: itemNames.map((name) => new ItemName(name)),
-    })
-  })
-  .use(
-    middleware.auth({
-      guards: ['basic'],
-    })
-  )
-
-router
-  .get('/player/backpack', async ({ auth }) => {
-    const backpack = await app.getBackpack.apply({
-      playerName: auth.user!.name,
-    })
-
-    return {
-      items: backpack.open().map((item) => item.name.get()),
-    }
-  })
-  .use(
-    middleware.auth({
-      guards: ['basic'],
-    })
-  )
-
-router.get('/scores', async ({ request }) => {
-  const payload = await getScoreBoardValidator.validate(request.all())
-
-  const tableScore = await app.getScoreBoard.apply(payload)
-  return tableScore.rows.map((row) => ({
-    name: row.playerName,
-    score: row.score,
-  }))
-})
-
-router.get('/items', async ({ request }) => {
-  const payload = await getItemsValidator.validate(request.all())
-
-  const items = await app.getItems.apply(payload)
-  return items.map((item) => ({
-    name: item.name.get(),
-  }))
-})
+router.get('/score-board', [ScoreBoardController])
