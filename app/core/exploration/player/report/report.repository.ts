@@ -1,0 +1,17 @@
+import Report from '#app/core/exploration/player/report/report'
+import { ReportRepository } from '#app/core/exploration/use-cases/explore-dungeon.use-case'
+import ReportModel from '#models/report.model'
+import { randomUUID } from 'node:crypto'
+
+export default class ReportRepositoryDatabase implements ReportRepository {
+  public async save(report: Report): Promise<void> {
+    await ReportModel.create({
+      id: randomUUID(),
+      playerName: report.player.name.get(),
+      dungeonName: report.dungeon.name.get(),
+      comment: report.comment.get(),
+      exploredAt: report.exploredAt,
+      score: report.score.get(),
+    })
+  }
+}

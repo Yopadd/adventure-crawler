@@ -1,6 +1,6 @@
 import { default as ExplorationDungeonRepositoryDatabase } from '#app/core/exploration/dungeon/dungeon.repository'
-import LogbookRepositoryDatabase from '#app/core/exploration/player/logbook/logbook.repository'
 import PlayerRepository from '#app/core/exploration/player/player.repository'
+import ReportRepositoryDatabase from '#app/core/exploration/player/report/report.repository'
 import ExploreDungeonUseCase from '#app/core/exploration/use-cases/explore-dungeon.use-case'
 import PlayerSheetRepositoryDatabase from '#app/core/inscription/player-sheet/player-sheet.repository'
 import AddPlayerUseCase from '#app/core/inscription/use-cases/add-player.use-case'
@@ -28,7 +28,7 @@ const repositories = {
   },
   exploration: {
     dungeonRepository: new ExplorationDungeonRepositoryDatabase(),
-    logbookRepository: new LogbookRepositoryDatabase(),
+    reportRepository: new ReportRepositoryDatabase(),
     playerRepository: new PlayerRepository(),
   },
   preparation: {
@@ -88,7 +88,7 @@ export const game: Game = {
   exploreDungeon: new ExploreDungeonUseCase(
     repositories.exploration.dungeonRepository,
     repositories.exploration.playerRepository,
-    repositories.exploration.logbookRepository
+    repositories.exploration.reportRepository
   ),
   getScoreBoard: new GetScoreboardUseCase(),
   addItems: new AddItemsUseCase(

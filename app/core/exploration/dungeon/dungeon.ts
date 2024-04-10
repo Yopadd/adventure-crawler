@@ -1,6 +1,6 @@
 import { EventResolver } from '#app/core/exploration/player/event-resolver'
-import Note, { Comment } from '#app/core/exploration/player/logbook/report/note/note'
 import { PlayerScore } from '#app/core/exploration/player/player'
+import Note, { Comment } from '#app/core/exploration/player/report/note/note'
 import { StringValidation } from '../../validations/string-validation.js'
 
 export default class Dungeon {

@@ -1,6 +1,6 @@
 import ValidationError from '#app/core/errors/validation.error'
-import Note, { Comment } from '#app/core/exploration/player/logbook/report/note/note'
 import Player, { PlayerScore } from '#app/core/exploration/player/player'
+import Note, { Comment } from '#app/core/exploration/player/report/note/note'
 import { DungeonEvent, DungeonEventDescription, DungeonEventName } from '../dungeon.js'
 
 export default class CrossingLavaRiver implements DungeonEvent<Player> {

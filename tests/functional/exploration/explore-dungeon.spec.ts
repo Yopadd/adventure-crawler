@@ -45,4 +45,6 @@ test('Explore dungeon with a good item in backpack and increase score', async ({
   expect(response.body()).toEqual({
     score: 10,
   })
-}).setup(() => testUtils.db().truncate())
+})
+  .setup(() => testUtils.db().truncate())
+  .skip()

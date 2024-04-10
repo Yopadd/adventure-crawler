@@ -1,6 +1,5 @@
 import Backpack from '#app/core/exploration/player/backpack/backpack'
 import Item from '#app/core/exploration/player/backpack/item/item'
-import Logbook from '#app/core/exploration/player/logbook/logbook'
 import Player from '#app/core/exploration/player/player'
 import type { PlayerRepository } from '#app/core/exploration/use-cases/explore-dungeon.use-case'
 import BackpackModel from '#models/backpack.model'
@@ -13,16 +12,13 @@ export default class PlayerRepositoryDatabase implements PlayerRepository {
       .preload('backpack', (backpackQuery) => {
         backpackQuery.preload('items')
       })
-      .preload('logbook', (logbookQuery) => {
-        logbookQuery.withCount('reports')
-      })
       .where('name', name)
       .firstOrFail()
-    return PlayerRepositoryDatabase.toPlayer(model, model.logbook.$extras.reports_count)
+    return PlayerRepositoryDatabase.toPlayer(model)
   }
 
-  private static toPlayer(model: PlayerModel, logbookSize: number): Player {
-    return new Player(PlayerRepositoryDatabase.toBackpack(model.backpack), new Logbook(logbookSize))
+  private static toPlayer(model: PlayerModel): Player {
+    return new Player(model.name, PlayerRepositoryDatabase.toBackpack(model.backpack))
   }
 
   private static toBackpack(model: BackpackModel): Backpack {

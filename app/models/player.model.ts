@@ -1,5 +1,4 @@
 import BackpackModel from '#models/backpack.model'
-import LogbookModel from '#models/logbook.model'
 import { withAuthFinder } from '@adonisjs/auth/mixins/lucid'
 import { compose } from '@adonisjs/core/helpers'
 import hash from '@adonisjs/core/services/hash'
@@ -26,11 +25,6 @@ export default class PlayerModel extends compose(BaseModel, AuthFinder) {
     foreignKey: 'playerName',
   })
   public backpack: HasOne<typeof BackpackModel>
-
-  @hasOne(() => LogbookModel, {
-    foreignKey: 'playerName',
-  })
-  public logbook: HasOne<typeof LogbookModel>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

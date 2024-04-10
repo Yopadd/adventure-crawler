@@ -25,7 +25,6 @@ export default await Env.create(new URL('../', import.meta.url), {
   |__________________________________________________________
    */
   DUNGEON_COUNT: Env.schema.number(),
-  LOGBOOK_SIZE: Env.schema.number(),
 
   /*
   |----------------------------------------------------------

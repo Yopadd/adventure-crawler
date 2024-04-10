@@ -3,8 +3,8 @@ import Dungeon, {
   DungeonEventName,
   DungeonName,
 } from '#app/core/exploration/dungeon/dungeon'
-import Note, { Comment } from '#app/core/exploration/player/logbook/report/note/note'
 import { PlayerScore } from '#app/core/exploration/player/player'
+import Note, { Comment } from '#app/core/exploration/player/report/note/note'
 import { DungeonRepository } from '#app/core/exploration/use-cases/explore-dungeon.use-case'
 import DungeonModel from '#models/dungeon.model'
 

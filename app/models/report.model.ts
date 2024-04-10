@@ -1,4 +1,5 @@
 import DungeonModel from '#models/dungeon.model'
+import PlayerModel from '#models/player.model'
 import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 import { DateTime } from 'luxon'
@@ -10,10 +11,21 @@ export default class ReportModel extends BaseModel {
   @column({ columnName: 'id', isPrimary: true })
   public id: string
 
+  @column()
+  public dungeonName: string
+
   @belongsTo(() => DungeonModel, {
-    foreignKey: 'name',
+    foreignKey: 'dungeonName',
   })
   public dungeon: BelongsTo<typeof DungeonModel>
+
+  @column()
+  public playerName: string
+
+  @belongsTo(() => PlayerModel, {
+    foreignKey: 'playerName',
+  })
+  public player: BelongsTo<typeof PlayerModel>
 
   @column()
   public comment: string

@@ -1,29 +1,28 @@
 import Dungeon from '#app/core/exploration/dungeon/dungeon'
 import Backpack from '#app/core/exploration/player/backpack/backpack'
+import Report from '#app/core/exploration/player/report/report'
 import { Tag } from '#app/core/exploration/tag/tag'
 import { NumberValidation } from '../../validations/number-validation.js'
 import { StringValidation } from '../../validations/string-validation.js'
 import { Explorer } from './explorer.js'
-import Report from '#app/core/exploration/player/logbook/report/report'
-import Logbook from '#app/core/exploration/player/logbook/logbook'
 
 export default class Player implements Explorer {
+  public readonly name: PlayerName
+
   constructor(
-    private readonly backpack: Backpack,
-    public readonly logbook: Logbook
-  ) {}
+    name: string,
+    private readonly backpack: Backpack
+  ) {
+    this.name = new PlayerName(name)
+  }
 
   public explore(dungeon: Dungeon): Report {
     const note = dungeon.resolve(this)
-    return new Report(dungeon, note.comment, note.score)
+    return new Report(this, dungeon, note.comment, note.score)
   }
 
   public hasTag(tag: Tag): boolean {
     return this.backpack.hasTag(tag)
-  }
-
-  public write(report: Report): void {
-    this.logbook.add(report)
   }
 }
 
