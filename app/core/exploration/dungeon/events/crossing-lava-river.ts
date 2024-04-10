@@ -1,9 +1,9 @@
-import Note, { Comment } from '#app/core/exploration/player/report/note/note'
+import ValidationError from '#app/core/errors/validation.error'
+import Note, { Comment } from '#app/core/exploration/player/logbook/report/note/note'
 import Player, { PlayerScore } from '#app/core/exploration/player/player'
-import ValidationError from '../../../errors/validation.error'
 import { DungeonEvent, DungeonEventDescription, DungeonEventName } from '../dungeon.js'
 
-export default class CrossingLavaRiver implements DungeonEvent {
+export default class CrossingLavaRiver implements DungeonEvent<Player> {
   public readonly description: DungeonEventDescription
   public readonly name = DungeonEventName.LAVA
 

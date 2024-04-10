@@ -6,7 +6,7 @@ import { StringValidation } from '../../validations/string-validation.js'
 export default class Dungeon {
   constructor(
     public readonly name: DungeonName,
-    public readonly events: DungeonEvent[] = []
+    public readonly events: DungeonEvent<EventResolver>[] = []
   ) {}
 
   public resolve(resolver: EventResolver): Note {
@@ -22,10 +22,10 @@ export class DungeonName extends StringValidation {
   }
 }
 
-export interface DungeonEvent {
+export interface DungeonEvent<T extends EventResolver> {
   description: DungeonEventDescription
   name: DungeonEventName
-  resolve: (player: EventResolver) => Note
+  resolve: (eventResolver: T) => Note
 }
 
 export class DungeonEventDescription extends StringValidation {

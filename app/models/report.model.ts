@@ -1,4 +1,6 @@
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import DungeonModel from '#models/dungeon.model'
+import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
+import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 import { DateTime } from 'luxon'
 
 export default class ReportModel extends BaseModel {
@@ -7,6 +9,11 @@ export default class ReportModel extends BaseModel {
 
   @column({ columnName: 'id', isPrimary: true })
   public id: string
+
+  @belongsTo(() => DungeonModel, {
+    foreignKey: 'name',
+  })
+  public dungeon: BelongsTo<typeof DungeonModel>
 
   @column()
   public comment: string

@@ -8,7 +8,7 @@ interface GetScoreBoardUseCaseInput {
 export default class GetScoreboardUseCase {
   constructor() {}
 
-  public async apply(input: GetScoreBoardUseCaseInput): Promise<ScoreBoard> {
+  public async apply(_: GetScoreBoardUseCaseInput): Promise<ScoreBoard> {
     return new ScoreBoard()
   }
 }

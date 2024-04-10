@@ -6,6 +6,9 @@ export default class extends BaseSchema {
   async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.string('id').primary()
+      table.string('player_name').references('players.name')
+      table.string('dungeon_name').references('dungeons.name')
+      table.unique(['player_name', 'dungeon_name'])
       table.text('comment')
       table.integer('score')
       table.timestamp('explored_at')
