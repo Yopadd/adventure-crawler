@@ -1,10 +1,14 @@
 import { StringValidation } from '#app/core/validations/string-validation'
 
 export default class Dungeon {
+  public readonly name: DungeonName
+
   constructor(
-    public readonly name: DungeonName,
+    name: string,
     public readonly events: DungeonEventName[] = []
-  ) {}
+  ) {
+    this.name = new DungeonName(name)
+  }
 }
 
 export class DungeonName extends StringValidation {

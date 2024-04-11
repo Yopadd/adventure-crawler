@@ -28,7 +28,10 @@ test('Explore dungeon with a good item in backpack and increase score', async ({
   const password = '1234'
   await client.post('/inscription').json({ name, password })
 
-  const itemsResp = await client.post('/preparation/items')
+  const itemsResp = await client.get('/preparation/items').qs({
+    limit: 1,
+    page: 1,
+  })
   const items = itemsResp.body()
   await client
     .post(`/preparation/player/backpack`)
@@ -45,6 +48,4 @@ test('Explore dungeon with a good item in backpack and increase score', async ({
   expect(response.body()).toEqual({
     score: 10,
   })
-})
-  .setup(() => testUtils.db().truncate())
-  .skip()
+}).setup(() => testUtils.db().truncate())

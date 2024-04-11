@@ -20,13 +20,6 @@ export default await Env.create(new URL('../', import.meta.url), {
   LOG_LEVEL: Env.schema.string(),
 
   /*
-  |__________________________________________________________
-  | Variable for game configuration
-  |__________________________________________________________
-   */
-  DUNGEON_COUNT: Env.schema.number(),
-
-  /*
   |----------------------------------------------------------
   | Variables for configuring database connection
   |----------------------------------------------------------

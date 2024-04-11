@@ -8,7 +8,7 @@ test('add item', async ({ client, expect }) => {
   await client.post('/inscription').json({ name, password })
 
   let response = await client.get('/preparation/items').qs({
-    limit: 1,
+    limit: 5,
     page: 1,
   })
   expect(response.status()).toBe(200)
@@ -26,5 +26,5 @@ test('add item', async ({ client, expect }) => {
 
   response = await client.get(`/preparation/player/backpack`).basicAuth(name, password)
   expect(response.status()).toBe(200)
-  expect(response.body().items).toContainEqual('Coat')
+  expect(response.body().items).toEqual(expect.arrayContaining(['Coat']))
 }).setup(() => testUtils.db().truncate())

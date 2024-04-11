@@ -41,9 +41,7 @@ const repositories = {
   },
 }
 
-export interface ApplicationOptions {
-  dungeonCount: number
-}
+export interface ApplicationOptions {}
 
 export interface GameInstaller {
   initiateDungeons: InitiateDungeonsUseCase
@@ -67,8 +65,8 @@ const installer: GameInstaller = {
   initiateItems: new InitiateItemsUseCase(repositories.install.itemRepository),
 }
 
-async function install(options: ApplicationOptions): Promise<void> {
-  await installer.initiateDungeons.apply(options)
+async function install(_: ApplicationOptions): Promise<void> {
+  await installer.initiateDungeons.apply()
   await installer.initiateItems.apply()
 }
 

@@ -1,24 +1,29 @@
-import { randomUUID } from 'node:crypto'
-import Dungeon, { DungeonEventName, DungeonName } from '../dungeon/dungeon.js'
+import Dungeon, { DungeonEventName } from '../dungeon/dungeon.js'
 
 export interface DungeonRepository {
-  create(dungeon: Dungeon): Promise<void>
+  createMany(dungeons: Dungeon[]): Promise<void>
   countAll(): Promise<number>
-}
-
-interface InitiateDungeonsUseCaseInput {
-  dungeonCount: number
 }
 
 export default class InitiateDungeonsUseCase {
   constructor(private readonly dungeonRepository: DungeonRepository) {}
 
-  public async apply(input: InitiateDungeonsUseCaseInput) {
-    const countOfExistingDungeons = await this.dungeonRepository.countAll()
-    for (let i = input.dungeonCount - countOfExistingDungeons; i >= 0; i--) {
-      await this.dungeonRepository.create(
-        new Dungeon(new DungeonName(randomUUID()), [DungeonEventName.LAVA])
-      )
-    }
+  public async apply() {
+    await this.dungeonRepository.createMany([
+      new Dungeon('Lava Dungeons 1', [DungeonEventName.LAVA]),
+      new Dungeon('Lava Dungeons 2', [DungeonEventName.LAVA]),
+      new Dungeon('Lava Dungeons 3', [DungeonEventName.LAVA]),
+      new Dungeon('Lava Dungeons 4', [DungeonEventName.LAVA]),
+      new Dungeon('Lava Dungeons 5', [DungeonEventName.LAVA]),
+      new Dungeon('Lava Dungeons 6', [DungeonEventName.LAVA]),
+      new Dungeon('Lava Dungeons 7', [DungeonEventName.LAVA]),
+      new Dungeon('Lava Dungeons 8', [DungeonEventName.LAVA]),
+      new Dungeon('Lava Dungeons 9', [DungeonEventName.LAVA]),
+      new Dungeon('Lava Dungeons 10', [DungeonEventName.LAVA]),
+      new Dungeon('Lava Dungeons 11', [DungeonEventName.LAVA]),
+      new Dungeon('Lava Dungeons 12', [DungeonEventName.LAVA]),
+      new Dungeon('Lava Dungeons 13', [DungeonEventName.LAVA]),
+      new Dungeon('Lava Dungeons 14', [DungeonEventName.LAVA]),
+    ])
   }
 }
