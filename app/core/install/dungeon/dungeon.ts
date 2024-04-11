@@ -13,7 +13,7 @@ export default class Dungeon {
 
 export class DungeonName extends StringValidation {
   constructor(name: string) {
-    super(name, { maxLength: 150 })
+    super(name, { maxLength: 250, spaces: false })
   }
 }
 

@@ -49,7 +49,7 @@ export interface GameInstaller {
 }
 
 export interface Game {
-  install: (options: ApplicationOptions) => Promise<void>
+  install: (options?: ApplicationOptions) => Promise<void>
   uninstall: () => Promise<void>
   addPlayer: AddPlayerUseCase
   addItems: AddItemsUseCase
@@ -65,7 +65,7 @@ const installer: GameInstaller = {
   initiateItems: new InitiateItemsUseCase(repositories.install.itemRepository),
 }
 
-async function install(_: ApplicationOptions): Promise<void> {
+async function install(_: ApplicationOptions = {}): Promise<void> {
   await installer.initiateDungeons.apply()
   await installer.initiateItems.apply()
 }
