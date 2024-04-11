@@ -10,6 +10,8 @@
     "format": "prettier --write .",
     "pretest": "node ace migration:run",
     "test": "node ace test",
+    "infra:up": "docker compose up -d",
+    "infra:down": "docker compose down -v",
     "typecheck": "tsc --noEmit",
     "psql": "psql --host localhost --username postgres --dbname postgres"
   },

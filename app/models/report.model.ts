@@ -8,10 +8,7 @@ export default class ReportModel extends BaseModel {
   public static table = 'reports'
   static selfAssignPrimaryKey = true
 
-  @column({ columnName: 'id', isPrimary: true })
-  public id: string
-
-  @column()
+  @column({ isPrimary: true })
   public dungeonName: string
 
   @belongsTo(() => DungeonModel, {
@@ -19,7 +16,7 @@ export default class ReportModel extends BaseModel {
   })
   public dungeon: BelongsTo<typeof DungeonModel>
 
-  @column()
+  @column({ isPrimary: true })
   public playerName: string
 
   @belongsTo(() => PlayerModel, {
