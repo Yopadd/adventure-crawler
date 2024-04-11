@@ -14,14 +14,17 @@ export class Comment extends StringValidation {
 }
 
 export default class Note {
-  constructor(
-    public readonly comment: Comment,
-    public readonly score: PlayerScore
-  ) {}
+  public readonly comment: Comment
+  public readonly score: PlayerScore
 
-  public add(note: Note): Note {
-    return new Note(this.comment.join(note.comment), this.score.add(note.score))
+  constructor(comment = '', score = 0) {
+    this.comment = new Comment(comment)
+    this.score = new PlayerScore(score)
   }
 
-  public static Empty = new Note(Comment.Empty, PlayerScore.Zero)
+  public add(note: Note): Note {
+    return new Note(this.comment.join(note.comment).get(), this.score.add(note.score).get())
+  }
+
+  public static Empty = new Note()
 }

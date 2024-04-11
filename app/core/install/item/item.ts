@@ -7,7 +7,7 @@ export default class Item {
   public readonly description: ItemDescription
   public readonly tags: Set<Tag> = new Set()
 
-  constructor(input: { name: string; description: string; tags: string[] }) {
+  constructor(input: { name: string; description: string; tags: Tag[] }) {
     try {
       this.name = new ItemName(input.name)
       this.description = new ItemDescription(input.description)

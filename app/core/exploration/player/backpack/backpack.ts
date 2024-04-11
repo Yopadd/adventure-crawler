@@ -1,8 +1,9 @@
-import Item from '#app/core/exploration/player/backpack/item/item'
-import { Tag } from '#app/core/exploration/tag/tag'
 import BackpackFullError from '#app/core/exploration/player/backpack/backpack-full.error'
+import Item from '#app/core/exploration/player/backpack/item/item'
+import { EventResolver } from '#app/core/exploration/player/event-resolver'
+import { Tag } from '#app/core/install/tag/tag'
 
-export default class Backpack {
+export default class Backpack implements EventResolver {
   private readonly size = 5
   private readonly _items: Item[]
 

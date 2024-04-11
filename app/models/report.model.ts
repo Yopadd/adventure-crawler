@@ -1,14 +1,18 @@
 import DungeonModel from '#models/dungeon.model'
 import PlayerModel from '#models/player.model'
-import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
+import { BaseModel, beforeCreate, belongsTo, column } from '@adonisjs/lucid/orm'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 import { DateTime } from 'luxon'
+import { randomUUID } from 'node:crypto'
 
 export default class ReportModel extends BaseModel {
   public static table = 'reports'
   static selfAssignPrimaryKey = true
 
   @column({ isPrimary: true })
+  public id: string
+
+  @column()
   public dungeonName: string
 
   @belongsTo(() => DungeonModel, {
@@ -16,7 +20,7 @@ export default class ReportModel extends BaseModel {
   })
   public dungeon: BelongsTo<typeof DungeonModel>
 
-  @column({ isPrimary: true })
+  @column()
   public playerName: string
 
   @belongsTo(() => PlayerModel, {
@@ -38,4 +42,9 @@ export default class ReportModel extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  @beforeCreate()
+  static async assignId(model: ReportModel) {
+    model.id = randomUUID()
+  }
 }

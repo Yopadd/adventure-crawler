@@ -10,13 +10,18 @@ export default class InitiateItemsUseCase {
   public async apply(): Promise<void> {
     await this.itemRepository.createMany([
       new Item({
-        name: 'Fire resistance potion',
-        description: 'Protect to fire',
+        name: 'Potion de résistance au feu',
+        description: 'Protège contre les brûlures',
         tags: ['potion', 'fire resistance'],
       }),
       new Item({
-        name: 'Coat',
-        description: 'Keep warm',
+        name: "Gourde d'eau",
+        description: 'Utile en cas de coup de chaux ou juste pour ce désaltérer',
+        tags: ['water', 'potion', 'hydration'],
+      }),
+      new Item({
+        name: 'Manteau',
+        description: 'Garde au chaux',
         tags: ['armor', 'cold resistance'],
       }),
     ])

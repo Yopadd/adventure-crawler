@@ -26,5 +26,5 @@ test('add item', async ({ client, expect }) => {
 
   response = await client.get(`/preparation/player/backpack`).basicAuth(name, password)
   expect(response.status()).toBe(200)
-  expect(response.body().items).toEqual(expect.arrayContaining(['Coat']))
+  expect(response.body().items).toEqual(expect.arrayContaining(['Potion de résistance au feu']))
 }).setup(() => testUtils.db().truncate())

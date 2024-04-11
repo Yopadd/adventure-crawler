@@ -1,13 +1,13 @@
-import { StringValidation } from '#app/core/validations/string-validation'
-import { Tag } from '#app/core/exploration/tag/tag'
 import ValidationError from '#app/core/errors/validation.error'
+import { Tag } from '#app/core/install/tag/tag'
+import { StringValidation } from '#app/core/validations/string-validation'
 
 export default class Item {
   public readonly name: ItemName
   public readonly description: ItemDescription
   public readonly tags: Set<Tag> = new Set()
 
-  constructor(name: string, description: string, tags: string[]) {
+  constructor(name: string, description: string, tags: Tag[]) {
     try {
       this.name = new ItemName(name)
       this.description = new ItemDescription(description)

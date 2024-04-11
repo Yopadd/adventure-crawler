@@ -1,7 +1,7 @@
 import Dungeon from '#app/core/exploration/dungeon/dungeon'
 import Backpack from '#app/core/exploration/player/backpack/backpack'
 import Report from '#app/core/exploration/player/report/report'
-import { Tag } from '#app/core/exploration/tag/tag'
+import { Tag } from '#app/core/install/tag/tag'
 import { NumberValidation } from '../../validations/number-validation.js'
 import { StringValidation } from '../../validations/string-validation.js'
 import { Explorer } from './explorer.js'

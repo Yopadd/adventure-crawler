@@ -1,4 +1,3 @@
-import Item from '#app/core/exploration/player/backpack/item/item'
 import { BaseModel, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 
@@ -20,8 +19,4 @@ export default class ItemModel extends BaseModel {
 
   @column()
   public tags: string
-
-  public toItem(): Item {
-    return new Item(this.name, this.description, this.tags.split(';'))
-  }
 }

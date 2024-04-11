@@ -44,6 +44,9 @@ dependencies:
   reflect-metadata:
     specifier: ^0.1.13
     version: 0.1.14
+  ts-pattern:
+    specifier: ^5.1.1
+    version: 5.1.1
 
 devDependencies:
   '@adonisjs/assembler':
@@ -4453,6 +4456,10 @@ packages:
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
     dev: true
+
+  /ts-pattern@5.1.1:
+    resolution: {integrity: sha512-i+owkHr5RYdQxj8olUgRrqpiWH9x27PuWVfXwDmJ/n/CoF/SAa7WW1i2oUpPDMQpJ4U+bGRUcZkVq7i1m3zFCg==}
+    dev: false
 
   /tslib@2.6.2:
     resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}

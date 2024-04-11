@@ -19,7 +19,7 @@ test('Explore dungeon with no item in backpack player', async ({ client, expect 
   })
 }).setup(() => testUtils.db().truncate())
 
-test('Explore dungeon with a good item in backpack and increase score', async ({
+test('Explore dungeon with a goods items in backpack and increase score', async ({
   client,
   expect,
 }) => {
@@ -29,10 +29,12 @@ test('Explore dungeon with a good item in backpack and increase score', async ({
   await client.post('/inscription').json({ name, password })
 
   const itemsResp = await client.get('/preparation/items').qs({
-    limit: 1,
+    limit: 5,
     page: 1,
   })
   const items = itemsResp.body()
+
+  // Put Fire Potion in backpack
   await client
     .post(`/preparation/player/backpack`)
     .basicAuth(name, password)
@@ -40,12 +42,30 @@ test('Explore dungeon with a good item in backpack and increase score', async ({
 
   const dungeonsResp = await client.get('/preparation/dungeons').qs({ limit: 1, page: 1 })
   const dungeons = dungeonsResp.body()
-  const response = await client
+
+  // Explore first dungeon
+  let response = await client
     .post(`/exploration/dungeons/${dungeons.at(0).name}`)
     .basicAuth(name, password)
 
   expect(response.status()).toBe(200)
   expect(response.body()).toEqual({
-    score: 10,
+    score: 1,
+  })
+
+  // Put Water Bottle in backpack
+  await client
+    .post(`/preparation/player/backpack`)
+    .basicAuth(name, password)
+    .json({ itemNames: [items.at(1).name] })
+
+  // Re-explore first dungeon with Fire Potion and Water Bottle
+  response = await client
+    .post(`/exploration/dungeons/${dungeons.at(0).name}`)
+    .basicAuth(name, password)
+
+  expect(response.status()).toBe(200)
+  expect(response.body()).toEqual({
+    score: 2,
   })
 }).setup(() => testUtils.db().truncate())

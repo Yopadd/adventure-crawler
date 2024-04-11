@@ -1,17 +1,18 @@
 import { EventResolver } from '#app/core/exploration/player/event-resolver'
-import { PlayerScore } from '#app/core/exploration/player/player'
-import Note, { Comment } from '#app/core/exploration/player/report/note/note'
+import Player from '#app/core/exploration/player/player'
+import Note from '#app/core/exploration/player/report/note/note'
+import { EventName } from '#app/core/install/event/event'
 import { StringValidation } from '../../validations/string-validation.js'
 
-export default class Dungeon {
+export default class Dungeon<T extends EventResolver = Player> {
   constructor(
     public readonly name: DungeonName,
-    public readonly events: DungeonEvent<EventResolver>[] = []
+    public readonly events: DungeonEvent<T>[] = []
   ) {}
 
-  public resolve(resolver: EventResolver): Note {
-    return this.events.length > 0
-      ? new Note(new Comment(''), PlayerScore.Zero)
+  public resolve(resolver: T): Note {
+    return this.events.length === 0
+      ? Note.Empty
       : this.events.reduce((acc, event) => event.resolve(resolver).add(acc), Note.Empty)
   }
 }
@@ -24,16 +25,12 @@ export class DungeonName extends StringValidation {
 
 export interface DungeonEvent<T extends EventResolver> {
   description: DungeonEventDescription
-  name: DungeonEventName
+  name: EventName
   resolve: (eventResolver: T) => Note
 }
 
 export class DungeonEventDescription extends StringValidation {
   constructor(description: string) {
-    super(description, { maxLength: 300 })
+    super(description, { maxLength: 1000 })
   }
-}
-
-export enum DungeonEventName {
-  LAVA = 'Lava',
 }

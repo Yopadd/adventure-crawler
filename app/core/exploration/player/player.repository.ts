@@ -2,6 +2,7 @@ import Backpack from '#app/core/exploration/player/backpack/backpack'
 import Item from '#app/core/exploration/player/backpack/item/item'
 import Player from '#app/core/exploration/player/player'
 import type { PlayerRepository } from '#app/core/exploration/use-cases/explore-dungeon.use-case'
+import { Tag } from '#app/core/install/tag/tag'
 import BackpackModel from '#models/backpack.model'
 import ItemModel from '#models/item.model'
 import PlayerModel from '#models/player.model'
@@ -26,6 +27,6 @@ export default class PlayerRepositoryDatabase implements PlayerRepository {
   }
 
   private static toItem(model: ItemModel): Item {
-    return new Item(model.name, model.description, model.tags.split(';'))
+    return new Item(model.name, model.description, model.tags.split(';') as Tag[])
   }
 }

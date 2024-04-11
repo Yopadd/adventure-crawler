@@ -1,15 +1,18 @@
 import ValidationError from '#app/core/errors/validation.error'
-import Player, { PlayerScore } from '#app/core/exploration/player/player'
-import Note, { Comment } from '#app/core/exploration/player/report/note/note'
-import { DungeonEvent, DungeonEventDescription, DungeonEventName } from '../dungeon.js'
+import Player from '#app/core/exploration/player/player'
+import Note from '#app/core/exploration/player/report/note/note'
+import { EventName } from '#app/core/install/event/event'
+import { DungeonEvent, DungeonEventDescription } from '../dungeon.js'
 
 export default class CrossingLavaRiver implements DungeonEvent<Player> {
   public readonly description: DungeonEventDescription
-  public readonly name = DungeonEventName.LAVA
+  public readonly name: EventName = 'Crossing Lava River'
 
   constructor() {
     try {
-      this.description = new DungeonEventDescription('The temperature is unbearable')
+      this.description = new DungeonEventDescription(
+        'Devant moi une rivière de lave, impossible de continuer sans traverser'
+      )
     } catch (err) {
       if (err instanceof ValidationError) {
         throw new ValidationError(`instantiate "${this.name}" description has failed`, err)
@@ -19,9 +22,13 @@ export default class CrossingLavaRiver implements DungeonEvent<Player> {
   }
 
   public resolve(player: Player): Note {
-    if (player.hasTag('Fire Resistance')) {
-      return new Note(new Comment(this.description.get()), new PlayerScore(1))
+    let note = new Note(this.description.get())
+    if (player.hasTag('fire resistance')) {
+      note = note.add(new Note("Heureusement, j'ai de quoi me protéger", 1))
     }
-    return new Note(new Comment(this.description.get()), PlayerScore.Zero)
+    if (player.hasTag('hydration')) {
+      note = note.add(new Note("Un peu d'eau fraîche avec cette chaleur, un plaisir", 1))
+    }
+    return note
   }
 }

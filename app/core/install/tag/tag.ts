@@ -1,1 +1,1 @@
-export type Tag = string
+export type Tag = 'potion' | 'fire resistance' | 'armor' | 'cold resistance' | 'water' | 'hydration'
