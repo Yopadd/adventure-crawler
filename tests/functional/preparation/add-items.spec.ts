@@ -1,10 +1,11 @@
+import env from '#start/env'
 import testUtils from '@adonisjs/core/services/test_utils'
 import { test } from '@japa/runner'
 
 test('add item', async ({ client, expect }) => {
   const name = 'Jean'
   const password = '1234'
-  await client.post('/install')
+  await client.post('/install').bearerToken(env.get('APP_KEY'))
   await client.post('/inscription').json({ name, password })
 
   let response = await client.get('/preparation/items').qs({

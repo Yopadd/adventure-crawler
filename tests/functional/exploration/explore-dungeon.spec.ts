@@ -1,8 +1,9 @@
+import env from '#start/env'
 import testUtils from '@adonisjs/core/services/test_utils'
 import { test } from '@japa/runner'
 
 test('Explore dungeon with no item in backpack player', async ({ client, expect }) => {
-  await client.post('/install')
+  await client.post('/install').bearerToken(env.get('APP_KEY'))
   const name = 'test'
   const password = '1234'
   await client.post('/inscription').json({ name, password })
@@ -23,7 +24,7 @@ test('Explore dungeon with a goods items in backpack and increase score', async 
   client,
   expect,
 }) => {
-  await client.post('/install')
+  await client.post('/install').bearerToken(env.get('APP_KEY'))
   const name = 'test'
   const password = '1234'
   await client.post('/inscription').json({ name, password })

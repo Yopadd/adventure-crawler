@@ -16,7 +16,7 @@ const ExploreDungeonController = () => import('#controllers/explore_dungeon_cont
 const InscriptionController = () => import('#controllers/inscription_controller')
 const InstallController = () => import('#controllers/install_controller')
 
-router.post('/install', [InstallController])
+router.post('/install', [InstallController]).use(middleware.adminGuard())
 
 router.post('/inscription', [InscriptionController])
 
