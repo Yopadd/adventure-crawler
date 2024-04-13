@@ -25,4 +25,8 @@ export default class Backpack implements EventResolver {
   public hasTag(tag: Tag): boolean {
     return this._items.some((item) => item.tags.has(tag))
   }
+
+  public countTag(tag: Tag): number {
+    return this._items.filter((item) => item.tags.has(tag)).length
+  }
 }

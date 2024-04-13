@@ -15,15 +15,19 @@ export class Comment extends StringValidation {
 
 export default class Note {
   public readonly comment: Comment
-  public readonly score: PlayerScore
+  private _score: number
 
   constructor(comment = '', score = 0) {
     this.comment = new Comment(comment)
-    this.score = new PlayerScore(score)
+    this._score = score
   }
 
   public add(note: Note): Note {
     return new Note(this.comment.join(note.comment).get(), this.score.add(note.score).get())
+  }
+
+  public get score(): PlayerScore {
+    return new PlayerScore(this._score)
   }
 
   public static Empty = new Note()

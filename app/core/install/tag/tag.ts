@@ -1,1 +1,9 @@
-export type Tag = 'potion' | 'fire resistance' | 'armor' | 'cold resistance' | 'water' | 'hydration'
+export type Tag =
+  | 'potion'
+  | 'fire resistance'
+  | 'armor'
+  | 'cold resistance'
+  | 'water'
+  | 'hydration'
+  | 'money'
+  | 'weapon'

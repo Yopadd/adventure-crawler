@@ -19,7 +19,7 @@ test('get table score', async ({ client, expect }) => {
     {
       id: randomUUID(),
       playerName: 'Michael',
-      dungeonName: 'Herotopia',
+      dungeonName: 'Market',
       score: 8,
     },
   ])

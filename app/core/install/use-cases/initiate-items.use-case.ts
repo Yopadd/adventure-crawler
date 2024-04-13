@@ -16,13 +16,33 @@ export default class InitiateItemsUseCase {
       }),
       new Item({
         name: "Gourde d'eau",
-        description: 'Utile en cas de coup de chaux ou juste pour ce désaltérer',
+        description: 'Utile en cas de coup de chaud ou juste pour se désaltérer',
         tags: ['water', 'potion', 'hydration'],
       }),
       new Item({
         name: 'Manteau',
-        description: 'Garde au chaux',
+        description: 'Garde au chaud',
         tags: ['armor', 'cold resistance'],
+      }),
+      new Item({
+        name: "Sac de pièce d'or",
+        description: 'Un peu de monnaies',
+        tags: ['money'],
+      }),
+      new Item({
+        name: 'Des rubis',
+        description: 'Certains aiment les choses qui brillent',
+        tags: ['money'],
+      }),
+      new Item({
+        name: 'Des capsules',
+        description: "Provienne probablement d'une collection",
+        tags: ['money'],
+      }),
+      new Item({
+        name: 'Dague',
+        description: "Un grand couteau, c'est bien pratique",
+        tags: ['weapon'],
       }),
     ])
   }

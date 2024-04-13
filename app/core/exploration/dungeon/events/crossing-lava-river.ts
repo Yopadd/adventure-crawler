@@ -1,24 +1,13 @@
-import ValidationError from '#app/core/errors/validation.error'
+import EventBase from '#app/core/exploration/dungeon/event-base'
 import Player from '#app/core/exploration/player/player'
 import Note from '#app/core/exploration/player/report/note/note'
-import { EventName } from '#app/core/install/event/event'
-import { DungeonEvent, DungeonEventDescription } from '../dungeon.js'
 
-export default class CrossingLavaRiver implements DungeonEvent<Player> {
-  public readonly description: DungeonEventDescription
-  public readonly name: EventName = 'Crossing Lava River'
-
+export default class CrossingLavaRiver extends EventBase<Player> {
   constructor() {
-    try {
-      this.description = new DungeonEventDescription(
-        'Devant moi une rivière de lave, impossible de continuer sans traverser'
-      )
-    } catch (err) {
-      if (err instanceof ValidationError) {
-        throw new ValidationError(`instantiate "${this.name}" description has failed`, err)
-      }
-      throw err
-    }
+    super(
+      'Crossing Lava River',
+      'Devant moi une rivière de lave, impossible de continuer sans traverser'
+    )
   }
 
   public resolve(player: Player): Note {

@@ -24,6 +24,10 @@ export default class Player implements Explorer {
   public hasTag(tag: Tag): boolean {
     return this.backpack.hasTag(tag)
   }
+
+  public countTag(tag: Tag): number {
+    return this.backpack.countTag(tag)
+  }
 }
 
 export class PlayerName extends StringValidation {
@@ -34,7 +38,7 @@ export class PlayerName extends StringValidation {
 
 export class PlayerScore extends NumberValidation {
   constructor(score: number) {
-    super(score, { min: 0, max: Number.POSITIVE_INFINITY })
+    super(score >= 0 ? score : 0, { min: 0, max: Number.POSITIVE_INFINITY })
   }
 
   public add(score: PlayerScore): PlayerScore {

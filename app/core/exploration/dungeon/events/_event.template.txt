@@ -1,0 +1,16 @@
+import EventBase from '#app/core/exploration/dungeon/events/event-base'
+import Player from '#app/core/exploration/player/player'
+import Note from '#app/core/exploration/player/report/note/note'
+
+export default class MyEvent extends EventBase<Player> {
+  constructor() {
+    super(
+      'Event name',
+      'Event description'
+    )
+  }
+
+  public resolve(player: Player): Note {
+    return Note.Empty
+  }
+}

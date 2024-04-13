@@ -11,7 +11,7 @@ export default class InitiateDungeonsUseCase {
   public async apply() {
     await this.dungeonRepository.createMany([
       new Dungeon('Volcania', ['Crossing Lava River']),
-      new Dungeon('Herotopia', ['Crossing Lava River']),
+      new Dungeon('Market', ['Shop', 'Thief']),
     ])
   }
 }

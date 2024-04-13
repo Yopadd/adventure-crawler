@@ -1,1 +1,1 @@
-export type EventName = 'Crossing Lava River'
+export type EventName = 'Crossing Lava River' | 'Shop' | 'Thief'
