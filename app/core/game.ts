@@ -1,5 +1,5 @@
 import { default as ExplorationDungeonRepositoryDatabase } from '#app/core/exploration/dungeon/dungeon.repository'
-import PlayerRepository from '#app/core/exploration/player/player.repository'
+import { default as ExplorationPlayerRepository } from '#app/core/exploration/player/player.repository'
 import ReportRepositoryDatabase from '#app/core/exploration/player/report/report.repository'
 import ExploreDungeonUseCase from '#app/core/exploration/use-cases/explore-dungeon.use-case'
 import PlayerSheetRepositoryDatabase from '#app/core/inscription/player-sheet/player-sheet.repository'
@@ -15,6 +15,7 @@ import AddItemsUseCase from '#app/core/preparation/use-cases/add-items.use-case'
 import GetBackUseCase from '#app/core/preparation/use-cases/get-backpack.use-case'
 import GetDungeonsUseCase from '#app/core/preparation/use-cases/get-dungeons.use-case'
 import GetItemsUseCase from '#app/core/preparation/use-cases/get-items.use-case'
+import { default as ScoreBoardPlayerRepositoryDatabase } from '#app/core/score-board/player/player.repository'
 import GetScoreboardUseCase from '#app/core/score-board/use-case/get-score-board'
 import DungeonModel from '#models/dungeon.model'
 import ItemModel from '#models/item.model'
@@ -29,7 +30,7 @@ const repositories = {
   exploration: {
     dungeonRepository: new ExplorationDungeonRepositoryDatabase(),
     reportRepository: new ReportRepositoryDatabase(),
-    playerRepository: new PlayerRepository(),
+    playerRepository: new ExplorationPlayerRepository(),
   },
   preparation: {
     dungeonRepository: new PreparationDungeonRepositoryDatabase(),
@@ -38,6 +39,9 @@ const repositories = {
   },
   inscription: {
     playerSheetRepository: new PlayerSheetRepositoryDatabase(),
+  },
+  scoreBoard: {
+    playerRepository: new ScoreBoardPlayerRepositoryDatabase(),
   },
 }
 
@@ -88,7 +92,7 @@ export const game: Game = {
     repositories.exploration.playerRepository,
     repositories.exploration.reportRepository
   ),
-  getScoreBoard: new GetScoreboardUseCase(),
+  getScoreBoard: new GetScoreboardUseCase(repositories.scoreBoard.playerRepository),
   addItems: new AddItemsUseCase(
     repositories.preparation.itemRepository,
     repositories.preparation.backpackRepository

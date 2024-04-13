@@ -61,7 +61,7 @@
     "@adonisjs/validator": "^13.0.2",
     "@adonisjs/vite": "^2.0.2",
     "@vinejs/vine": "^2.0.0",
-    "edge.js": "^6.0.1",
+    "edge.js": "^6.0.2",
     "luxon": "^3.4.4",
     "pg": "^8.11.5",
     "proxy-addr": "^2.0.7",

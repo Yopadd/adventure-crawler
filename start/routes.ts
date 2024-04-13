@@ -46,3 +46,5 @@ router
   .prefix('/preparation')
 
 router.get('/score-board', [ScoreBoardController])
+
+router.on('/').redirect('/score-board')

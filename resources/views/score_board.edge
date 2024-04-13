@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<htm>
+  <head></head>
+  <body>
+    <table>
+      <thead>
+        <th>Joueur</th>
+        <th>Score</th>
+      </thead>
+      <tbody>
+        @each(player in data)
+          <tr>
+            <td>{{ player.name }}</td>
+            <td>{{ player.score }}</td>
+          </tr>
+        @end
+      </tbody>
+    </table>
+    <p><i>Inscription :</i> <code>POST /inscription { name, password }</code></p>
+  </body>
+</htm>

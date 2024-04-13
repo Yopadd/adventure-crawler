@@ -1,3 +1,4 @@
+import Player from '#app/core/score-board/player/player'
 import ScoreBoard from '#app/core/score-board/score-board'
 
 interface GetScoreBoardUseCaseInput {
@@ -5,10 +6,15 @@ interface GetScoreBoardUseCaseInput {
   page: number
 }
 
-export default class GetScoreboardUseCase {
-  constructor() {}
+export interface PlayerRepository {
+  getAll(input: { limit: number; page: number }): Promise<Player[]>
+}
 
-  public async apply(_: GetScoreBoardUseCaseInput): Promise<ScoreBoard> {
-    return new ScoreBoard()
+export default class GetScoreboardUseCase {
+  constructor(private readonly playerRepository: PlayerRepository) {}
+
+  public async apply(input: GetScoreBoardUseCaseInput): Promise<ScoreBoard> {
+    const players = await this.playerRepository.getAll(input)
+    return new ScoreBoard(players)
   }
 }
