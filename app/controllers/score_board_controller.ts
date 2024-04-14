@@ -14,7 +14,6 @@ export default class ScoreBoardController {
 
     let data = await this.checkCache(payload)
     if (data === null) {
-      console.debug('Cache as expired')
       const tableScore = await game.getScoreBoard.apply(payload)
 
       data = tableScore.rows.map((row) => ({
