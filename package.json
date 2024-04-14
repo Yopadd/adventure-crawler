@@ -2,10 +2,13 @@
   "name": "esc-api",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": ">20.12.2"
+  },
   "scripts": {
     "dev": "node ace serve --watch",
     "build": "node ace build",
-    "start": "node bin/server.js",
+    "start": "node ./build/bin/server.js",
     "lint": "eslint . --ext=.ts",
     "format": "prettier --write .",
     "pretest": "node ace migration:run",
