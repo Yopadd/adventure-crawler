@@ -5,6 +5,10 @@ import { addItemsValidator, getItemsValidator } from '#validators/item'
 import type { HttpContext } from '@adonisjs/core/http'
 
 export default class PreparationController {
+  async index({ view }: HttpContext) {
+    return view.render('preparation')
+  }
+
   async addItems({ auth, request }: HttpContext) {
     const { itemNames } = await addItemsValidator.validate(request.all())
 

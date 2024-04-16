@@ -7,14 +7,20 @@ import db from '@adonisjs/lucid/services/db'
 export default class PlayerSheetRepositoryDatabase implements PlayerSheetRepository {
   public create(playerSheet: PlayerSheet) {
     return db.transaction(async (trx) => {
-      await PlayerModel.create(
+      await PlayerModel.firstOrCreate(
+        {
+          name: playerSheet.name.get(),
+        },
         {
           name: playerSheet.name.get(),
           password: playerSheet.password.get(),
         },
         { client: trx }
       )
-      await BackpackModel.create(
+      await BackpackModel.firstOrCreate(
+        {
+          playerName: playerSheet.name.get(),
+        },
         {
           playerName: playerSheet.name.get(),
         },

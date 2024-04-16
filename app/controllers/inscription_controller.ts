@@ -7,5 +7,6 @@ export default class InscriptionController {
     const payload = await addPlayerValidator.validate(request.all())
 
     await game.addPlayer.apply(payload)
+    return { message: 'Bienvenu aventurier, GET /preparation' }
   }
 }

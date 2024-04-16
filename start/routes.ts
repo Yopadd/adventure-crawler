@@ -42,6 +42,8 @@ router
           guards: ['basic'],
         })
       )
+
+    router.get('/', [PreparationController, 'index'])
   })
   .prefix('/preparation')
 

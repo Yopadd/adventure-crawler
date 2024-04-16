@@ -2,11 +2,9 @@ import { game } from '#app/core/game'
 import { getScoreBoardValidator } from '#validators/score_board'
 import { HttpContext } from '@adonisjs/core/http'
 import redis from '@adonisjs/redis/services/main'
-import { DateTime, Duration } from 'luxon'
 
 type Payload = Awaited<ReturnType<typeof getScoreBoardValidator.validate>>
 type Row = { name: string; score: number }
-type CacheData = { data: Row[]; expireAt: DateTime }
 
 export default class ScoreBoardController {
   async handle({ request, view, response }: HttpContext) {
@@ -34,31 +32,22 @@ export default class ScoreBoardController {
     const cacheRaw = await redis.get(this.payloadToCacheKey(payload))
     if (!cacheRaw) return null
     const cache = this.parseCacheData(cacheRaw)
-    if (cache.expireAt < DateTime.now()) return null
-    return cache.data
+    return cache
   }
 
   private async cache(payload: Payload, data: Row[]) {
-    await redis.set(
-      this.payloadToCacheKey(payload),
-      this.serializeCacheData({
-        data,
-        expireAt: DateTime.now().plus(Duration.fromMillis(60000)),
-      })
-    )
+    await redis.set(this.payloadToCacheKey(payload), this.serializeCacheData(data), 'EX', 5)
   }
 
   private payloadToCacheKey(payload: Payload): string {
     return `limit=${payload.limit};page=${payload.page}`
   }
 
-  private serializeCacheData(cache: CacheData): string {
-    return JSON.stringify({ data: cache.data, expireAt: cache.expireAt.toISO() })
+  private serializeCacheData(data: Row[]): string {
+    return JSON.stringify(data)
   }
 
-  private parseCacheData(value: string): CacheData {
-    const data = JSON.parse(value)
-    data.expireAt = DateTime.fromISO(data.expireAt)
-    return data
+  private parseCacheData(value: string): Row[] {
+    return JSON.parse(value)
   }
 }

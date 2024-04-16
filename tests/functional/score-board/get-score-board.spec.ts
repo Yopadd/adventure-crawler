@@ -2,7 +2,7 @@ import ReportModel from '#models/report.model'
 import env from '#start/env'
 import testUtils from '@adonisjs/core/services/test_utils'
 import { test } from '@japa/runner'
-import { randomUUID } from 'crypto'
+import { randomUUID } from 'node:crypto'
 
 test('get table score', async ({ client, expect }) => {
   await client.post('/install').bearerToken(env.get('APP_KEY'))
