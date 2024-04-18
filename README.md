@@ -1,15 +1,21 @@
+# Disclaimer
+
+Read the code can spoil your experience if you want play.
+
 # Getting started
 
 1. Install dependencies
 
 ```
-npm install
+pnpm install
 ```
 
 2. Run tests
 
 ```
-npm test
+docker compose up -d
+node ace migration:run
+pnpm test
 ```
 
 3. Start API
