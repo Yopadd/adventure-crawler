@@ -11,12 +11,12 @@ export default class CrossingLavaRiver extends EventBase<Player> {
   }
 
   public resolve(player: Player): Note {
-    let note = new Note(this.description.get())
+    const note = new Note(this.description.get())
     if (player.hasTag('fire resistance')) {
-      note = note.add(new Note("Heureusement, j'ai de quoi me protéger", 1))
+      note.add(new Note("Heureusement, j'ai de quoi me protéger", 1))
     }
     if (player.hasTag('hydration')) {
-      note = note.add(new Note("Un peu d'eau fraîche avec cette chaleur, un plaisir", 1))
+      note.add(new Note("Un peu d'eau fraîche avec cette chaleur, un plaisir", 1))
     }
     return note
   }
