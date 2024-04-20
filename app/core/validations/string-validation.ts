@@ -3,6 +3,7 @@ import ValidationError from '#app/core/errors/validation.error'
 interface StringValidationOptions {
   maxLength: number
   spaces?: boolean
+  exclude?: string[]
 }
 
 export abstract class StringValidation {
@@ -13,6 +14,7 @@ export abstract class StringValidation {
     private readonly options: StringValidationOptions = {
       maxLength: Number.POSITIVE_INFINITY,
       spaces: true,
+      exclude: [],
     }
   ) {
     const [isValid, errors] = this.validator(value)
@@ -24,14 +26,15 @@ export abstract class StringValidation {
 
   protected validator(value: string): [boolean, string[]] {
     const acc: [boolean, string[]] = [true, []]
-    return [this.maxLengthValidator(value), this.spacesValidator(value)].reduce(
-      (acc, [isValid, error]) => {
-        acc[0] = isValid
-        acc[1] = error ? [error, ...acc[1]] : acc[1]
-        return acc
-      },
-      acc
-    )
+    return [
+      this.maxLengthValidator(value),
+      this.excludeValidator(value),
+      this.spacesValidator(value),
+    ].reduce((acc, [isValid, error]) => {
+      acc[0] = isValid
+      acc[1] = error ? [error, ...acc[1]] : acc[1]
+      return acc
+    }, acc)
   }
 
   public get(): string {
@@ -53,6 +56,17 @@ export abstract class StringValidation {
   private spacesValidator(value: string): [boolean, string | undefined] {
     const allowSpaces = this.options.spaces ?? true
     const isValid = allowSpaces ? true : !value.includes(' ')
-    return [isValid, isValid ? undefined : `"${value}" doesn't contain spaces`]
+    return [isValid, isValid ? undefined : `"${value}" must not contain spaces`]
+  }
+
+  private excludeValidator(value: string): [boolean, string | undefined] {
+    if (!this.options.exclude) {
+      return [true, undefined]
+    }
+    const isInvalid = this.options.exclude.some((str) => value.includes(str))
+    return [
+      !isInvalid,
+      isInvalid ? `"${value}" must not contain ${this.options.exclude.join(', ')}` : undefined,
+    ]
   }
 }
