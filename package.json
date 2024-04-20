@@ -16,7 +16,7 @@
     "infra:up": "docker compose up -d",
     "infra:down": "docker compose down -v",
     "typecheck": "tsc --noEmit",
-    "psql": "psql --host localhost --username postgres --dbname postgres"
+    "psql": "psql --host localhost --username lucid --dbname esc-api"
   },
   "eslintConfig": {
     "extends": [
