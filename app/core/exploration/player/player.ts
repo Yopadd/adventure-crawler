@@ -28,6 +28,10 @@ export default class Player implements Explorer {
   public countTag(tag: Tag): number {
     return this.backpack.countTag(tag)
   }
+
+  public getAllTags(): Tag[] {
+    return this.backpack.getAllTags()
+  }
 }
 
 export class PlayerName extends StringValidation {

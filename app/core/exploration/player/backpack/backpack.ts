@@ -29,4 +29,8 @@ export default class Backpack implements EventResolver {
   public countTag(tag: Tag): number {
     return this._items.filter((item) => item.tags.has(tag)).length
   }
+
+  public getAllTags(): Tag[] {
+    return this._items.flatMap((item) => [...item.tags])
+  }
 }

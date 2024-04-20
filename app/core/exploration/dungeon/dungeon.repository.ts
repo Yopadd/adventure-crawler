@@ -1,11 +1,12 @@
 import Dungeon, { DungeonName } from '#app/core/exploration/dungeon/dungeon'
 import CrossingLavaRiver from '#app/core/exploration/dungeon/events/crossing-lava-river'
+import ItemChallenge from '#app/core/exploration/dungeon/events/item-challenge'
 import Shop from '#app/core/exploration/dungeon/events/shop'
 import Thief from '#app/core/exploration/dungeon/events/thief'
 import { DungeonRepository } from '#app/core/exploration/use-cases/explore-dungeon.use-case'
 import { EventName } from '#app/core/install/event/event'
 import DungeonModel from '#models/dungeon.model'
-import { match } from 'ts-pattern'
+import { match, P } from 'ts-pattern'
 
 export default class DungeonRepositoryDatabase implements DungeonRepository {
   public async getByName(name: string) {
@@ -21,6 +22,10 @@ export default class DungeonRepositoryDatabase implements DungeonRepository {
       .with('Crossing Lava River', () => new CrossingLavaRiver())
       .with('Shop', () => new Shop())
       .with('Thief', () => new Thief())
+      .with(P.string.startsWith('Item Challenge'), (name) => {
+        const challenge = Number.parseInt(name.split(':')[1])
+        return new ItemChallenge(challenge)
+      })
       .exhaustive()
   }
 }
