@@ -21,16 +21,15 @@ export abstract class NumberValidation {
       max: Number.POSITIVE_INFINITY,
     }
   ) {
-    if (options.max) {
-      this.options.max = options.max
-    }
-    if (options.min) {
+    if (options.min !== undefined) {
       this.options.min = options.min
+    }
+    if (options.max !== undefined) {
+      this.options.max = options.max
     }
     if (options.safe) {
       this.options.safe = true
-      if (value < this.options.min) value = this.options.min
-      if (value > this.options.max) value = this.options.max
+      value = this.applySafe(value)
     }
 
     if (!this.isValid(value)) {
@@ -41,11 +40,26 @@ export abstract class NumberValidation {
     this.value = value
   }
 
-  protected isValid(value: number) {
+  protected isValid(value: number): boolean {
     return value >= this.options.min && value <= this.options.max
   }
 
   public get(): number {
     return this.value
+  }
+
+  public add(value: NumberValidation) {
+    let newValue = value.get() + this.value
+    if (this.options.safe) {
+      newValue = this.applySafe(newValue)
+    }
+    this.value = newValue
+    return this
+  }
+
+  private applySafe(value: number): number {
+    if (value < this.options.min) value = this.options.min
+    if (value > this.options.max) value = this.options.max
+    return value
   }
 }

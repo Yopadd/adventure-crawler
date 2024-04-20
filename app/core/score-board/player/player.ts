@@ -19,6 +19,6 @@ export class PlayerName extends StringValidation {
 
 export class PlayerScore extends NumberValidation {
   constructor(value: number) {
-    super(value, { min: 0, max: Number.MAX_SAFE_INTEGER })
+    super(value, { min: 0 })
   }
 }
