@@ -1,4 +1,4 @@
-import EventBase from '#app/core/exploration/dungeon/events/event-base'
+import EventBase from '#app/core/exploration/dungeon/event-base'
 import Player from '#app/core/exploration/player/player'
 import Note from '#app/core/exploration/player/report/note/note'
 
