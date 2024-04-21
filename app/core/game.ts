@@ -18,6 +18,7 @@ import GetItemsUseCase from '#app/core/preparation/use-cases/get-items.use-case'
 import { default as ScoreBoardPlayerRepositoryDatabase } from '#app/core/score-board/player/player.repository'
 import GetScoreboardUseCase from '#app/core/score-board/use-case/get-score-board'
 import { UnitOfWorkLucid } from '#app/core/unit-of-work/unit-of-work'
+import BackpackModel from '#models/backpack.model'
 import DungeonModel from '#models/dungeon.model'
 import ItemModel from '#models/item.model'
 import PlayerModel from '#models/player.model'
@@ -82,6 +83,7 @@ async function uninstall(): Promise<void> {
     ReportModel.truncate(true),
     PlayerModel.truncate(true),
     ItemModel.truncate(true),
+    BackpackModel.truncate(true),
   ])
 }
 

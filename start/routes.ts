@@ -15,8 +15,10 @@ const ScoreBoardController = () => import('#controllers/score_board_controller')
 const ExploreDungeonController = () => import('#controllers/explore_dungeon_controller')
 const InscriptionController = () => import('#controllers/inscription_controller')
 const InstallController = () => import('#controllers/install_controller')
+const UninstallController = () => import('#controllers/uninstall_controller')
 
 router.post('/install', [InstallController]).use(middleware.adminGuard())
+router.post('/uninstall', [UninstallController]).use(middleware.adminGuard())
 
 router.post('/inscription', [InscriptionController])
 
