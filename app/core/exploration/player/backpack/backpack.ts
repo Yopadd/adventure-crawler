@@ -5,7 +5,7 @@ import { Tag } from '#app/core/install/tag/tag'
 
 export default class Backpack implements EventResolver {
   private readonly size = 5
-  private readonly _items: Item[]
+  private _items: Item[]
 
   constructor(items: Item[] = []) {
     this._items = items
@@ -32,5 +32,9 @@ export default class Backpack implements EventResolver {
 
   public getAllTags(): Tag[] {
     return this._items.flatMap((item) => [...item.tags])
+  }
+
+  public empty(): void {
+    this._items = []
   }
 }

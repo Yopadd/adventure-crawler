@@ -11,6 +11,7 @@ export default class Thief extends EventBase<Player> {
     if (player.hasTag('weapon')) {
       return new Note("J'ai de quoi me défendre !", 1)
     }
+    player.backpack.empty()
     return new Note("Il m'a tout pris !", 0)
   }
 }

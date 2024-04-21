@@ -6,16 +6,29 @@ import { Tag } from '#app/core/install/tag/tag'
 import BackpackModel from '#models/backpack.model'
 import ItemModel from '#models/item.model'
 import PlayerModel from '#models/player.model'
+import { TransactionClientContract } from '@adonisjs/lucid/types/database'
 
 export default class PlayerRepositoryDatabase implements PlayerRepository {
-  public async getByName(name: string): Promise<Player> {
-    const model = await PlayerModel.query()
+  public async getByName(name: string, transaction: TransactionClientContract): Promise<Player> {
+    const model = await PlayerModel.query({ client: transaction })
       .preload('backpack', (backpackQuery) => {
         backpackQuery.preload('items')
       })
       .where('name', name)
       .firstOrFail()
     return PlayerRepositoryDatabase.toPlayer(model)
+  }
+
+  public async save(player: Player, transaction: TransactionClientContract): Promise<void> {
+    const model = await PlayerModel.query({ client: transaction })
+      .preload('backpack', (backpackQuery) => {
+        backpackQuery.preload('items')
+      })
+      .where('name', player.name.get())
+      .firstOrFail()
+
+    const itemsName = player.backpack.items.map((item) => item.name.get())
+    await model.backpack.related('items').sync(itemsName)
   }
 
   private static toPlayer(model: PlayerModel): Player {

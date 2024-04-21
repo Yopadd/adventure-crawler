@@ -11,7 +11,7 @@ export default class Player implements Explorer {
 
   constructor(
     name: string,
-    private readonly backpack: Backpack
+    public readonly backpack: Backpack
   ) {
     this.name = new PlayerName(name)
   }
@@ -42,11 +42,7 @@ export class PlayerName extends StringValidation {
 
 export class PlayerScore extends NumberValidation {
   constructor(score: number) {
-    super(score >= 0 ? score : 0, { min: 0, max: Number.POSITIVE_INFINITY })
-  }
-
-  public add(score: PlayerScore): PlayerScore {
-    return new PlayerScore(score.value + this.value)
+    super(score, { min: 0, safe: true })
   }
 
   public static Zero = new PlayerScore(0)

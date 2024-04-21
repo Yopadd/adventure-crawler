@@ -17,6 +17,7 @@ import GetDungeonsUseCase from '#app/core/preparation/use-cases/get-dungeons.use
 import GetItemsUseCase from '#app/core/preparation/use-cases/get-items.use-case'
 import { default as ScoreBoardPlayerRepositoryDatabase } from '#app/core/score-board/player/player.repository'
 import GetScoreboardUseCase from '#app/core/score-board/use-case/get-score-board'
+import { UnitOfWorkLucid } from '#app/core/unit-of-work/unit-of-work'
 import DungeonModel from '#models/dungeon.model'
 import ItemModel from '#models/item.model'
 import PlayerModel from '#models/player.model'
@@ -43,6 +44,7 @@ const repositories = {
   scoreBoard: {
     playerRepository: new ScoreBoardPlayerRepositoryDatabase(),
   },
+  unitOfWork: new UnitOfWorkLucid(),
 }
 
 export interface ApplicationOptions {}
@@ -90,7 +92,8 @@ export const game: Game = {
   exploreDungeon: new ExploreDungeonUseCase(
     repositories.exploration.dungeonRepository,
     repositories.exploration.playerRepository,
-    repositories.exploration.reportRepository
+    repositories.exploration.reportRepository,
+    repositories.unitOfWork
   ),
   getScoreBoard: new GetScoreboardUseCase(repositories.scoreBoard.playerRepository),
   addItems: new AddItemsUseCase(
