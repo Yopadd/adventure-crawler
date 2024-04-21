@@ -37,4 +37,8 @@ export default class Backpack implements EventResolver {
   public empty(): void {
     this._items = []
   }
+
+  public removeAllFromTag(tag: Tag) {
+    this._items = this._items.filter((item) => item.tags.has(tag))
+  }
 }

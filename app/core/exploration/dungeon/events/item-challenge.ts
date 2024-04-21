@@ -8,7 +8,9 @@ export default class ItemChallenge extends EventBase<Player> {
   private readonly challenge: ItemChallengeNumber
 
   constructor(challenge: number) {
-    super(`Item Challenge:${challenge}`, challenge.toString())
+    const c = new ItemChallengeNumber(challenge)
+    super(`Item Challenge:${c.get()}`, challenge.toString())
+    this.challenge = c
   }
 
   public resolve(player: Player): Note {

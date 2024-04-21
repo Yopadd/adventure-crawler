@@ -3,6 +3,7 @@ import { DungeonEvent, DungeonEventDescription } from '#app/core/exploration/dun
 import { EventResolver } from '#app/core/exploration/player/event-resolver'
 import Note from '#app/core/exploration/player/report/note/note'
 import { EventName } from '#app/core/install/event/event'
+import { randomInt } from 'node:crypto'
 
 export default abstract class EventBase<T extends EventResolver> implements DungeonEvent<T> {
   public readonly description: DungeonEventDescription
@@ -23,5 +24,10 @@ export default abstract class EventBase<T extends EventResolver> implements Dung
 
   public resolve(_: T): Note {
     return Note.Empty
+  }
+
+  static RandomPick<T>(arr: T[]): T {
+    const index = randomInt(0, arr.length - 1)
+    return arr[index]
   }
 }

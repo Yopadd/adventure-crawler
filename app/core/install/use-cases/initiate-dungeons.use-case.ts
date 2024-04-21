@@ -1,5 +1,7 @@
 import ItemChallenge from '#app/core/exploration/dungeon/events/item-challenge'
 import Dungeon from '#app/core/install/dungeon/dungeon'
+import { EventName } from '#app/core/install/event/event'
+import { createHash, randomInt } from 'crypto'
 
 export interface DungeonRepository {
   createMany(dungeons: Dungeon[]): Promise<void>
@@ -12,8 +14,9 @@ export default class InitiateDungeonsUseCase {
   public async apply() {
     await this.dungeonRepository.createMany([
       new Dungeon('Volcania', ['Crossing Lava River']),
-      new Dungeon('Market', ['Shop', 'Thief']),
+      new Dungeon('Market', ['Thief', 'Collector']),
       ...randomItemChallengeDungeons(5),
+      ...randomThreeEventsDungeons(5),
     ])
   }
 }
@@ -25,8 +28,36 @@ function randomItemChallengeDungeons(count: number) {
   }, count)
 }
 
-function* dungeonFactory(factory: () => Dungeon, n: number): Generator<Dungeon> {
-  for (let i = 0; i < n; i++) {
+function randomThreeEventsDungeons(count: number) {
+  return dungeonFactory(() => {
+    const events: EventName[] = [
+      'Cliff',
+      'Collector',
+      'Crossing Lava River',
+      'Thief',
+      'Tunnel In The Dark',
+      'Vampire',
+      'Fire Camp',
+      `Wolfs:${randomInt(1, 3)}`,
+    ]
+    const [event1] = events.splice(randomInt(0, events.length - 1), 1)
+    const [event2] = events.splice(randomInt(0, events.length - 1), 1)
+    const [event3] = events.splice(randomInt(0, events.length - 1), 1)
+    const dungeonName = createHash('md5')
+      .update(event1 + event2 + event3 + Math.random())
+      .digest('base64')
+      .substring(0, 15)
+      .replaceAll(/[0-9]/g, '-')
+      .replaceAll('--', '-')
+      .replaceAll('+', '-Darkness-')
+      .replaceAll('/', '-Dead-')
+      .replaceAll('--', '-')
+    return new Dungeon(dungeonName, [event1, event2, event3])
+  }, count)
+}
+
+function* dungeonFactory(factory: () => Dungeon, count: number): Generator<Dungeon> {
+  for (let i = 0; i < count; i++) {
     yield factory()
   }
 }
