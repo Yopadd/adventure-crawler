@@ -8,7 +8,17 @@ export const addItemsValidator = vine.compile(
 
 export const getItemsValidator = vine.compile(
   vine.object({
-    limit: vine.number().withoutDecimals().min(0).max(1000),
-    page: vine.number().withoutDecimals().min(0).max(10_000),
+    limit: vine
+      .number()
+      .withoutDecimals()
+      .min(0)
+      .max(1000)
+      .parse((page) => page ?? 10),
+    page: vine
+      .number()
+      .withoutDecimals()
+      .min(0)
+      .max(10_000)
+      .parse((page) => page ?? 1),
   })
 )
