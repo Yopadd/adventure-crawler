@@ -10,11 +10,11 @@ export default class PreparationController {
   }
 
   async addItems({ auth, request }: HttpContext) {
-    const { itemNames } = await addItemsValidator.validate(request.all())
+    const { itemsName } = await addItemsValidator.validate(request.all())
 
     await game.addItems.apply({
       playerName: auth.user!.name,
-      itemNames: itemNames.map((name) => new ItemName(name)),
+      itemsName: itemsName.map((name) => new ItemName(name)),
     })
   }
 

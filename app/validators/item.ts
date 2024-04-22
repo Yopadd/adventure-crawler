@@ -2,7 +2,7 @@ import vine from '@vinejs/vine'
 
 export const addItemsValidator = vine.compile(
   vine.object({
-    itemNames: vine.array(vine.string()),
+    itemsName: vine.array(vine.string()),
   })
 )
 

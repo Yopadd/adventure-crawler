@@ -1,7 +1,7 @@
 import Item, { ItemName } from '#app/core/preparation/item/item'
 
 interface AddItemUseCaseInput {
-  itemNames: ItemName[]
+  itemsName: ItemName[]
   playerName: string
 }
 
@@ -20,7 +20,7 @@ export default class AddItemsUseCase {
   ) {}
 
   public async apply(input: AddItemUseCaseInput): Promise<void> {
-    for await (const item of input.itemNames.map((item) => this.itemRepository.getByName(item))) {
+    for await (const item of input.itemsName.map((item) => this.itemRepository.getByName(item))) {
       await this.backpackRepository.add(input.playerName, item)
     }
   }
