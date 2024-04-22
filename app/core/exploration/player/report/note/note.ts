@@ -23,8 +23,8 @@ export default class Note {
     this._score = score
   }
 
-  public add(note: Note): Note {
-    this._comment.join(note._comment)
+  public add(note: Note, separator?: string): Note {
+    this._comment.join(note._comment, separator)
     this._score += note._score
     return this
   }

@@ -8,15 +8,19 @@ export default class Cliff extends EventBase<Player> {
   }
 
   public resolve(player: Player): Note {
+    const note = super.resolve(player)
     if (player.countTag('climbing') > 1) {
-      return new Note(
-        "C'est pas un soucis, l’ascension devrait-être facile",
-        player.countTag('climbing') + 1
+      note.add(
+        new Note(
+          "C'est pas un soucis, l’ascension devrait-être facile",
+          player.countTag('climbing') + 1
+        )
       )
+    } else if (player.countTag('climbing') === 1) {
+      note.add(new Note("Je devrai pouvoir m'en sortir, mais l'ascension ne sera pas facile", 1))
+    } else {
+      note.add(new Note('Je ferais mieux de trouver un nouveau passage'))
     }
-    if (player.countTag('climbing') === 1) {
-      return new Note("Je devrai pouvoir m'en sortir, mais l'ascension ne sera pas facile", 1)
-    }
-    return new Note('Je ferais mieux de trouver un nouveau passage')
+    return note
   }
 }

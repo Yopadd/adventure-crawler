@@ -13,20 +13,27 @@ export default class Wolfs extends EventBase<Player> {
   }
 
   public resolve(player: Player): Note {
+    const note = super.resolve(player)
     if (!player.hasTag('weapon')) {
-      return new Note("Fuir ! C'est la seul chose que je puise faire !")
+      note.add(new Note("Fuir ! C'est la seul chose que je puise faire !"))
+      return note
     }
     if (player.countTag('weapon') === this.wolfsCount.get()) {
-      return new Note(
-        this.wolfsCount.get() > 1
-          ? 'Je suis suffisamment armé pour leurs tenir tête'
-          : 'Je suis suffisamment armé pour lui tenir tête',
-        this.wolfsCount.get() * 2
+      note.add(
+        new Note(
+          this.wolfsCount.get() > 1
+            ? 'Je suis suffisamment armé pour leurs tenir tête'
+            : 'Je suis suffisamment armé pour lui tenir tête',
+          this.wolfsCount.get() * 2
+        )
       )
+      return note
     }
-    const note = new Note(
-      'Il sont trop nombreux pour moi... Je peux peut-être les calmer avec un peu de nourriture',
-      player.countTag('weapon')
+    note.add(
+      new Note(
+        'Il sont trop nombreux pour moi... Je peux peut-être les calmer avec un peu de nourriture',
+        player.countTag('weapon')
+      )
     )
     if (!player.hasTag('food')) {
       player.backpack.removeAllFromTag('food')

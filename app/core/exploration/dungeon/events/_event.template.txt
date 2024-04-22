@@ -11,6 +11,7 @@ export default class MyEvent extends EventBase<Player> {
   }
 
   public resolve(player: Player): Note {
-    return Note.Empty
+    const note = super.resolve(player)
+    return note
   }
 }

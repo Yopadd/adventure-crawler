@@ -17,7 +17,8 @@ export default class ItemChallenge extends EventBase<Player> {
     const str = player.getAllTags().join('').replaceAll(' ', '')
 
     const n = ItemChallenge.computeScore(str)
-    const score = this.challenge.get() - Math.abs(this.challenge.get() - n)
+    const result = this.challenge.get() - Math.abs(this.challenge.get() - n)
+    const score = result > 10 ? 10 : result
 
     return new Note(score.toString(), score)
   }

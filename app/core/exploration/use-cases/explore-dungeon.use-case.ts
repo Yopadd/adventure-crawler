@@ -10,7 +10,7 @@ export interface ExploreDungeonUseCaseInput {
 
 export type ExploreDungeonUseCaseOutput = {
   score: number
-  note: string
+  report: string
 }
 
 export interface DungeonRepository {
@@ -44,7 +44,7 @@ export default class ExploreDungeonUseCase {
 
       return {
         score: report.score.get(),
-        note: report.comment.get(),
+        report: report.comment.get(),
       }
     })
   }

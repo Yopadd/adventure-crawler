@@ -8,10 +8,13 @@ export default class Thief extends EventBase<Player> {
   }
 
   public resolve(player: Player): Note {
+    const note = super.resolve(player)
     if (player.hasTag('weapon')) {
-      return new Note("J'ai de quoi me défendre !", 1)
+      note.add(new Note("J'ai de quoi me défendre !", 1))
+    } else {
+      player.backpack.empty()
+      note.add(new Note("Il m'a tout pris !", 0))
     }
-    player.backpack.empty()
-    return new Note("Il m'a tout pris !", 0)
+    return note
   }
 }

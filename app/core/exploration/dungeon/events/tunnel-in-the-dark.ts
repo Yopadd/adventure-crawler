@@ -8,9 +8,14 @@ export default class TunnelInTheDark extends EventBase<Player> {
   }
 
   public resolve(player: Player): Note {
+    const note = super.resolve(player)
     if (player.hasTag('light')) {
-      return new Note("J'ai de quoi m'éclairer", 1)
+      note.add(new Note("J'ai de quoi m'éclairer", 1))
+    } else {
+      note.add(
+        new Note("Je ferais mieux de ne pas m'aventurer ici, je vais chercher un autre chemin")
+      )
     }
-    return new Note("Je ferais mieux de ne pas m'aventurer ici, je vais chercher un autre chemin")
+    return note
   }
 }

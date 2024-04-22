@@ -9,12 +9,16 @@ export default class Vampire extends EventBase<Player> {
   }
 
   public resolve(player: Player): Note {
+    const note = super.resolve(player)
     if (!player.hasTag('light')) {
-      return new Note("Je ne vois rien dans cette obscurité... Mais qu'es ce que !", 0)
+      note.add(new Note("Je ne vois rien dans cette obscurité... Mais qu'es ce que !", 0))
+      return note
     }
-    let note = new Note(
-      "J'ai de quoi m'éclairer, je vais pouvoir avancer... Je crois avoir vu quelque chose bouger !",
-      1
+    note.add(
+      new Note(
+        "J'ai de quoi m'éclairer, je vais pouvoir avancer... Je crois avoir vu quelque chose bouger !",
+        1
+      )
     )
     if (!(player.hasTag('armor') && player.hasTag('weapon'))) {
       note.add(new Note("Un vampire ! il est rapide, je n'ai aucune chance contre lui !", 0))

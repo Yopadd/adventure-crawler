@@ -17,6 +17,7 @@ test('Explore dungeon with no item in backpack player', async ({ client, expect 
   expect(response.status()).toBe(200)
   expect(response.body()).toEqual({
     score: 0,
+    report: expect.any(String),
   })
 }).setup(() => testUtils.db().truncate())
 
@@ -52,6 +53,7 @@ test('Explore dungeon with a goods items in backpack and increase score', async 
   expect(response.status()).toBe(200)
   expect(response.body()).toEqual({
     score: 1,
+    report: expect.any(String),
   })
 
   // Put Water Bottle in backpack
@@ -68,6 +70,7 @@ test('Explore dungeon with a goods items in backpack and increase score', async 
   expect(response.status()).toBe(200)
   expect(response.body()).toEqual({
     score: 2,
+    report: expect.any(String),
   })
 }).setup(() => testUtils.db().truncate())
 

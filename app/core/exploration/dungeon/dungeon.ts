@@ -13,7 +13,7 @@ export default class Dungeon<T extends EventResolver = Player> {
   public resolve(resolver: T): Note {
     return this.events.length === 0
       ? Note.Empty
-      : this.events.reduce((acc, event) => event.resolve(resolver).add(acc), Note.Empty)
+      : this.events.reduce((acc, event) => event.resolve(resolver).add(acc, '\n'), Note.Empty)
   }
 }
 

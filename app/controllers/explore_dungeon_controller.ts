@@ -10,6 +10,6 @@ export default class ExploreDungeonController {
       playerName,
     })
 
-    return { score: exploreResult.score }
+    return { score: exploreResult.score, report: exploreResult.report }
   }
 }
