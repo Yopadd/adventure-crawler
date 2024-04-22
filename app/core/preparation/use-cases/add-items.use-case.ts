@@ -6,11 +6,11 @@ interface AddItemUseCaseInput {
 }
 
 export interface ItemRepository {
-  getByName(name: ItemName): Promise<Item>
+  getByName(...names: ItemName[]): Promise<Item[]>
 }
 
 export interface BackpackRepository {
-  add(playerName: string, item: Item): Promise<void>
+  add(playerName: string, items: Item[]): Promise<void>
 }
 
 export default class AddItemsUseCase {
@@ -20,8 +20,7 @@ export default class AddItemsUseCase {
   ) {}
 
   public async apply(input: AddItemUseCaseInput): Promise<void> {
-    for await (const item of input.itemsName.map((item) => this.itemRepository.getByName(item))) {
-      await this.backpackRepository.add(input.playerName, item)
-    }
+    const items = await this.itemRepository.getByName(...input.itemsName)
+    await this.backpackRepository.add(input.playerName, items)
   }
 }

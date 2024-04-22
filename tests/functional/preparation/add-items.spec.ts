@@ -22,7 +22,14 @@ test('add item', async ({ client, expect }) => {
   response = await client
     .post(`/preparation/player/backpack`)
     .basicAuth(name, password)
-    .json({ itemNames: items })
+    .json({ itemsName: items })
+  expect(response.status()).toBe(200)
+
+  // Test idempotence
+  response = await client
+    .post(`/preparation/player/backpack`)
+    .basicAuth(name, password)
+    .json({ itemsName: items })
   expect(response.status()).toBe(200)
 
   response = await client.get(`/preparation/player/backpack`).basicAuth(name, password)

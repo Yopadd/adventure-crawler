@@ -39,7 +39,7 @@ test('Explore dungeon with a goods items in backpack and increase score', async 
   await client
     .post(`/preparation/player/backpack`)
     .basicAuth(name, password)
-    .json({ itemNames: [items.at(0).name] })
+    .json({ itemsName: [items.at(0).name] })
 
   const dungeonsResp = await client.get('/preparation/dungeons').qs({ limit: 1, page: 1 })
   const dungeons = dungeonsResp.body()
@@ -58,7 +58,7 @@ test('Explore dungeon with a goods items in backpack and increase score', async 
   await client
     .post(`/preparation/player/backpack`)
     .basicAuth(name, password)
-    .json({ itemNames: [items.at(1).name] })
+    .json({ itemsName: items.map((item: any) => item.name) })
 
   // Re-explore first dungeon with Fire Potion and Water Bottle
   response = await client

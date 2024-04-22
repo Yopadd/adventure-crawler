@@ -9,9 +9,9 @@ export default class ItemRepositoryDatabase implements GetAllItems, GetByName {
     return pagination.all().map(ItemRepositoryDatabase.toItem)
   }
 
-  async getByName(name: ItemName): Promise<Item> {
-    const model = await ItemModel.findOrFail(name.get())
-    return ItemRepositoryDatabase.toItem(model)
+  async getByName(...names: ItemName[]): Promise<Item[]> {
+    const models = await ItemModel.findMany(names.map((name) => name.get()))
+    return models.map(ItemRepositoryDatabase.toItem)
   }
 
   private static toItem(model: ItemModel): Item {
