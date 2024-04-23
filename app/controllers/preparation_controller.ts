@@ -43,6 +43,7 @@ export default class PreparationController {
     const items = await game.getItems.apply(payload)
     return items.map((item) => ({
       name: item.name.get(),
+      description: item.description.get(),
     }))
   }
 }

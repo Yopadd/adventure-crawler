@@ -15,6 +15,7 @@ test('get item list', async ({ client, expect }) => {
   response.body().forEach((item: unknown) => {
     expect(item).toEqual({
       name: expect.any(String),
+      description: expect.any(String),
     })
   })
 }).setup(() => testUtils.db().truncate())

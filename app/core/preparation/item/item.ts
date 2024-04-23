@@ -2,7 +2,13 @@ import { NumberValidation } from '#app/core/validations/number-validation'
 import { StringValidation } from '#app/core/validations/string-validation'
 
 export default class Item {
-  constructor(public readonly name: ItemName) {}
+  public readonly name: ItemName
+  public readonly description: ItemDescription
+
+  constructor(input: { name: string; description: string }) {
+    this.name = new ItemName(input.name)
+    this.description = new ItemDescription(input.description)
+  }
 }
 
 export class ItemName extends StringValidation {
@@ -31,5 +37,11 @@ export class ItemPageNumber extends NumberValidation {
       max: Number.POSITIVE_INFINITY,
       min: 1,
     })
+  }
+}
+
+export class ItemDescription extends StringValidation {
+  constructor(description: string) {
+    super(description, { maxLength: 300 })
   }
 }

@@ -1,5 +1,5 @@
 import { Backpack } from '#app/core/preparation/backpack/backpack'
-import Item, { ItemName } from '#app/core/preparation/item/item'
+import Item from '#app/core/preparation/item/item'
 import { BackpackRepository as AddItems } from '#app/core/preparation/use-cases/add-items.use-case'
 import { BackpackRepository as Get } from '#app/core/preparation/use-cases/get-backpack.use-case'
 import BackpackModel from '#models/backpack.model'
@@ -24,6 +24,6 @@ export class BackPackRepositoryDatabase implements Get, AddItems {
   }
 
   private static toItem(model: ItemModel): Item {
-    return new Item(new ItemName(model.name))
+    return new Item(model)
   }
 }

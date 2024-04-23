@@ -15,6 +15,6 @@ export default class ItemRepositoryDatabase implements GetAllItems, GetByName {
   }
 
   private static toItem(model: ItemModel): Item {
-    return new Item(new ItemName(model.name))
+    return new Item(model)
   }
 }
