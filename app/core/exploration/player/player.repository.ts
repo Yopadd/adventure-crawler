@@ -9,8 +9,8 @@ import PlayerModel from '#models/player.model'
 import { TransactionClientContract } from '@adonisjs/lucid/types/database'
 
 export default class PlayerRepositoryDatabase implements PlayerRepository {
-  public async getByName(name: string, transaction: TransactionClientContract): Promise<Player> {
-    const model = await PlayerModel.query({ client: transaction })
+  public async getByName(name: string, client: TransactionClientContract): Promise<Player> {
+    const model = await PlayerModel.query({ client })
       .preload('backpack', (backpackQuery) => {
         backpackQuery.preload('items')
       })
@@ -19,8 +19,8 @@ export default class PlayerRepositoryDatabase implements PlayerRepository {
     return PlayerRepositoryDatabase.toPlayer(model)
   }
 
-  public async save(player: Player, transaction: TransactionClientContract): Promise<void> {
-    const model = await PlayerModel.query({ client: transaction })
+  public async save(player: Player, client: TransactionClientContract): Promise<void> {
+    const model = await PlayerModel.query({ client })
       .preload('backpack', (backpackQuery) => {
         backpackQuery.preload('items')
       })

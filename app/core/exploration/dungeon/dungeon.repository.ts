@@ -11,11 +11,12 @@ import Wolfs from '#app/core/exploration/dungeon/events/wolfs'
 import { DungeonRepository } from '#app/core/exploration/use-cases/explore-dungeon.use-case'
 import { EventName } from '#app/core/install/event/event'
 import DungeonModel from '#models/dungeon.model'
+import { TransactionClientContract } from '@adonisjs/lucid/types/database'
 import { match, P } from 'ts-pattern'
 
 export default class DungeonRepositoryDatabase implements DungeonRepository {
-  public async getByName(name: string) {
-    const model = await DungeonModel.findOrFail(name)
+  public async getByName(name: string, client: TransactionClientContract) {
+    const model = await DungeonModel.findOrFail(name, { client })
     return new Dungeon(
       new DungeonName(model.name),
       model.events.split(';').map(DungeonRepositoryDatabase.toDungeonEvent)

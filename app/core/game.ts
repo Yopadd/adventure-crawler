@@ -100,7 +100,8 @@ export const game: Game = {
   getScoreBoard: new GetScoreboardUseCase(repositories.scoreBoard.playerRepository),
   addItems: new AddItemsUseCase(
     repositories.preparation.itemRepository,
-    repositories.preparation.backpackRepository
+    repositories.preparation.backpackRepository,
+    repositories.unitOfWork
   ),
   getItems: new GetItemsUseCase(repositories.preparation.itemRepository),
   getDungeons: new GetDungeonsUseCase(repositories.preparation.dungeonRepository),
