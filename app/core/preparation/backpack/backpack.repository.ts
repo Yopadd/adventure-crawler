@@ -14,9 +14,9 @@ export class BackPackRepositoryDatabase implements Get, AddItems {
     return BackPackRepositoryDatabase.toBackpack(model)
   }
 
-  async add(playerName: string, items: Item[]): Promise<void> {
+  async save(playerName: string, backpack: Backpack): Promise<void> {
     const model = await BackpackModel.findOrFail(playerName)
-    await model.related('items').sync(items.map((item) => item.name.get()))
+    await model.related('items').sync(backpack.getItems().map((item) => item.name.get()))
   }
 
   private static toBackpack(model: BackpackModel): Backpack {

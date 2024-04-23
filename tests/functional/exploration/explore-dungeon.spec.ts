@@ -90,7 +90,7 @@ test("explore dungeon that interact with player's backpack", async ({ client, ex
   await client
     .post(`/preparation/player/backpack`)
     .basicAuth(name, password)
-    .json({ itemNames: [items.at(0).name] })
+    .json({ itemsName: [items.at(0).name] })
 
   // Explore dungeon
   const dungeonsResp = await client.get('/preparation/dungeons').qs({ limit: 2, page: 1 })

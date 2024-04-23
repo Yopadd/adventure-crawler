@@ -1,5 +1,7 @@
 import { game } from '#app/core/game'
+import BackpackFullError from '#app/core/preparation/backpack/backpack-full.error'
 import { ItemName } from '#app/core/preparation/item/item'
+import ForbiddenException from '#exceptions/forbidden_exception'
 import { getDungeonsValidator } from '#validators/dungeon'
 import { addItemsValidator, getItemsValidator } from '#validators/item'
 import type { HttpContext } from '@adonisjs/core/http'
@@ -12,10 +14,17 @@ export default class PreparationController {
   async addItems({ auth, request }: HttpContext) {
     const { itemsName } = await addItemsValidator.validate(request.all())
 
-    await game.addItems.apply({
-      playerName: auth.user!.name,
-      itemsName: itemsName.map((name) => new ItemName(name)),
-    })
+    try {
+      await game.addItems.apply({
+        playerName: auth.user!.name,
+        itemsName: itemsName.map((name) => new ItemName(name)),
+      })
+    } catch (err) {
+      if (err instanceof BackpackFullError) {
+        throw new ForbiddenException(err.message)
+      }
+      throw err
+    }
   }
 
   async openBackpack({ auth }: HttpContext) {
