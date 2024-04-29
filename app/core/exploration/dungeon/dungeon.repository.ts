@@ -2,6 +2,7 @@ import Dungeon, { DungeonName } from '#app/core/exploration/dungeon/dungeon'
 import Cliff from '#app/core/exploration/dungeon/events/cliff'
 import Collector from '#app/core/exploration/dungeon/events/collector'
 import CrossingLavaRiver from '#app/core/exploration/dungeon/events/crossing-lava-river'
+import Dragon from '#app/core/exploration/dungeon/events/dragon'
 import FireCamp from '#app/core/exploration/dungeon/events/fire-camp'
 import ItemChallenge from '#app/core/exploration/dungeon/events/item-challenge'
 import Thief from '#app/core/exploration/dungeon/events/thief'
@@ -40,6 +41,7 @@ export default class DungeonRepositoryDatabase implements DungeonRepository {
         return new Wolfs(wolfsCount)
       })
       .with('Fire Camp', () => new FireCamp())
+      .with('Dragon', () => new Dragon())
       .exhaustive()
   }
 }

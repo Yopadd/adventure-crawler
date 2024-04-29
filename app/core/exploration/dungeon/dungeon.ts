@@ -11,9 +11,19 @@ export default class Dungeon<T extends EventResolver = Player> {
   ) {}
 
   public resolve(resolver: T): Note {
-    return this.events.length === 0
-      ? Note.Empty
-      : this.events.reduce((acc, event) => event.resolve(resolver).add(acc, '\n'), Note.Empty)
+    let note = Note.Empty
+    if (this.events.length === 0) {
+      return note
+    }
+    for (const index in this.events) {
+      const event = this.events[index]
+      const optionalNote = event.resolve(resolver, new Note(`Jour ${Number.parseInt(index) + 1}`))
+      if (!optionalNote) {
+        break
+      }
+      note.add(optionalNote, '\n')
+    }
+    return note
   }
 }
 
@@ -26,7 +36,7 @@ export class DungeonName extends StringValidation {
 export interface DungeonEvent<T extends EventResolver> {
   description: DungeonEventDescription
   name: EventName
-  resolve: (eventResolver: T) => Note
+  resolve: (eventResolver: T, note: Note) => Note | undefined
 }
 
 export class DungeonEventDescription extends StringValidation {

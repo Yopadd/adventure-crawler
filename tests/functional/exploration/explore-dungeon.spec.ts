@@ -16,7 +16,7 @@ test('Explore dungeon with no item in backpack player', async ({ client, expect 
 
   expect(response.status()).toBe(200)
   expect(response.body()).toEqual({
-    score: 0,
+    score: 1,
     report: expect.any(String),
   })
 }).setup(() => testUtils.db().truncate())
@@ -31,12 +31,12 @@ test('Explore dungeon with a goods items in backpack and increase score', async 
   await client.post('/inscription').json({ name, password })
 
   const itemsResp = await client.get('/preparation/items').qs({
-    limit: 5,
+    limit: 2,
     page: 1,
   })
   const items = itemsResp.body()
 
-  // Put Fire Potion in backpack
+  // Put Sword in backpack
   await client
     .post(`/preparation/player/backpack`)
     .basicAuth(name, password)
@@ -52,24 +52,7 @@ test('Explore dungeon with a goods items in backpack and increase score', async 
 
   expect(response.status()).toBe(200)
   expect(response.body()).toEqual({
-    score: 1,
-    report: expect.any(String),
-  })
-
-  // Put Water Bottle in backpack
-  await client
-    .post(`/preparation/player/backpack`)
-    .basicAuth(name, password)
-    .json({ itemsName: items.map((item: any) => item.name) })
-
-  // Re-explore first dungeon with Fire Potion and Water Bottle
-  response = await client
-    .post(`/exploration/dungeons/${dungeons.at(0).name}`)
-    .basicAuth(name, password)
-
-  expect(response.status()).toBe(200)
-  expect(response.body()).toEqual({
-    score: 2,
+    score: 4,
     report: expect.any(String),
   })
 }).setup(() => testUtils.db().truncate())
@@ -86,16 +69,16 @@ test("explore dungeon that interact with player's backpack", async ({ client, ex
   })
   const items = itemsResp.body()
 
-  // Put Fire Potion in backpack
+  // Put Water Bottle in backpack
   await client
     .post(`/preparation/player/backpack`)
     .basicAuth(name, password)
-    .json({ itemsName: [items.at(0).name] })
+    .json({ itemsName: [items.at(1).name] })
 
   // Explore dungeon
   const dungeonsResp = await client.get('/preparation/dungeons').qs({ limit: 2, page: 1 })
   const dungeons = dungeonsResp.body()
-  await client.post(`/exploration/dungeons/${dungeons.at(1).name}`).basicAuth(name, password)
+  await client.post(`/exploration/dungeons/${dungeons.at(0).name}`).basicAuth(name, password)
 
   const response = await client
     .get('/preparation/player/backpack')

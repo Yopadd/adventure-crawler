@@ -22,8 +22,8 @@ export default abstract class EventBase<T extends EventResolver> implements Dung
     }
   }
 
-  public resolve(_: T): Note {
-    return new Note(this.description.get())
+  public resolve(_: T, note: Note): Note | undefined {
+    return note.add(new Note(this.description.get()))
   }
 
   static RandomPick<T>(arr: T[]): T {

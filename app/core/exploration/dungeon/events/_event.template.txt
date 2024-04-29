@@ -10,8 +10,8 @@ export default class MyEvent extends EventBase<Player> {
     )
   }
 
-  public resolve(player: Player): Note {
-    const note = super.resolve(player)
+  public resolve(player: Player, note: Note): Note | undefined {
+    super.resolve(player, note)
     return note
   }
 }

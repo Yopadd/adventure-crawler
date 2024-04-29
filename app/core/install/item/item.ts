@@ -2,16 +2,25 @@ import ValidationError from '#app/core/errors/validation.error'
 import { Tag } from '#app/core/install/tag/tag'
 import { StringValidation } from '#app/core/validations/string-validation'
 
+type ItemsOptions = {
+  hidden: boolean
+}
+
 export default class Item {
   public readonly name: ItemName
   public readonly description: ItemDescription
   public readonly tags: Set<Tag> = new Set()
+  public readonly hidden: boolean
 
-  constructor(input: { name: string; description: string; tags: Tag[] }) {
+  constructor(
+    input: { name: string; description: string; tags: Tag[] },
+    options: ItemsOptions = { hidden: false }
+  ) {
     try {
       this.name = new ItemName(input.name)
       this.description = new ItemDescription(input.description)
       this.tags = new Set(input.tags)
+      this.hidden = options.hidden
     } catch (err) {
       if (err instanceof ValidationError) {
         throw new ValidationError(`instantiate ${input.name} has failed`, err)

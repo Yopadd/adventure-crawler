@@ -1,7 +1,7 @@
 import ItemChallenge from '#app/core/exploration/dungeon/events/item-challenge'
 import Dungeon from '#app/core/install/dungeon/dungeon'
 import { EventName } from '#app/core/install/event/event'
-import { createHash, randomInt } from 'crypto'
+import { createHash, randomInt } from 'node:crypto'
 
 export interface DungeonRepository {
   createMany(dungeons: Dungeon[]): Promise<void>
@@ -13,8 +13,14 @@ export default class InitiateDungeonsUseCase {
 
   public async apply() {
     await this.dungeonRepository.createMany([
-      new Dungeon('Volcania', ['Crossing Lava River']),
-      new Dungeon('Market', ['Thief', 'Collector']),
+      new Dungeon('Tezzidy', [
+        'Thief',
+        'Collector',
+        'Wolfs:2',
+        'Fire Camp',
+        'Crossing Lava River',
+        'Dragon',
+      ]),
       ...randomItemChallengeDungeons(5),
       ...randomThreeEventsDungeons(5),
     ])

@@ -7,8 +7,8 @@ export default class Collector extends EventBase<Player> {
     super('Collector', "Un collectionneur, il doit pouvoir m'acheter quelque broutilles")
   }
 
-  public resolve(player: Player): Note {
-    const note = super.resolve(player)
+  public resolve(player: Player, note: Note): Note {
+    super.resolve(player, note)
     const moneyCount = player.countTag('money')
     if (moneyCount > 0) {
       player.backpack.removeAllFromTag('money')

@@ -7,8 +7,8 @@ export default class FireCamp extends EventBase<Player> {
     super('Fire Camp', 'Un bon endroit pour faire une pause')
   }
 
-  public resolve(player: Player): Note {
-    const note = super.resolve(player)
+  public resolve(player: Player, note: Note): Note {
+    super.resolve(player, note)
     if (player.hasTag('fire')) {
       note.add(new Note("J'ai pu rallumer ce vieux feu de camp", 1))
     }

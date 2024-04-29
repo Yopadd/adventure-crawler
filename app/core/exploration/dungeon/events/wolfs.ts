@@ -12,8 +12,8 @@ export default class Wolfs extends EventBase<Player> {
     this.wolfsCount = wc
   }
 
-  public resolve(player: Player): Note {
-    const note = super.resolve(player)
+  public resolve(player: Player, note: Note): Note {
+    super.resolve(player, note)
     if (!player.hasTag('weapon')) {
       note.add(new Note("Fuir ! C'est la seul chose que je puise faire !"))
       return note

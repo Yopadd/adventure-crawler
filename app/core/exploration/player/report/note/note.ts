@@ -24,7 +24,11 @@ export default class Note {
   }
 
   public add(note: Note, separator?: string): Note {
-    this._comment.join(note._comment, separator)
+    if (this._comment.get().length > 0) {
+      this._comment.join(note._comment, separator)
+    } else {
+      this._comment = note._comment
+    }
     this._score += note._score
     return this
   }
@@ -37,5 +41,7 @@ export default class Note {
     return new Comment(this._comment.get())
   }
 
-  public static Empty = new Note()
+  public static get Empty() {
+    return new Note()
+  }
 }

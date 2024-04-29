@@ -8,8 +8,8 @@ export default class Vampire extends EventBase<Player> {
     super('Vampire', EventBase.RandomPick(starter))
   }
 
-  public resolve(player: Player): Note {
-    const note = super.resolve(player)
+  public resolve(player: Player, note: Note): Note {
+    super.resolve(player, note)
     if (!player.hasTag('light')) {
       note.add(new Note("Je ne vois rien dans cette obscurité... Mais qu'es ce que !", 0))
       return note

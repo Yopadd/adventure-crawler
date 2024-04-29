@@ -13,13 +13,13 @@ test('get table score', async ({ client, expect }) => {
     {
       id: randomUUID(),
       playerName: 'Michael',
-      dungeonName: 'Volcania',
+      dungeonName: 'Tezzidy',
       score: 2,
     },
     {
       id: randomUUID(),
-      playerName: 'Michael',
-      dungeonName: 'Market',
+      playerName: 'Scott',
+      dungeonName: 'Tezzidy',
       score: 8,
     },
   ])
@@ -32,12 +32,12 @@ test('get table score', async ({ client, expect }) => {
   expect(response.status()).toBe(200)
   expect(response.body()).toEqual([
     {
-      name: 'Michael',
-      score: 10,
+      name: 'Scott',
+      score: 8,
     },
     {
-      name: 'Scott',
-      score: 0,
+      name: 'Michael',
+      score: 2,
     },
   ])
 }).setup(() => testUtils.db().truncate())

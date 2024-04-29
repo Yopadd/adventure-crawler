@@ -12,6 +12,7 @@ export type Tag =
   | 'metal'
   | 'money'
   | 'potion'
+  | 'stealth'
   | 'sword'
   | 'water'
   | 'weapon'
