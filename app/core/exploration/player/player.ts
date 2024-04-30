@@ -1,4 +1,4 @@
-import Dungeon from '#app/core/exploration/dungeon/dungeon'
+import Adventure from '#app/core/exploration/adventure/adventure'
 import Backpack from '#app/core/exploration/player/backpack/backpack'
 import Report from '#app/core/exploration/player/report/report'
 import { Tag } from '#app/core/install/tag/tag'
@@ -16,9 +16,9 @@ export default class Player implements Explorer {
     this.name = new PlayerName(name)
   }
 
-  public explore(dungeon: Dungeon): Report {
-    const note = dungeon.resolve(this)
-    return new Report(this, dungeon, note.comment, note.score)
+  public explore(adventure: Adventure): Report {
+    const note = adventure.resolve(this)
+    return new Report(this, adventure, note.comment, note.score)
   }
 
   public hasTag(tag: Tag): boolean {

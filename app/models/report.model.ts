@@ -1,4 +1,4 @@
-import DungeonModel from '#models/dungeon.model'
+import AdventureModel from '#models/adventure.model'
 import PlayerModel from '#models/player.model'
 import { BaseModel, beforeCreate, belongsTo, column } from '@adonisjs/lucid/orm'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
@@ -13,12 +13,12 @@ export default class ReportModel extends BaseModel {
   public id: string
 
   @column()
-  public dungeonName: string
+  public adventureName: string
 
-  @belongsTo(() => DungeonModel, {
-    foreignKey: 'dungeonName',
+  @belongsTo(() => AdventureModel, {
+    foreignKey: 'adventureName',
   })
-  public dungeon: BelongsTo<typeof DungeonModel>
+  public adventure: BelongsTo<typeof AdventureModel>
 
   @column()
   public playerName: string

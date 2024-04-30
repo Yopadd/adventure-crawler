@@ -1,7 +1,7 @@
 import Backpack from '#app/core/exploration/player/backpack/backpack'
 import Item from '#app/core/exploration/player/backpack/item/item'
 import Player from '#app/core/exploration/player/player'
-import type { PlayerRepository } from '#app/core/exploration/use-cases/explore-dungeon.use-case'
+import type { PlayerRepository } from '#app/core/exploration/use-cases/explore-adventure.use-case'
 import { Tag } from '#app/core/install/tag/tag'
 import BackpackModel from '#models/backpack.model'
 import ItemModel from '#models/item.model'

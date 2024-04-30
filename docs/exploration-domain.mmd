@@ -3,13 +3,13 @@ title: EscAPI Exploration domain
 ---
 classDiagram
   namespace exploration {
-    class Dungeon {
+    class Adventure {
       name
       events
       resolve(EventResolver) Note
     }
 
-    class DungeonEvent {
+    class AdventureEvent {
       name
       description
       resolve(EventResolver) Note
@@ -22,7 +22,7 @@ classDiagram
 
     class Player {
       name
-      explore(Dungeon) Report
+      explore(Adventure) Report
       hasTag(Tag) bool
     }
 
@@ -46,12 +46,12 @@ classDiagram
 
     class LogBook {
       write(Report)
-      dungeonReports(dungeon) []Report
+      adventureReports(adventure) []Report
       bestReports() []Report
     }
 
     class Report {
-      dungeon
+      adventure
       note
       exploredAt
     }
@@ -62,7 +62,7 @@ classDiagram
     }
   }
 
-Dungeon --* DungeonEvent
+Adventure --* AdventureEvent
 
 Player --|> EventResolver
 

@@ -1,41 +1,41 @@
-import { default as ExplorationDungeonRepositoryDatabase } from '#app/core/exploration/dungeon/dungeon.repository'
+import { default as ExplorationAdventureRepositoryDatabase } from '#app/core/exploration/adventure/adventure.repository'
 import { default as ExplorationPlayerRepository } from '#app/core/exploration/player/player.repository'
 import ReportRepositoryDatabase from '#app/core/exploration/player/report/report.repository'
-import ExploreDungeonUseCase from '#app/core/exploration/use-cases/explore-dungeon.use-case'
+import ExploreAdventureUseCase from '#app/core/exploration/use-cases/explore-adventure.use-case'
 import PlayerSheetRepositoryDatabase from '#app/core/inscription/player-sheet/player-sheet.repository'
 import AddPlayerUseCase from '#app/core/inscription/use-cases/add-player.use-case'
-import { default as InstallDungeonRepositoryDatabase } from '#app/core/install/dungeon/dungeon.repository'
+import { default as InstallAventureRepositoryDatabase } from '#app/core/install/adventure/adventure.repository'
 import { default as InstallItemRepositoryDatabase } from '#app/core/install/item/item.repository'
-import InitiateDungeonsUseCase from '#app/core/install/use-cases/initiate-dungeons.use-case'
-import InitiateItemsUseCase from '#app/core/install/use-cases/initiate-items.use-case'
+import InstallAdventuresUseCase from '#app/core/install/use-cases/install-adventures.use-case'
+import InstallItemsUseCase from '#app/core/install/use-cases/install-items.use-case'
+import { default as PreparationAdventureRepositoryDatabase } from '#app/core/preparation/adventure/adventure.repository'
 import { BackPackRepositoryDatabase } from '#app/core/preparation/backpack/backpack.repository'
-import { default as PreparationDungeonRepositoryDatabase } from '#app/core/preparation/dungeon/dungeon.repository'
 import { default as PreparationItemRepositoryDatabase } from '#app/core/preparation/item/item.repository'
 import AddItemsUseCase from '#app/core/preparation/use-cases/add-items.use-case'
+import GetAdventuresUseCase from '#app/core/preparation/use-cases/get-adventures.use-case'
 import GetBackUseCase from '#app/core/preparation/use-cases/get-backpack.use-case'
-import GetDungeonsUseCase from '#app/core/preparation/use-cases/get-dungeons.use-case'
 import GetItemsUseCase from '#app/core/preparation/use-cases/get-items.use-case'
 import { default as ScoreBoardPlayerRepositoryDatabase } from '#app/core/score-board/player/player.repository'
 import GetScoreboardUseCase from '#app/core/score-board/use-case/get-score-board'
 import { UnitOfWorkLucid } from '#app/core/unit-of-work/unit-of-work'
+import AdventureModel from '#models/adventure.model'
 import BackpackModel from '#models/backpack.model'
-import DungeonModel from '#models/dungeon.model'
 import ItemModel from '#models/item.model'
 import PlayerModel from '#models/player.model'
 import ReportModel from '#models/report.model'
 
 const repositories = {
   install: {
-    dungeonRepository: new InstallDungeonRepositoryDatabase(),
+    adventureRepository: new InstallAventureRepositoryDatabase(),
     itemRepository: new InstallItemRepositoryDatabase(),
   },
   exploration: {
-    dungeonRepository: new ExplorationDungeonRepositoryDatabase(),
+    adventureRepository: new ExplorationAdventureRepositoryDatabase(),
     reportRepository: new ReportRepositoryDatabase(),
     playerRepository: new ExplorationPlayerRepository(),
   },
   preparation: {
-    dungeonRepository: new PreparationDungeonRepositoryDatabase(),
+    adventureRepository: new PreparationAdventureRepositoryDatabase(),
     backpackRepository: new BackPackRepositoryDatabase(),
     itemRepository: new PreparationItemRepositoryDatabase(),
   },
@@ -51,8 +51,8 @@ const repositories = {
 export interface ApplicationOptions {}
 
 export interface GameInstaller {
-  initiateDungeons: InitiateDungeonsUseCase
-  initiateItems: InitiateItemsUseCase
+  installAdventures: InstallAdventuresUseCase
+  installItems: InstallItemsUseCase
 }
 
 export interface Game {
@@ -62,24 +62,24 @@ export interface Game {
   addItems: AddItemsUseCase
   getItems: GetItemsUseCase
   getBackpack: GetBackUseCase
-  getDungeons: GetDungeonsUseCase
+  getAdventures: GetAdventuresUseCase
   getScoreBoard: GetScoreboardUseCase
-  exploreDungeon: ExploreDungeonUseCase
+  exploreAdventure: ExploreAdventureUseCase
 }
 
 const installer: GameInstaller = {
-  initiateDungeons: new InitiateDungeonsUseCase(repositories.install.dungeonRepository),
-  initiateItems: new InitiateItemsUseCase(repositories.install.itemRepository),
+  installAdventures: new InstallAdventuresUseCase(repositories.install.adventureRepository),
+  installItems: new InstallItemsUseCase(repositories.install.itemRepository),
 }
 
 async function install(_: ApplicationOptions = {}): Promise<void> {
-  await installer.initiateDungeons.apply()
-  await installer.initiateItems.apply()
+  await installer.installAdventures.apply()
+  await installer.installItems.apply()
 }
 
 async function uninstall(): Promise<void> {
   await Promise.all([
-    DungeonModel.truncate(true),
+    AdventureModel.truncate(true),
     ReportModel.truncate(true),
     PlayerModel.truncate(true),
     ItemModel.truncate(true),
@@ -91,8 +91,8 @@ export const game: Game = {
   install,
   uninstall,
   addPlayer: new AddPlayerUseCase(repositories.inscription.playerSheetRepository),
-  exploreDungeon: new ExploreDungeonUseCase(
-    repositories.exploration.dungeonRepository,
+  exploreAdventure: new ExploreAdventureUseCase(
+    repositories.exploration.adventureRepository,
     repositories.exploration.playerRepository,
     repositories.exploration.reportRepository,
     repositories.unitOfWork
@@ -104,6 +104,6 @@ export const game: Game = {
     repositories.unitOfWork
   ),
   getItems: new GetItemsUseCase(repositories.preparation.itemRepository),
-  getDungeons: new GetDungeonsUseCase(repositories.preparation.dungeonRepository),
+  getAdventures: new GetAdventuresUseCase(repositories.preparation.adventureRepository),
   getBackpack: new GetBackUseCase(repositories.preparation.backpackRepository),
 }

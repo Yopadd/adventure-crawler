@@ -2,7 +2,7 @@ import { game } from '#app/core/game'
 import BackpackFullError from '#app/core/preparation/backpack/backpack-full.error'
 import { ItemName } from '#app/core/preparation/item/item'
 import ForbiddenException from '#exceptions/forbidden_exception'
-import { getDungeonsValidator } from '#validators/dungeon'
+import { getAdventuresValidator } from '#validators/adventure'
 import { addItemsValidator, getItemsValidator } from '#validators/item'
 import type { HttpContext } from '@adonisjs/core/http'
 
@@ -37,12 +37,12 @@ export default class PreparationController {
     }
   }
 
-  async getDungeons({ request }: HttpContext) {
-    const payload = await getDungeonsValidator.validate(request.all())
+  async getAdventures({ request }: HttpContext) {
+    const payload = await getAdventuresValidator.validate(request.all())
 
-    const dungeons = await game.getDungeons.apply(payload)
-    return dungeons.map((dungeon) => ({
-      name: dungeon.name.get(),
+    const adventures = await game.getAdventures.apply(payload)
+    return adventures.map((adventure) => ({
+      name: adventure.name.get(),
     }))
   }
 

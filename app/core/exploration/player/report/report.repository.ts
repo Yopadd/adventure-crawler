@@ -1,5 +1,5 @@
 import Report from '#app/core/exploration/player/report/report'
-import { ReportRepository } from '#app/core/exploration/use-cases/explore-dungeon.use-case'
+import { ReportRepository } from '#app/core/exploration/use-cases/explore-adventure.use-case'
 import ReportModel from '#models/report.model'
 import { TransactionClientContract } from '@adonisjs/lucid/types/database'
 
@@ -8,11 +8,11 @@ export default class ReportRepositoryDatabase implements ReportRepository {
     await ReportModel.updateOrCreate(
       {
         playerName: report.player.name.get(),
-        dungeonName: report.dungeon.name.get(),
+        adventureName: report.adventure.name.get(),
       },
       {
         playerName: report.player.name.get(),
-        dungeonName: report.dungeon.name.get(),
+        adventureName: report.adventure.name.get(),
         comment: report.comment.get(),
         exploredAt: report.exploredAt,
         score: report.score.get(),

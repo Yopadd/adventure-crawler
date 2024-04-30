@@ -7,7 +7,7 @@ classDiagram
       take(inventory, item)
       empty()
       lookInBackpack() Item[]
-      lookMap(dungeonMap) Dungeon[]
+      lookMap(adventureMap) Adventure[]
     }
 
     class Backpack {
@@ -20,11 +20,11 @@ classDiagram
       items Item[]
     }
 
-    class DungeonsMap {
-      dungeons Dungeon[]
+    class AdventuresMap {
+      adventures Adventure[]
     }
 
-    class Dungeon {
+    class Adventure {
       name
       description
     }
