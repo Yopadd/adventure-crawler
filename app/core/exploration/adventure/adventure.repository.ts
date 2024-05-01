@@ -1,4 +1,4 @@
-import Adventure, { AdventureName } from '#app/core/exploration/adventure/adventure'
+import Adventure from '#app/core/exploration/adventure/adventure'
 import Cliff from '#app/core/exploration/adventure/events/cliff'
 import Collector from '#app/core/exploration/adventure/events/collector'
 import CrossingLavaRiver from '#app/core/exploration/adventure/events/crossing-lava-river'
@@ -19,7 +19,7 @@ export default class AdventureRepositoryDatabase implements AdventureRepository 
   public async getByName(name: string, client: TransactionClientContract) {
     const model = await AdventureModel.findOrFail(name, { client })
     return new Adventure(
-      new AdventureName(model.name),
+      model.name,
       model.events.split(';').map(AdventureRepositoryDatabase.toAdventureEvent)
     )
   }

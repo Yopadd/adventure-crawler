@@ -10,6 +10,6 @@ export default class ExploreAdventureController {
       playerName,
     })
 
-    return { score: exploreResult.score, report: exploreResult.report }
+    return { score: exploreResult.score, report: exploreResult.comment }
   }
 }

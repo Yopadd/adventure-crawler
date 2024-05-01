@@ -11,7 +11,7 @@ export default class Dragon extends EventBase<Player> {
     )
   }
 
-  public resolve(player: Player, note: Note): Note | undefined {
+  public resolve(player: Player, note: Note): Note | null {
     super.resolve(player, note)
     if (player.hasTag('stealth')) {
       player.backpack.add(Items.GoldNuggets)

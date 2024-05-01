@@ -19,4 +19,7 @@ export default class ItemModel extends BaseModel {
 
   @column()
   public tags: string
+
+  @column()
+  public hidden: boolean
 }

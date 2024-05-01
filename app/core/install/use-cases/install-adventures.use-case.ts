@@ -14,8 +14,8 @@ export default class InstallAdventuresUseCase {
   public async apply() {
     await this.adventureRepository.createMany([
       new Adventure('Tezzidy', [
-        'Thief',
         'Collector',
+        'Thief',
         'Wolfs:2',
         'Fire Camp',
         'Crossing Lava River',

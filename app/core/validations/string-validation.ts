@@ -45,6 +45,10 @@ export abstract class StringValidation {
     return str.value === this.value
   }
 
+  public get length() {
+    return this.value.length
+  }
+
   private maxLengthValidator(value: string): [boolean, string | undefined] {
     const isValid = value.length < this.options.maxLength
     return [

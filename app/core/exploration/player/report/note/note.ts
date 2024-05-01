@@ -11,7 +11,9 @@ export class Comment extends StringValidation {
     return this
   }
 
-  public static Empty = new Comment('')
+  public static get Empty() {
+    return new Comment('')
+  }
 }
 
 export default class Note {

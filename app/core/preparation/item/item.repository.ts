@@ -6,7 +6,9 @@ import { TransactionClientContract } from '@adonisjs/lucid/types/database'
 
 export default class ItemRepositoryDatabase implements GetAllItems, GetByName {
   public async getAll(input: ItemPaginationInput): Promise<Item[]> {
-    const pagination = await ItemModel.query().paginate(input.page.get(), input.limit.get())
+    const pagination = await ItemModel.query()
+      .where('hidden', false)
+      .paginate(input.page.get(), input.limit.get())
     return pagination.all().map(ItemRepositoryDatabase.toItem)
   }
 

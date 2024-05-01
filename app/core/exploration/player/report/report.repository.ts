@@ -13,9 +13,9 @@ export default class ReportRepositoryDatabase implements ReportRepository {
       {
         playerName: report.player.name.get(),
         adventureName: report.adventure.name.get(),
-        comment: report.comment.get(),
+        comment: report.comment,
         exploredAt: report.exploredAt,
-        score: report.score.get(),
+        score: report.score,
       },
       {
         client,

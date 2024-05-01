@@ -1,5 +1,5 @@
 import Item from '#app/core/install/item/item'
-import { ItemRepository } from '#app/core/install/use-cases/initiate-items.use-case'
+import { ItemRepository } from '#app/core/install/use-cases/install-items.use-case'
 import ItemModel from '#models/item.model'
 
 export default class ItemRepositoryDatabase implements ItemRepository {
@@ -9,6 +9,7 @@ export default class ItemRepositoryDatabase implements ItemRepository {
         name: item.name.get(),
         description: item.description.get(),
         tags: Array.from(item.tags.values()).join(';'),
+        hidden: item.hidden,
       }))
     )
   }

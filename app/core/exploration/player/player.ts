@@ -17,8 +17,8 @@ export default class Player implements Explorer {
   }
 
   public explore(adventure: Adventure): Report {
-    const note = adventure.resolve(this)
-    return new Report(this, adventure, note.comment, note.score)
+    const notes = adventure.resolve(this)
+    return new Report(this, adventure, notes)
   }
 
   public hasTag(tag: Tag): boolean {

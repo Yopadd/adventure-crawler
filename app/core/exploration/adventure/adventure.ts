@@ -5,25 +5,26 @@ import { EventName } from '#app/core/install/event/event'
 import { StringValidation } from '../../validations/string-validation.js'
 
 export default class Adventure<T extends EventResolver = Player> {
-  constructor(
-    public readonly name: AdventureName,
-    public readonly events: AdventureEvent<T>[] = []
-  ) {}
+  public readonly name: AdventureName
 
-  public resolve(resolver: T): Note {
-    let note = Note.Empty
-    if (this.events.length === 0) {
-      return note
-    }
+  constructor(
+    name: string,
+    private readonly events: AdventureEvent<T>[] = []
+  ) {
+    this.name = new AdventureName(name)
+  }
+
+  public resolve(resolver: T): Note[] {
+    let notes = []
     for (const index in this.events) {
       const event = this.events[index]
-      const optionalNote = event.resolve(resolver, new Note(`Jour ${Number.parseInt(index) + 1}`))
-      if (!optionalNote) {
+      const note = event.resolve(resolver, new Note(`Jour ${Number.parseInt(index) + 1}`))
+      if (note === null) {
         break
       }
-      note.add(optionalNote, '\n')
+      notes.push(note)
     }
-    return note
+    return notes
   }
 }
 
@@ -36,7 +37,7 @@ export class AdventureName extends StringValidation {
 export interface AdventureEvent<T extends EventResolver> {
   description: AdventureEventDescription
   name: EventName
-  resolve: (eventResolver: T, note: Note) => Note | undefined
+  resolve: (eventResolver: T, note: Note) => Note | null
 }
 
 export class AdventureEventDescription extends StringValidation {

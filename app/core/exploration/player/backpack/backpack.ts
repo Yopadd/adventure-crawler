@@ -4,7 +4,7 @@ import { EventResolver } from '#app/core/exploration/player/event-resolver'
 import { Tag } from '#app/core/install/tag/tag'
 
 export default class Backpack implements EventResolver {
-  private readonly size = 5
+  private readonly size = 10
   private _items: Item[]
 
   constructor(items: Item[] = []) {
@@ -15,11 +15,12 @@ export default class Backpack implements EventResolver {
     return this._items
   }
 
-  public add(item: Item) {
+  public add(item: Item): this {
     if (this._items.length === this.size) {
       throw new BackpackFullError()
     }
     this._items.push(item)
+    return this
   }
 
   public hasTag(tag: Tag): boolean {
@@ -39,6 +40,6 @@ export default class Backpack implements EventResolver {
   }
 
   public removeAllFromTag(tag: Tag) {
-    this._items = this._items.filter((item) => item.tags.has(tag))
+    this._items = this._items.filter((item) => !item.tags.has(tag))
   }
 }

@@ -8,11 +8,6 @@ export interface ExploreAdventureUseCaseInput {
   playerName: string
 }
 
-export type ExploreAdventureUseCaseOutput = {
-  score: number
-  report: string
-}
-
 export interface AdventureRepository {
   getByName(name: string, unitOfWork: unknown): Promise<Adventure>
 }
@@ -34,18 +29,14 @@ export default class ExploreAdventureUseCase {
     private readonly unitOfWork: UnitOfWork
   ) {}
 
-  public async apply(input: ExploreAdventureUseCaseInput): Promise<ExploreAdventureUseCaseOutput> {
+  public async apply(input: ExploreAdventureUseCaseInput): Promise<Report> {
     return this.unitOfWork.begin(async (unitOfWork) => {
       const player = await this.playerRepository.getByName(input.playerName, unitOfWork)
       const adventure = await this.adventureRepository.getByName(input.adventureName, unitOfWork)
       const report = player.explore(adventure)
       await this.reportRepository.save(report, unitOfWork)
       await this.playerRepository.save(player, unitOfWork)
-
-      return {
-        score: report.score.get(),
-        report: report.comment.get(),
-      }
+      return report
     })
   }
 }

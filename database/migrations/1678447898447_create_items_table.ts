@@ -8,6 +8,7 @@ export default class extends BaseSchema {
       table.string('name').primary()
       table.text('description')
       table.string('tags')
+      table.boolean('hidden')
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */

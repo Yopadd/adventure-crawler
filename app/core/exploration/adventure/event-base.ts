@@ -25,7 +25,7 @@ export default abstract class EventBase<T extends EventResolver> implements Adve
     }
   }
 
-  public resolve(_: T, note: Note): Note | undefined {
+  public resolve(_: T, note: Note): Note | null {
     return note.add(new Note(this.description.get()))
   }
 

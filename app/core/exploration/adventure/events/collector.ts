@@ -12,7 +12,11 @@ export default class Collector extends EventBase<Player> {
     const moneyCount = player.countTag('money')
     if (moneyCount > 0) {
       player.backpack.removeAllFromTag('money')
-      note.add(new Note(`Il est intéressé par mes ${moneyCount} objets de valeurs`, moneyCount))
+      if (moneyCount === 1) {
+        note.add(new Note(`Il est intéressé par un de mes objets de valeurs`, moneyCount))
+      } else {
+        note.add(new Note(`Il est intéressé ${moneyCount} objets de valeurs`, moneyCount))
+      }
     } else {
       note.add(new Note("Je n'ai rien pour lui malheureusement"))
     }

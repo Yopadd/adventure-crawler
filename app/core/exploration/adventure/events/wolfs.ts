@@ -35,8 +35,8 @@ export default class Wolfs extends EventBase<Player> {
         player.countTag('weapon')
       )
     )
-    if (!player.hasTag('food')) {
-      player.backpack.removeAllFromTag('food')
+    if (!player.hasTag('meat')) {
+      player.backpack.removeAllFromTag('meat')
       note.add(new Note('Voile de quoi les calmer un peu', 1))
     } else {
       note.add(new Note("Je n'ai absolument rien je vais devoir me débrouiller", -1))
