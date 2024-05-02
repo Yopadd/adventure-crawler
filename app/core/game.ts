@@ -24,7 +24,7 @@ import ItemModel from '#models/item.model'
 import PlayerModel from '#models/player.model'
 import ReportModel from '#models/report.model'
 
-const repositories = {
+export const repositories = {
   install: {
     adventureRepository: new InstallAventureRepositoryDatabase(),
     itemRepository: new InstallItemRepositoryDatabase(),
@@ -50,60 +50,60 @@ const repositories = {
 
 export interface ApplicationOptions {}
 
-export interface GameInstaller {
-  installAdventures: InstallAdventuresUseCase
-  installItems: InstallItemsUseCase
+class Game {
+  constructor() {}
+
+  async install(_: ApplicationOptions = {}): Promise<void> {
+    await new InstallAdventuresUseCase(repositories.install.adventureRepository).apply()
+    await new InstallItemsUseCase(repositories.install.itemRepository).apply()
+  }
+
+  async uninstall(): Promise<void> {
+    await Promise.all([
+      AdventureModel.truncate(true),
+      ReportModel.truncate(true),
+      PlayerModel.truncate(true),
+      ItemModel.truncate(true),
+      BackpackModel.truncate(true),
+    ])
+  }
+
+  addPlayer(input: Parameters<AddPlayerUseCase['apply']>[0]) {
+    return new AddPlayerUseCase(repositories.inscription.playerSheetRepository).apply(input)
+  }
+
+  exploreAdventure(input: Parameters<ExploreAdventureUseCase['apply']>[0]) {
+    return new ExploreAdventureUseCase(
+      repositories.exploration.adventureRepository,
+      repositories.exploration.playerRepository,
+      repositories.exploration.reportRepository,
+      repositories.unitOfWork
+    ).apply(input)
+  }
+
+  getScoreBoard(input: Parameters<GetScoreboardUseCase['apply']>[0]) {
+    return new GetScoreboardUseCase(repositories.scoreBoard.playerRepository).apply(input)
+  }
+
+  addItems(input: Parameters<AddItemsUseCase['apply']>[0]) {
+    return new AddItemsUseCase(
+      repositories.preparation.itemRepository,
+      repositories.preparation.backpackRepository,
+      repositories.unitOfWork
+    ).apply(input)
+  }
+
+  getItems(input: Parameters<GetItemsUseCase['apply']>[0]) {
+    return new GetItemsUseCase(repositories.preparation.itemRepository).apply(input)
+  }
+
+  getAdventures(input: Parameters<GetAdventuresUseCase['apply']>[0]) {
+    return new GetAdventuresUseCase(repositories.preparation.adventureRepository).apply(input)
+  }
+
+  getBackpack(input: Parameters<GetBackUseCase['apply']>[0]) {
+    return new GetBackUseCase(repositories.preparation.backpackRepository).apply(input)
+  }
 }
 
-export interface Game {
-  install: (options?: ApplicationOptions) => Promise<void>
-  uninstall: () => Promise<void>
-  addPlayer: AddPlayerUseCase
-  addItems: AddItemsUseCase
-  getItems: GetItemsUseCase
-  getBackpack: GetBackUseCase
-  getAdventures: GetAdventuresUseCase
-  getScoreBoard: GetScoreboardUseCase
-  exploreAdventure: ExploreAdventureUseCase
-}
-
-const installer: GameInstaller = {
-  installAdventures: new InstallAdventuresUseCase(repositories.install.adventureRepository),
-  installItems: new InstallItemsUseCase(repositories.install.itemRepository),
-}
-
-async function install(_: ApplicationOptions = {}): Promise<void> {
-  await installer.installAdventures.apply()
-  await installer.installItems.apply()
-}
-
-async function uninstall(): Promise<void> {
-  await Promise.all([
-    AdventureModel.truncate(true),
-    ReportModel.truncate(true),
-    PlayerModel.truncate(true),
-    ItemModel.truncate(true),
-    BackpackModel.truncate(true),
-  ])
-}
-
-export const game: Game = {
-  install,
-  uninstall,
-  addPlayer: new AddPlayerUseCase(repositories.inscription.playerSheetRepository),
-  exploreAdventure: new ExploreAdventureUseCase(
-    repositories.exploration.adventureRepository,
-    repositories.exploration.playerRepository,
-    repositories.exploration.reportRepository,
-    repositories.unitOfWork
-  ),
-  getScoreBoard: new GetScoreboardUseCase(repositories.scoreBoard.playerRepository),
-  addItems: new AddItemsUseCase(
-    repositories.preparation.itemRepository,
-    repositories.preparation.backpackRepository,
-    repositories.unitOfWork
-  ),
-  getItems: new GetItemsUseCase(repositories.preparation.itemRepository),
-  getAdventures: new GetAdventuresUseCase(repositories.preparation.adventureRepository),
-  getBackpack: new GetBackUseCase(repositories.preparation.backpackRepository),
-}
+export const game = new Game()

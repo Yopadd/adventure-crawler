@@ -5,7 +5,7 @@ export default class ExploreAdventureController {
   async handle({ auth, request }: HttpContext) {
     const playerName = auth.user!.name
 
-    const exploreResult = await game.exploreAdventure.apply({
+    const exploreResult = await game.exploreAdventure({
       adventureName: request.param('name'),
       playerName,
     })

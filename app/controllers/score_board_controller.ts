@@ -12,7 +12,7 @@ export default class ScoreBoardController {
 
     let data = await this.checkCache(payload)
     if (data === null) {
-      const tableScore = await game.getScoreBoard.apply(payload)
+      const tableScore = await game.getScoreBoard(payload)
 
       data = tableScore.rows.map((row) => ({
         name: row.playerName,

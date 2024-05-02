@@ -1,7 +1,7 @@
-import ItemChallenge from '#app/core/exploration/adventure/events/item-challenge'
 import Adventure from '#app/core/install/adventure/adventure'
-import { EventName } from '#app/core/install/event/event'
-import { createHash, randomInt } from 'node:crypto'
+import { Events } from '#app/core/install/event/events'
+import { faker } from '@faker-js/faker'
+import { randomInt } from 'node:crypto'
 
 export interface AdventureRepository {
   createMany(adventures: Adventure[]): Promise<void>
@@ -13,56 +13,46 @@ export default class InstallAdventuresUseCase {
 
   public async apply() {
     await this.adventureRepository.createMany([
-      new Adventure('Tezzidy', [
-        'Collector',
-        'Thief',
-        'Wolfs:2',
-        'Fire Camp',
-        'Crossing Lava River',
-        'Dragon',
+      new Adventure('Aazzidy', [
+        Events.Collector(),
+        Events.Thief(),
+        Events.Wolfs(2),
+        Events.FireCamp(),
+        Events.CrossingLavaRiver(),
+        Events.Dragon(),
       ]),
-      ...randomItemChallengeAdventures(5),
-      ...randomThreeEventsAdventures(5),
+      ...adventuresRandomiser(3, 7),
+      ...adventuresRandomiser(5, 7),
+      ...itemChallengeAdventuresRandomiser(3),
     ])
   }
 }
 
-function randomItemChallengeAdventures(count: number) {
-  return adventureFactory(() => {
-    const challenge = ItemChallenge.randomScoreMaxFrom('etaonihsrl'.repeat(5))
-    return new Adventure(challenge.toString(), [`Item Challenge:${challenge}`])
+function itemChallengeAdventuresRandomiser(count: number) {
+  return adventuresFactory(() => {
+    const event = Events.ItemChallenge()
+    const title = event.split(':')[1]
+    return new Adventure(title, [event])
   }, count)
 }
 
-function randomThreeEventsAdventures(count: number) {
-  return adventureFactory(() => {
-    const events: EventName[] = [
-      'Cliff',
-      'Collector',
-      'Crossing Lava River',
-      'Thief',
-      'Tunnel In The Dark',
-      'Vampire',
-      'Fire Camp',
-      `Wolfs:${randomInt(1, 3)}`,
-    ]
-    const [event1] = events.splice(randomInt(0, events.length - 1), 1)
-    const [event2] = events.splice(randomInt(0, events.length - 1), 1)
-    const [event3] = events.splice(randomInt(0, events.length - 1), 1)
-    const adventureName = createHash('md5')
-      .update(event1 + event2 + event3 + Math.random())
-      .digest('base64')
-      .substring(0, 15)
-      .replaceAll(/[0-9]/g, '-')
-      .replaceAll('--', '-')
-      .replaceAll('+', '-Darkness-')
-      .replaceAll('/', '-Dead-')
-      .replaceAll('--', '-')
-    return new Adventure(adventureName, [event1, event2, event3])
-  }, count)
+function adventuresRandomiser(eventCount: number, adventureCount: number) {
+  return adventuresFactory(() => {
+    const allEvents = Object.values(Events)
+    let events = []
+    for (let i = 0; i < eventCount; i++) {
+      const [event] = allEvents.splice(randomInt(0, allEvents.length - 1), 1)
+      events.push(event)
+    }
+    const adventureName = faker.lorem.slug(6)
+    return new Adventure(
+      adventureName,
+      events.map((event) => event())
+    )
+  }, adventureCount)
 }
 
-function* adventureFactory(factory: () => Adventure, count: number): Generator<Adventure> {
+function* adventuresFactory(factory: () => Adventure, count: number): Generator<Adventure> {
   for (let i = 0; i < count; i++) {
     yield factory()
   }

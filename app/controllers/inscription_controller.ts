@@ -6,7 +6,7 @@ export default class InscriptionController {
   async handle({ request }: HttpContext) {
     const payload = await addPlayerValidator.validate(request.all())
 
-    await game.addPlayer.apply(payload)
+    await game.addPlayer(payload)
     return { message: 'Bienvenu aventurier, GET /preparation' }
   }
 }

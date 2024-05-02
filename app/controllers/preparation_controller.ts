@@ -15,7 +15,7 @@ export default class PreparationController {
     const { itemsName } = await addItemsValidator.validate(request.all())
 
     try {
-      await game.addItems.apply({
+      await game.addItems({
         playerName: auth.user!.name,
         itemsName: itemsName.map((name) => new ItemName(name)),
       })
@@ -28,7 +28,7 @@ export default class PreparationController {
   }
 
   async openBackpack({ auth }: HttpContext) {
-    const backpack = await game.getBackpack.apply({
+    const backpack = await game.getBackpack({
       playerName: auth.user!.name,
     })
 
@@ -40,7 +40,7 @@ export default class PreparationController {
   async getAdventures({ request }: HttpContext) {
     const payload = await getAdventuresValidator.validate(request.all())
 
-    const adventures = await game.getAdventures.apply(payload)
+    const adventures = await game.getAdventures(payload)
     return adventures.map((adventure) => ({
       name: adventure.name.get(),
     }))
@@ -49,7 +49,7 @@ export default class PreparationController {
   async getItems({ request }: HttpContext) {
     const payload = await getItemsValidator.validate(request.all())
 
-    const items = await game.getItems.apply(payload)
+    const items = await game.getItems(payload)
     return items.map((item) => ({
       name: item.name.get(),
       description: item.description.get(),
