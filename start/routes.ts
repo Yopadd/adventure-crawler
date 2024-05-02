@@ -50,4 +50,6 @@ router
 
 router.get('/score-board', [ScoreBoardController])
 
-router.on('/').redirect('/score-board')
+router.get('/', ({ view }) => {
+  return view.render('index')
+})
