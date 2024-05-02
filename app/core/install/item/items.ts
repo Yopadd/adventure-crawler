@@ -12,7 +12,7 @@ export const Items = {
   get WaterBottle() {
     return new Item({
       name: "Gourde d'eau",
-      description: 'Utile en cas de coup de chaud ou juste pour se désaltérer',
+      description: 'Utile pour se désaltérer',
       tags: ['water', 'potion', 'hydration'],
     })
   },
@@ -43,7 +43,7 @@ export const Items = {
 
   get Rubies() {
     return new Item({
-      name: 'Des rubis',
+      name: 'Rubis',
       description: 'Certains aiment les choses qui brillent',
       tags: ['money'],
     })
@@ -51,8 +51,8 @@ export const Items = {
 
   get Capsules() {
     return new Item({
-      name: 'Des capsules',
-      description: "Provienne probablement d'une collection",
+      name: 'Capsules',
+      description: "Elles proviennent probablement d'une collection",
       tags: ['money'],
     })
   },
@@ -60,7 +60,7 @@ export const Items = {
   get Dagger() {
     return new Item({
       name: 'Dague',
-      description: "Un grand couteau, c'est bien pratique",
+      description: 'Un grand couteau',
       tags: ['weapon'],
     })
   },
@@ -69,7 +69,7 @@ export const Items = {
     return new Item({
       name: 'Bâton',
       description:
-        'Un simple bout bois, ça peut être utile pour le marche et même peut-être pour ce défendre',
+        'Un simple bout bois, ça peut être utile pour la marche et même peut-être pour se défendre',
       tags: ['weapon', 'wood'],
     })
   },
@@ -94,14 +94,14 @@ export const Items = {
   get IronShield() {
     return new Item({
       name: 'Bouclier en fer',
-      description: 'Un simple planche de bois, mais souvent très utile',
+      description: 'Une plaque de fer avec une poignée',
       tags: ['armor', 'iron', 'metal'],
     })
   },
 
   get Rope() {
     return new Item({
-      name: 'corde',
+      name: 'Corde',
       description: "C'est toujours utile",
       tags: ['climbing'],
     })
@@ -109,7 +109,7 @@ export const Items = {
 
   get GrapplingHook() {
     return new Item({
-      name: 'Un grappin',
+      name: 'Grappin',
       description: 'Si le chemin devient difficile',
       tags: ['climbing', 'metal'],
     })
@@ -133,8 +133,8 @@ export const Items = {
 
   get DriedMeat() {
     return new Item({
-      name: 'Viande séché',
-      description: 'Un bonne baguette pour de bon sandwich',
+      name: 'Viandes séchées',
+      description: "Ce conserve bien et c'est plutôt bon",
       tags: ['food', 'meat'],
     })
   },
@@ -142,7 +142,7 @@ export const Items = {
   get Mushrooms() {
     return new Item({
       name: 'Champignon',
-      description: 'Parfait dans une bonne salade',
+      description: 'Pour une bonne salade',
       tags: ['food', 'vegetal'],
     })
   },
@@ -150,7 +150,7 @@ export const Items = {
   get Cheese() {
     return new Item({
       name: 'Fromage',
-      description: "Facile à emporter, l'indispensable d'un bon casse-croûte",
+      description: "L'indispensable du casse-croûte",
       tags: ['food'],
     })
   },
@@ -158,7 +158,7 @@ export const Items = {
   get HoodedCape() {
     return new Item({
       name: 'Cape encapuchonné',
-      description: 'Idéale pour rester discret',
+      description: "Si je veux rester dans l'ombre",
       tags: ['stealth'],
     })
   },
