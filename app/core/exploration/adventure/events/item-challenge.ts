@@ -2,7 +2,6 @@ import EventBase from '#app/core/exploration/adventure/event-base'
 import Player from '#app/core/exploration/player/player'
 import Note from '#app/core/exploration/player/report/note/note'
 import { NumberValidation } from '#app/core/validations/number-validation'
-import { randomInt } from 'node:crypto'
 
 export default class ItemChallenge extends EventBase<Player> {
   private readonly challenge: ItemChallengeNumber
@@ -21,13 +20,6 @@ export default class ItemChallenge extends EventBase<Player> {
     const score = 10 - result
 
     return note.add(new Note(score.toString(), score))
-  }
-
-  public static randomScoreMaxFrom(value: string): number {
-    const max = Array.from(value)
-      .map((c) => c.charCodeAt(0))
-      .reduce((a, b) => a + b, 0)
-    return randomInt(0, max)
   }
 
   private static computeScore(value: string): number {

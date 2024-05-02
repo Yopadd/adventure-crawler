@@ -4,6 +4,7 @@ import { apiClient } from '@japa/api-client'
 import { expect } from '@japa/expect'
 import { pluginAdonisJS } from '@japa/plugin-adonisjs'
 import type { Config } from '@japa/runner/types'
+import { testInstaller } from './utils/game.js'
 
 /**
  * This file is imported by the "bin/test.ts" entrypoint file
@@ -23,7 +24,7 @@ export const plugins: Config['plugins'] = [expect(), apiClient(), pluginAdonisJS
  * The teardown functions are executer after all the tests
  */
 export const runnerHooks: Required<Pick<Config, 'setup' | 'teardown'>> = {
-  setup: [() => testUtils.db().migrate()],
+  setup: [],
   teardown: [],
 }
 
@@ -33,6 +34,9 @@ export const runnerHooks: Required<Pick<Config, 'setup' | 'teardown'>> = {
  */
 export const configureSuite: Config['configureSuite'] = (suite) => {
   if (['browser', 'functional', 'e2e'].includes(suite.name)) {
-    return suite.setup(() => testUtils.httpServer().start())
+    return suite
+      .setup(() => testUtils.db().migrate())
+      .setup(() => testUtils.httpServer().start())
+      .setup(() => testInstaller())
   }
 }

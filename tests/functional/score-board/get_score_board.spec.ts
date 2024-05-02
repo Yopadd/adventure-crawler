@@ -4,7 +4,7 @@ import testUtils from '@adonisjs/core/services/test_utils'
 import { test } from '@japa/runner'
 import { randomUUID } from 'node:crypto'
 
-test('get table score', async ({ client, expect }) => {
+test('get score board', async ({ client, expect }) => {
   await client.post('/install').bearerToken(env.get('APP_KEY'))
   await client.post('/inscription').json({ name: 'Scott', password: 'password' })
   await client.post('/inscription').json({ name: 'Michael', password: 'password' })
@@ -13,13 +13,13 @@ test('get table score', async ({ client, expect }) => {
     {
       id: randomUUID(),
       playerName: 'Michael',
-      adventureName: 'Tezzidy',
+      adventureName: 'Aazzidy',
       score: 2,
     },
     {
       id: randomUUID(),
       playerName: 'Scott',
-      adventureName: 'Tezzidy',
+      adventureName: 'Aazzidy',
       score: 8,
     },
   ])

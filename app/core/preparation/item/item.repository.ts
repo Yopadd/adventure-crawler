@@ -8,6 +8,7 @@ export default class ItemRepositoryDatabase implements GetAllItems, GetByName {
   public async getAll(input: ItemPaginationInput): Promise<Item[]> {
     const pagination = await ItemModel.query()
       .where('hidden', false)
+      .orderBy('name')
       .paginate(input.page.get(), input.limit.get())
     return pagination.all().map(ItemRepositoryDatabase.toItem)
   }
