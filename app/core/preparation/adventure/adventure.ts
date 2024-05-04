@@ -2,7 +2,11 @@ import { NumberValidation } from '#app/core/validations/number-validation'
 import { StringValidation } from '#app/core/validations/string-validation'
 
 export default class Adventure {
-  constructor(public readonly name: AdventureName) {}
+  public readonly name: AdventureName
+
+  constructor(name: string) {
+    this.name = new AdventureName(name)
+  }
 }
 
 export class AdventureName extends StringValidation {

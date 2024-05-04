@@ -12,11 +12,13 @@ test('get item list', async ({ client, expect }) => {
   })
 
   expect(response.status()).toBe(200)
-  expect(response.body().length).toEqual(Object.keys(Items).length - 1) // All not hidden items
-  response.body().forEach((item: unknown) => {
+  const body = response.body()
+  expect(body.items.length).toEqual(Object.keys(Items).length - 1) // All not hidden items
+  body.items.forEach((item: unknown) => {
     expect(item).toEqual({
       name: expect.any(String),
       description: expect.any(String),
     })
   })
+  expect(body.total).toBeGreaterThan(1)
 }).setup(() => testUtils.db().truncate())

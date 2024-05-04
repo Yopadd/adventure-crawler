@@ -15,7 +15,7 @@ test('Explore adventure with a goods items in backpack and increase score', asyn
     limit: 2,
     page: 1,
   })
-  const items: Array<{ name: string }> = itemsResp.body()
+  const items: Array<{ name: string }> = itemsResp.body().items
 
   await client
     .post(`/preparation/backpack`)
@@ -23,7 +23,7 @@ test('Explore adventure with a goods items in backpack and increase score', asyn
     .json({ itemsName: items.map((item) => item.name) })
 
   const adventuresResp = await client.get('/preparation/adventures').qs({ limit: 1, page: 1 })
-  const adventures = adventuresResp.body()
+  const { adventures } = adventuresResp.body()
 
   // Explore adventure
   let response = await client
