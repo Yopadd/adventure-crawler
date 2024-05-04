@@ -1,4 +1,4 @@
-import { Backpack } from '#app/core/preparation/backpack/backpack'
+import Backpack from '#app/core/preparation/backpack/backpack'
 
 export interface GetBackpackInput {
   playerName: string

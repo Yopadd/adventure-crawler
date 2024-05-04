@@ -1,4 +1,5 @@
 import EventBase from '#app/core/exploration/adventure/event-base'
+import BackpackFullError from '#app/core/exploration/player/backpack/backpack-full.error'
 import Player from '#app/core/exploration/player/player'
 import Note from '#app/core/exploration/player/report/note/note'
 import { Items } from '#app/core/install/item/items'
@@ -14,8 +15,17 @@ export default class Dragon extends EventBase<Player> {
   public resolve(player: Player, note: Note): Note | null {
     super.resolve(player, note)
     if (player.hasTag('stealth')) {
-      player.backpack.add(Items.GoldNuggets)
-      note.add(new Note("Oui ! j'ai réussi à me faufiler sans un bruit", 1))
+      try {
+        player.backpack.add(Items.GoldNuggets)
+      } catch (err) {
+        if (err instanceof BackpackFullError) {
+          note.add(
+            new Note("J'ai réussi à me faufiler. Mais je n'ai pas de place dans mon sac...", 1)
+          )
+        }
+        throw err
+      }
+      note.add(new Note("J'ai réussi à me faufiler sans un bruit et à récupérer quelque chose", 1))
     }
     return note
   }

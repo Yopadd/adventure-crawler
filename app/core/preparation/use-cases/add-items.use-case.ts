@@ -1,4 +1,4 @@
-import { Backpack } from '#app/core/preparation/backpack/backpack'
+import Backpack from '#app/core/preparation/backpack/backpack'
 import Item, { ItemName } from '#app/core/preparation/item/item'
 import { UnitOfWork } from '#app/core/unit-of-work/unit-of-work'
 

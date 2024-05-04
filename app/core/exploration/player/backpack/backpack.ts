@@ -8,6 +8,9 @@ export default class Backpack implements EventResolver {
   private _items: Item[]
 
   constructor(items: Item[] = []) {
+    if (items.length > this.size) {
+      throw new BackpackFullError()
+    }
     this._items = items
   }
 

@@ -42,7 +42,7 @@ Jour 2; Au voleur !; J'ai de quoi me défendre !
 Jour 3; Des loups !; Je suis suffisamment armé pour leurs tenir tête
 Jour 4; Un bon endroit pour faire une pause; J'ai pu rallumer ce vieux feu de camp; C'est le bon moment pour un bon repas; Il est temps de reprendre la route
 Jour 5; Devant moi une rivière de lave, impossible de continuer sans traverser; Heureusement, j'ai de quoi me protéger; Un peu d'eau fraîche avec cette chaleur, un plaisir
-Jour 6; Un dragon ! C'est un dragon qui dort juste devant moi. Derrière lui ce trouve un trésor d'une valeur inestimable. Repartir vivant avec quelques pierres précieuses, c'est l'assurance d'une vie paisible; Oui ! j'ai réussi à me faufiler sans un bruit
+Jour 6; Un dragon ! C'est un dragon qui dort juste devant moi. Derrière lui ce trouve un trésor d'une valeur inestimable. Repartir vivant avec quelques pierres précieuses, c'est l'assurance d'une vie paisible; J'ai réussi à me faufiler sans un bruit et à récupérer quelque chose
 `)
   })
 })

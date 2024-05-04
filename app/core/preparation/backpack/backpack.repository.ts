@@ -1,4 +1,4 @@
-import { Backpack } from '#app/core/preparation/backpack/backpack'
+import Backpack from '#app/core/preparation/backpack/backpack'
 import Item from '#app/core/preparation/item/item'
 import { BackpackRepository as AddItems } from '#app/core/preparation/use-cases/add-items.use-case'
 import { BackpackRepository as Get } from '#app/core/preparation/use-cases/get-backpack.use-case'
@@ -21,7 +21,7 @@ export class BackPackRepositoryDatabase implements Get, AddItems {
     client: TransactionClientContract
   ): Promise<void> {
     const model = await BackpackModel.findOrFail(playerName, { client })
-    await model.related('items').sync(backpack.getItems().map((item) => item.name.get()))
+    await model.related('items').sync(backpack.items.map((item) => item.name.get()))
   }
 
   private static toBackpack(model: BackpackModel): Backpack {
