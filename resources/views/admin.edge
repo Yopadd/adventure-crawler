@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<head>
+  <script
+    src="https://unpkg.com/htmx.org@1.9.12"
+    integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2"
+    crossorigin="anonymous"
+  ></script>
+</head>
+
+<body>
+  <form
+    hx-target="#form-response"
+    hx-headers='js:{"Authorization": `Bearer ${document.querySelector("#api-key").value}`}'
+  >
+    <label>
+      Clé d'administration
+      <input
+        type="password"
+        id="api-key"
+        required
+      >
+    </label>
+    <input
+      type="submit"
+      value="Installer"
+      hx-post="/install"
+    >
+    <input
+      type="submit"
+      value="Désinstaller"
+      hx-post="/uninstall"
+    >
+  </form>
+  <div id="form-response"></div>
+</body>
+
+</html>

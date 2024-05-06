@@ -50,6 +50,5 @@ router
 
 router.get('/score-board', [ScoreBoardController])
 
-router.get('/', ({ view }) => {
-  return view.render('index')
-})
+router.get('/admin', ({ view }) => view.render('admin'))
+router.get('/', ({ view }) => view.render('index'))

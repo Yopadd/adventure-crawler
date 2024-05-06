@@ -5,9 +5,10 @@ import ExploreAdventureUseCase from '#app/core/exploration/use-cases/explore-adv
 import PlayerSheetRepositoryDatabase from '#app/core/inscription/player-sheet/player-sheet.repository'
 import AddPlayerUseCase from '#app/core/inscription/use-cases/add-player.use-case'
 import { default as InstallAventureRepositoryDatabase } from '#app/core/install/adventure/adventure.repository'
+import InstallerStatusRepositoryDatabase from '#app/core/install/installer-status/installer-status.repository'
 import { default as InstallItemRepositoryDatabase } from '#app/core/install/item/item.repository'
-import InstallAdventuresUseCase from '#app/core/install/use-cases/install-adventures.use-case'
-import InstallItemsUseCase from '#app/core/install/use-cases/install-items.use-case'
+import InstallUseCase from '#app/core/install/use-cases/install.use-case'
+import UninstallUseCase from '#app/core/install/use-cases/uninstall.use-case'
 import { default as PreparationAdventureRepositoryDatabase } from '#app/core/preparation/adventure/adventure.repository'
 import { BackPackRepositoryDatabase } from '#app/core/preparation/backpack/backpack.repository'
 import { default as PreparationItemRepositoryDatabase } from '#app/core/preparation/item/item.repository'
@@ -18,16 +19,12 @@ import GetItemsUseCase from '#app/core/preparation/use-cases/get-items.use-case'
 import { default as ScoreBoardPlayerRepositoryDatabase } from '#app/core/score-board/player/player.repository'
 import GetScoreboardUseCase from '#app/core/score-board/use-case/get-score-board'
 import { UnitOfWorkLucid } from '#app/core/unit-of-work/unit-of-work'
-import AdventureModel from '#models/adventure.model'
-import BackpackModel from '#models/backpack.model'
-import ItemModel from '#models/item.model'
-import PlayerModel from '#models/player.model'
-import ReportModel from '#models/report.model'
 
 export const repositories = {
   install: {
     adventureRepository: new InstallAventureRepositoryDatabase(),
     itemRepository: new InstallItemRepositoryDatabase(),
+    installerStatus: new InstallerStatusRepositoryDatabase(),
   },
   exploration: {
     adventureRepository: new ExplorationAdventureRepositoryDatabase(),
@@ -54,18 +51,16 @@ class Game {
   constructor() {}
 
   async install(_: ApplicationOptions = {}): Promise<void> {
-    await new InstallAdventuresUseCase(repositories.install.adventureRepository).apply()
-    await new InstallItemsUseCase(repositories.install.itemRepository).apply()
+    await new InstallUseCase(
+      repositories.install.adventureRepository,
+      repositories.install.itemRepository,
+      repositories.install.installerStatus,
+      repositories.unitOfWork
+    ).apply()
   }
 
   async uninstall(): Promise<void> {
-    await Promise.all([
-      AdventureModel.truncate(true),
-      ReportModel.truncate(true),
-      PlayerModel.truncate(true),
-      ItemModel.truncate(true),
-      BackpackModel.truncate(true),
-    ])
+    await new UninstallUseCase().apply()
   }
 
   addPlayer(input: Parameters<AddPlayerUseCase['apply']>[0]) {
