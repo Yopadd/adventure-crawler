@@ -1,38 +1,57 @@
 <!DOCTYPE html>
+<html lang="en">
 
 <head>
+  <title>Adventure Crawler - Admin</title>
+  <meta charset="utf-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
   <script
     src="https://unpkg.com/htmx.org@1.9.12"
     integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2"
     crossorigin="anonymous"
   ></script>
+  <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/response-targets.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+  />
 </head>
 
 <body>
-  <form
-    hx-target="#form-response"
-    hx-headers='js:{"Authorization": `Bearer ${document.querySelector("#api-key").value}`}'
-  >
-    <label>
-      Clé d'administration
+  <main class="container">
+    <form
+      hx-ext="response-targets"
+      hx-target="#form-response"
+      hx-target-error="#form-response"
+      hx-headers='js:{"Authorization": `Bearer ${document.querySelector("#api-key").value}`}'
+    >
+      <p id="form-response"></p>
+      <label>
+        Clé d'administration
+        <input
+          type="password"
+          id="api-key"
+          required
+        >
+      </label>
       <input
-        type="password"
-        id="api-key"
-        required
+        type="submit"
+        value="Installer"
+        hx-post="/install"
+        hx-confirm="Voulez vous vraiment installer Adventure Crwaler maintenant ?"
       >
-    </label>
-    <input
-      type="submit"
-      value="Installer"
-      hx-post="/install"
-    >
-    <input
-      type="submit"
-      value="Désinstaller"
-      hx-post="/uninstall"
-    >
-  </form>
-  <div id="form-response"></div>
+      <input
+        type="submit"
+        value="Désinstaller"
+        hx-post="/uninstall"
+        hx-confirm="Voulez vous vraiment désintaller Adventure Crwaler ?"
+        class="secondary"
+      >
+    </form>
+  </main>
 </body>
 
 </html>

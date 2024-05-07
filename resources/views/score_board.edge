@@ -1,23 +1,44 @@
 <!DOCTYPE html>
-<htm>
-  <head></head>
-  <body>
-    @if(data.length > 0)
-      <table>
-        <thead>
-          <th>Joueur</th>
-          <th>Score</th>
-        </thead>
-        <tbody>
-          @each(player in data)
-            <tr>
-              <td>{{ player.name }}</td>
-              <td>{{ player.score }}</td>
-            </tr>
-          @end
-        </tbody>
-      </table>
+<html>
+
+<head>
+  <title>Adventure Crawler - Score Board</title>
+  <script
+    src="https://unpkg.com/htmx.org@1.9.12"
+    integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2"
+    crossorigin="anonymous"
+  ></script>
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+  />
+</head>
+
+<body
+  hx-headers='{"Accept": "text/html"}'
+  hx-get="/score-board"
+  hx-trigger="every 10s"
+>
+  <main class="container">
+    @if(data.rows.length > 0)
+    <table>
+      <thead>
+        <th>Joueur</th>
+        <th>Score</th>
+      </thead>
+      <tbody>
+        @each(player in data.rows)
+        <tr>
+          <td>{{ player.name }}</td>
+          <td>{{ player.score }}</td>
+        </tr>
+        @end
+      </tbody>
+    </table>
+    <p>Dernière mise à jour : {{ data.updatedAt.setLocale('fr').toFormat('F') }}</p>
     @end
     <code>POST /inscription { name, password }</code>
-  </body>
-</htm>
+  </main>
+</body>
+
+</html>

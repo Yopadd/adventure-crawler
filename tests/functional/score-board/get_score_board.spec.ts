@@ -30,14 +30,17 @@ test('get score board', async ({ client, expect }) => {
   })
 
   expect(response.status()).toBe(200)
-  expect(response.body()).toEqual([
-    {
-      name: 'Scott',
-      score: 8,
-    },
-    {
-      name: 'Michael',
-      score: 2,
-    },
-  ])
+  expect(response.body()).toEqual({
+    rows: [
+      {
+        name: 'Scott',
+        score: 8,
+      },
+      {
+        name: 'Michael',
+        score: 2,
+      },
+    ],
+    updatedAt: expect.any(String),
+  })
 }).setup(() => testUtils.db().truncate())
