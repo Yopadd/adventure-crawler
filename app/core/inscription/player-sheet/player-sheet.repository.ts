@@ -28,4 +28,9 @@ export default class PlayerSheetRepositoryDatabase implements PlayerSheetReposit
       )
     })
   }
+
+  public async count(): Promise<number> {
+    const { count } = await db.from('players').count('*').first()
+    return count
+  }
 }

@@ -18,6 +18,7 @@ export default await Env.create(new URL('../', import.meta.url), {
   DRIVE_DISK: Env.schema.enum(['local'] as const),
   NODE_ENV: Env.schema.enum(['development', 'production', 'test'] as const),
   LOG_LEVEL: Env.schema.string(),
+  MAX_PLAYERS: Env.schema.number(),
 
   /*
   |----------------------------------------------------------
