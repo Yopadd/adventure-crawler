@@ -45,4 +45,12 @@ export default class Backpack implements EventResolver {
   public removeAllFromTag(tag: Tag) {
     this._items = this._items.filter((item) => !item.tags.has(tag))
   }
+
+  public static handleBackFullError(err: Error, fallback: () => void) {
+    if (err instanceof BackpackFullError) {
+      fallback()
+    } else {
+      throw err
+    }
+  }
 }

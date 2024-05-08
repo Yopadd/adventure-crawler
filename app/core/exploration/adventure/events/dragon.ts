@@ -1,5 +1,5 @@
 import EventBase from '#app/core/exploration/adventure/event-base'
-import BackpackFullError from '#app/core/exploration/player/backpack/backpack-full.error'
+import Backpack from '#app/core/exploration/player/backpack/backpack'
 import Player from '#app/core/exploration/player/player'
 import Note from '#app/core/exploration/player/report/note/note'
 import { Items } from '#app/core/install/item/items'
@@ -18,12 +18,11 @@ export default class Dragon extends EventBase<Player> {
       try {
         player.backpack.add(Items.GoldNuggets)
       } catch (err) {
-        if (err instanceof BackpackFullError) {
+        Backpack.handleBackFullError(err, () => {
           note.add(
             new Note("J'ai réussi à me faufiler. Mais je n'ai pas de place dans mon sac...", 1)
           )
-        }
-        throw err
+        })
       }
       note.add(new Note("J'ai réussi à me faufiler sans un bruit et à récupérer quelque chose", 1))
     }
