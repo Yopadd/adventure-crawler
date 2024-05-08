@@ -41,14 +41,10 @@ export default class PreparationController {
     const payload = await getAdventuresValidator.validate(request.all())
 
     const adventures = await game.getAdventures(payload)
-    const nextUrl = new URL(request.completeUrl())
-    nextUrl.search = adventures.next ?? ''
-    const previousUrl = new URL(request.completeUrl())
-    previousUrl.search = adventures.previous ?? ''
     return {
       adventures: adventures.all().map((adventure) => ({ name: adventure.name.get() })),
-      next: adventures.next ? nextUrl.toString() : null,
-      previous: adventures.previous ? previousUrl.toString() : null,
+      next: adventures.next,
+      previous: adventures.previous,
       total: adventures.total.get(),
     }
   }
@@ -57,16 +53,12 @@ export default class PreparationController {
     const payload = await getItemsValidator.validate(request.all())
 
     const items = await game.getItems(payload)
-    const nextUrl = new URL(request.completeUrl())
-    nextUrl.search = items.next ?? ''
-    const previousUrl = new URL(request.completeUrl())
-    previousUrl.search = items.previous ?? ''
     return {
       items: items
         .all()
         .map((item) => ({ name: item.name.get(), description: item.description.get() })),
-      next: items.next ? nextUrl.toString() : null,
-      previous: items.previous ? previousUrl.toString() : null,
+      next: items.next,
+      previous: items.previous,
       total: items.total.get(),
     }
   }
