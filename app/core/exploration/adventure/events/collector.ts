@@ -4,7 +4,7 @@ import Note from '#app/core/exploration/player/report/note/note'
 
 export default class Collector extends EventBase<Player> {
   constructor() {
-    super('Collector', "Un collectionneur, il doit pouvoir m'acheter quelque broutilles")
+    super('Collector', "Un collectionneur, il doit pouvoir m'acheter quelques broutilles")
   }
 
   public resolve(player: Player, note: Note): Note {

@@ -8,7 +8,7 @@ export default class Dragon extends EventBase<Player> {
   constructor() {
     super(
       'Dragon',
-      "Un dragon ! C'est un dragon qui dort juste devant moi. Derrière lui ce trouve un trésor d'une valeur inestimable. Repartir vivant avec quelques pierres précieuses, c'est l'assurance d'une vie paisible"
+      "Un dragon qui dort juste devant moi. Derrière lui se trouve un trésor d'une valeur inestimable. Repartir vivant avec quelques pierres précieuses, c'est l'assurance d'une vie paisible"
     )
   }
 

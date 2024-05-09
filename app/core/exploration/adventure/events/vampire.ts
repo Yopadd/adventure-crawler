@@ -11,7 +11,7 @@ export default class Vampire extends EventBase<Player> {
   public resolve(player: Player, note: Note): Note {
     super.resolve(player, note)
     if (!player.hasTag('light')) {
-      note.add(new Note("Je ne vois rien dans cette obscurité... Mais qu'es ce que !", 0))
+      note.add(new Note("Je ne vois rien dans cette obscurité... Mais qu'est-ce que...", 0))
       return note
     }
     note.add(

@@ -69,7 +69,7 @@ export const Items = {
     return new Item({
       name: 'Bâton',
       description:
-        'Un simple bout bois, ça peut être utile pour la marche et même peut-être pour se défendre',
+        'Un simple bout de bois, ça peut être utile pour la marche et même peut-être pour se défendre',
       tags: ['weapon', 'wood'],
     })
   },
@@ -86,7 +86,7 @@ export const Items = {
   get WoodShield() {
     return new Item({
       name: 'Bouclier en bois',
-      description: 'Un simple planche de bois, mais souvent très utile',
+      description: 'Une simple planche de bois, mais souvent très utile',
       tags: ['armor', 'wood'],
     })
   },
@@ -126,7 +126,7 @@ export const Items = {
   get Bread() {
     return new Item({
       name: 'Baguette de pain',
-      description: 'Un bonne baguette pour de bon sandwich',
+      description: 'Une bonne baguette pour de bons sandwichs',
       tags: ['food'],
     })
   },
@@ -157,7 +157,7 @@ export const Items = {
 
   get HoodedCape() {
     return new Item({
-      name: 'Cape encapuchonné',
+      name: 'Cape à capuche',
       description: "Si je veux rester dans l'ombre",
       tags: ['stealth'],
     })
