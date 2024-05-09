@@ -2,6 +2,7 @@ export type EventName =
   | 'Cliff'
   | 'Collector'
   | 'Crossing Lava River'
+  | 'Crypt'
   | 'Dragon'
   | 'Fire Camp'
   | 'Thief'

@@ -11,6 +11,9 @@ export const Events = {
   CrossingLavaRiver(): EventName {
     return 'Crossing Lava River'
   },
+  Crypt(): EventName {
+    return 'Crypt'
+  },
   FireCamp(): EventName {
     return 'Fire Camp'
   },

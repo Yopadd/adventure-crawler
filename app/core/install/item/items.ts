@@ -163,6 +163,38 @@ export const Items = {
     })
   },
 
+  get Bow() {
+    return new Item({
+      name: 'Arc',
+      description: 'Très pratique avec un peu d’entraînement',
+      tags: ['weapon'],
+    })
+  },
+
+  get HealthPotion() {
+    return new Item({
+      name: 'Potion de soin',
+      description: "L'indispensable du kit de l'aventurier",
+      tags: ['care', 'magic'],
+    })
+  },
+
+  get MagicProtectionScroll() {
+    return new Item({
+      name: 'Parchemin de protection magique',
+      description: 'Efficace contre tout types de magie',
+      tags: ['magic resistance'],
+    })
+  },
+
+  get Smoke() {
+    return new Item({
+      name: 'Fumigène',
+      description: 'Pour échapper a des situations compliquées',
+      tags: ['stealth'],
+    })
+  },
+
   /**
    * HIDDEN ITEMS
    */
@@ -170,7 +202,16 @@ export const Items = {
     return new Item({
       name: "Pépites d'or",
       description: '',
-      tags: ['money', 'money', 'money', 'money', 'money'],
+      tags: ['gold', 'gold', 'gold', 'gold', 'gold', 'money', 'money', 'money', 'money', 'money'],
+      hidden: true,
+    })
+  },
+
+  get OldCrown() {
+    return new Item({
+      name: 'Couronne oublié',
+      description: "La couronne d'un roi oublié",
+      tags: ['treasure', 'gold', 'money', 'money', 'money', 'money', 'money'],
       hidden: true,
     })
   },

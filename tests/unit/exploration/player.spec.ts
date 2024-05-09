@@ -37,12 +37,12 @@ test.group('Player', () => {
 
     expect(report.score).toEqual(14)
     expect(report.comment)
-      .toBe(`Jour 1; Un collectionneur, il doit pouvoir m'acheter quelque broutilles; Il est intéressé par un de mes objets de valeurs
+      .toBe(`Jour 1; Un collectionneur, il doit pouvoir m'acheter quelques broutilles; Il est intéressé par un de mes objets de valeurs
 Jour 2; Au voleur !; J'ai de quoi me défendre !
 Jour 3; Des loups !; Je suis suffisamment armé pour leurs tenir tête
 Jour 4; Un bon endroit pour faire une pause; J'ai pu rallumer ce vieux feu de camp; C'est le bon moment pour un bon repas; Il est temps de reprendre la route
 Jour 5; Devant moi une rivière de lave, impossible de continuer sans traverser; Heureusement, j'ai de quoi me protéger; Un peu d'eau fraîche avec cette chaleur, un plaisir
-Jour 6; Un dragon ! C'est un dragon qui dort juste devant moi. Derrière lui ce trouve un trésor d'une valeur inestimable. Repartir vivant avec quelques pierres précieuses, c'est l'assurance d'une vie paisible; J'ai réussi à me faufiler sans un bruit et à récupérer quelque chose
+Jour 6; Un dragon qui dort juste devant moi. Derrière lui se trouve un trésor d'une valeur inestimable. Repartir vivant avec quelques pierres précieuses, c'est l'assurance d'une vie paisible; J'ai réussi à me faufiler sans un bruit et à récupérer quelque chose
 `)
   })
 })

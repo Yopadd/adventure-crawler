@@ -3,9 +3,12 @@ import {
   AdventureEvent,
   AdventureEventDescription,
 } from '#app/core/exploration/adventure/adventure'
+import Backpack from '#app/core/exploration/player/backpack/backpack'
 import { EventResolver } from '#app/core/exploration/player/event-resolver'
+import Player from '#app/core/exploration/player/player'
 import Note from '#app/core/exploration/player/report/note/note'
 import { EventName } from '#app/core/install/event/event'
+import Item from '#app/core/install/item/item'
 import { randomInt } from 'node:crypto'
 
 export default abstract class EventBase<T extends EventResolver> implements AdventureEvent<T> {
@@ -30,8 +33,16 @@ export default abstract class EventBase<T extends EventResolver> implements Adve
     return false
   }
 
-  static RandomPick<T>(arr: T[]): T {
+  static randomPick<T>(arr: T[]): T {
     const index = randomInt(0, arr.length - 1)
     return arr[index]
+  }
+
+  static addToBackpack(player: Player, item: Item, fallback: () => void) {
+    try {
+      player.backpack.add(item)
+    } catch (err) {
+      Backpack.handleBackFullError(err, fallback)
+    }
   }
 }

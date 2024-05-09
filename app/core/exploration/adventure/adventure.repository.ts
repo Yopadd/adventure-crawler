@@ -2,6 +2,7 @@ import Adventure from '#app/core/exploration/adventure/adventure'
 import Cliff from '#app/core/exploration/adventure/events/cliff'
 import Collector from '#app/core/exploration/adventure/events/collector'
 import CrossingLavaRiver from '#app/core/exploration/adventure/events/crossing-lava-river'
+import Crypt from '#app/core/exploration/adventure/events/crypt'
 import Dragon from '#app/core/exploration/adventure/events/dragon'
 import FireCamp from '#app/core/exploration/adventure/events/fire-camp'
 import ItemChallenge from '#app/core/exploration/adventure/events/item-challenge'
@@ -42,6 +43,7 @@ export default class AdventureRepositoryDatabase implements AdventureRepository 
       })
       .with('Fire Camp', () => new FireCamp())
       .with('Dragon', () => new Dragon())
+      .with('Crypt', () => new Crypt())
       .exhaustive()
   }
 }
