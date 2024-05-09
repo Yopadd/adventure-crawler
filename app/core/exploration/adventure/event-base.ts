@@ -25,8 +25,9 @@ export default abstract class EventBase<T extends EventResolver> implements Adve
     }
   }
 
-  public resolve(_: T, note: Note): Note | null {
-    return note.add(new Note(this.description.get()))
+  public resolve(_: T, note: Note): boolean {
+    note.add(new Note(this.description.get()))
+    return false
   }
 
   static RandomPick<T>(arr: T[]): T {

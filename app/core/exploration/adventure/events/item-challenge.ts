@@ -12,14 +12,15 @@ export default class ItemChallenge extends EventBase<Player> {
     this.challenge = c
   }
 
-  public resolve(player: Player, note: Note): Note {
+  public resolve(player: Player, note: Note): boolean {
     const str = player.getAllTags().join('').replaceAll(' ', '')
 
     const n = ItemChallenge.computeScore(str)
     const result = Math.min(Math.abs(this.challenge.get() - n), 10)
     const score = 10 - result
 
-    return note.add(new Note(score.toString(), score))
+    note.add(new Note(score.toString(), score))
+    return false
   }
 
   private static computeScore(value: string): number {

@@ -10,8 +10,8 @@ export default class MyEvent extends EventBase<Player> {
     )
   }
 
-  public resolve(player: Player, note: Note): Note | undefined {
+  public resolve(player: Player, note: Note): boolean {
     super.resolve(player, note)
-    return note
+    return false
   }
 }

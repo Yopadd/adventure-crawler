@@ -18,11 +18,12 @@ export default class Adventure<T extends EventResolver = Player> {
     let notes = []
     for (const index in this.events) {
       const event = this.events[index]
-      const note = event.resolve(resolver, new Note(`Jour ${Number.parseInt(index) + 1}`))
-      if (note === null) {
+      const note = new Note(`Jour ${Number.parseInt(index) + 1}`)
+      const end = event.resolve(resolver, note)
+      notes.push(note)
+      if (end) {
         break
       }
-      notes.push(note)
     }
     return notes
   }
@@ -37,7 +38,7 @@ export class AdventureName extends StringValidation {
 export interface AdventureEvent<T extends EventResolver> {
   description: AdventureEventDescription
   name: EventName
-  resolve: (eventResolver: T, note: Note) => Note | null
+  resolve: (eventResolver: T, note: Note) => boolean
 }
 
 export class AdventureEventDescription extends StringValidation {

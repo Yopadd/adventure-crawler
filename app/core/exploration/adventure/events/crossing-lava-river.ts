@@ -10,16 +10,16 @@ export default class CrossingLavaRiver extends EventBase<Player> {
     )
   }
 
-  public resolve(player: Player, note: Note): Note | null {
+  public resolve(player: Player, note: Note): boolean {
     super.resolve(player, note)
     if (player.hasTag('fire resistance')) {
       note.add(new Note("Heureusement, j'ai de quoi me protéger", 1))
     } else {
-      return null
+      return true
     }
     if (player.hasTag('hydration')) {
       note.add(new Note("Un peu d'eau fraîche avec cette chaleur, un plaisir", 1))
     }
-    return note
+    return false
   }
 }

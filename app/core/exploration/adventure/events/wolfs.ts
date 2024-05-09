@@ -12,11 +12,11 @@ export default class Wolfs extends EventBase<Player> {
     this.wolfsCount = wc
   }
 
-  public resolve(player: Player, note: Note): Note {
+  public resolve(player: Player, note: Note): boolean {
     super.resolve(player, note)
     if (!player.hasTag('weapon')) {
       note.add(new Note("Fuir ! C'est la seul chose que je puise faire !"))
-      return note
+      return false
     }
     if (player.countTag('weapon') === this.wolfsCount.get()) {
       note.add(
@@ -27,7 +27,7 @@ export default class Wolfs extends EventBase<Player> {
           this.wolfsCount.get() * 2
         )
       )
-      return note
+      return false
     }
     note.add(
       new Note(
@@ -41,7 +41,7 @@ export default class Wolfs extends EventBase<Player> {
     } else {
       note.add(new Note("Je n'ai absolument rien je vais devoir me débrouiller", -1))
     }
-    return note
+    return false
   }
 }
 

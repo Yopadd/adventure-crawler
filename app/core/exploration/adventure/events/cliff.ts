@@ -7,7 +7,7 @@ export default class Cliff extends EventBase<Player> {
     super('Cliff', 'Une falaise se dresse devant moi')
   }
 
-  public resolve(player: Player, note: Note): Note {
+  public resolve(player: Player, note: Note): boolean {
     super.resolve(player, note)
     if (player.countTag('climbing') > 1) {
       note.add(
@@ -21,6 +21,6 @@ export default class Cliff extends EventBase<Player> {
     } else {
       note.add(new Note('Je ferais mieux de trouver un nouveau passage'))
     }
-    return note
+    return false
   }
 }

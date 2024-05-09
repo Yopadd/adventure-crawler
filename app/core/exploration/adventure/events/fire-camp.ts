@@ -7,7 +7,7 @@ export default class FireCamp extends EventBase<Player> {
     super('Fire Camp', 'Un bon endroit pour faire une pause')
   }
 
-  public resolve(player: Player, note: Note): Note {
+  public resolve(player: Player, note: Note): boolean {
     super.resolve(player, note)
     if (player.hasTag('fire')) {
       note.add(new Note("J'ai pu rallumer ce vieux feu de camp", 1))
@@ -20,6 +20,6 @@ export default class FireCamp extends EventBase<Player> {
       note.add(new Note('Un petit casse-croûte avant de reprendre la route', 1))
     }
     note.add(new Note('Il est temps de reprendre la route', 1))
-    return note
+    return false
   }
 }

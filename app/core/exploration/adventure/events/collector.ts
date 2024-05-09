@@ -7,7 +7,7 @@ export default class Collector extends EventBase<Player> {
     super('Collector', "Un collectionneur, il doit pouvoir m'acheter quelques broutilles")
   }
 
-  public resolve(player: Player, note: Note): Note {
+  public resolve(player: Player, note: Note): boolean {
     super.resolve(player, note)
     const moneyCount = player.countTag('money')
     if (moneyCount > 0) {
@@ -20,6 +20,6 @@ export default class Collector extends EventBase<Player> {
     } else {
       note.add(new Note("Je n'ai rien pour lui malheureusement"))
     }
-    return note
+    return false
   }
 }

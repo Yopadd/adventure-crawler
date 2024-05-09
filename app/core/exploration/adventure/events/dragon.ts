@@ -12,7 +12,7 @@ export default class Dragon extends EventBase<Player> {
     )
   }
 
-  public resolve(player: Player, note: Note): Note | null {
+  public resolve(player: Player, note: Note): boolean {
     super.resolve(player, note)
     if (player.hasTag('stealth')) {
       try {
@@ -26,6 +26,6 @@ export default class Dragon extends EventBase<Player> {
       }
       note.add(new Note("J'ai réussi à me faufiler sans un bruit et à récupérer quelque chose", 1))
     }
-    return note
+    return false
   }
 }
