@@ -11,8 +11,31 @@ import { Items } from '#app/core/install/item/items'
 import { test } from '@japa/runner'
 
 test.group('Player', () => {
-  test('explore', async ({ expect }) => {
-    const adventure = new Adventure('Tezzidy', [
+  test('explore without items', async ({ expect }) => {
+    const adventure = new Adventure('Aazzidy', [
+      new Collector(),
+      new Thief(),
+      new Wolfs(2),
+      new FireCamp(),
+      new CrossingLavaRiver(),
+      new Dragon(),
+    ])
+    const backpack = new Backpack()
+    const player = new Player('Le player', backpack)
+
+    const report = player.explore(adventure)
+
+    expect(report.score).toEqual(1)
+    expect(report.comment)
+      .toBe(`Jour 1; Un collectionneur, il doit pouvoir m'acheter quelques broutilles; Je n'ai rien pour lui malheureusement
+Jour 2; Au voleur !; Je n'ai rien pu faire il m'a tout pris !
+Jour 3; Des loups !; Fuir ! C'est la seul chose que je puise faire !
+Jour 4; Un bon endroit pour faire une pause; Il est temps de reprendre la route
+Jour 5; Devant moi une rivière de lave, impossible de continuer sans traverser
+`)
+  })
+  test('explore with several items', async ({ expect }) => {
+    const adventure = new Adventure('Aazzidy', [
       new Collector(),
       new Thief(),
       new Wolfs(2),
@@ -36,6 +59,7 @@ test.group('Player', () => {
     const report = player.explore(adventure)
 
     expect(report.score).toEqual(14)
+    expect(player.backpack.items.map((item) => item.name.get())).toContain("Pépites d'or")
     expect(report.comment)
       .toBe(`Jour 1; Un collectionneur, il doit pouvoir m'acheter quelques broutilles; Il est intéressé par un de mes objets de valeurs
 Jour 2; Au voleur !; J'ai de quoi me défendre !
