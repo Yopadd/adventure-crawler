@@ -1,7 +1,13 @@
 import { EventName } from '#app/core/install/event/event'
 import { randomInt } from 'node:crypto'
 
-export const Events = {
+export type EventKey<S = EventName> = S extends `${infer A} ${infer B}`
+  ? EventKey<`${A}${B}`>
+  : S extends `${infer C}:${any}`
+    ? C
+    : S
+
+export const Events: Record<EventKey, (...args: any) => EventName> = {
   Cliff(): EventName {
     return 'Cliff'
   },
@@ -42,9 +48,17 @@ export const Events = {
   Wolfs(wolfCount: number = randomInt(1, 3)): EventName {
     return `Wolfs:${wolfCount}`
   },
+  GoldOffering(): EventName {
+    return 'Gold Offering'
+  },
 }
 
 // Remove event to randomiser
-Object.defineProperty(Events, 'ItemChallenge', {
-  enumerable: false,
+Object.defineProperties(Events, {
+  ItemChallenge: {
+    enumerable: false,
+  },
+  GoldOffering: {
+    enumerable: false,
+  },
 })

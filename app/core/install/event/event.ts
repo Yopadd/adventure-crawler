@@ -5,6 +5,7 @@ export type EventName =
   | 'Crypt'
   | 'Dragon'
   | 'Fire Camp'
+  | 'Gold Offering'
   | 'Thief'
   | 'Tunnel In The Dark'
   | 'Vampire'

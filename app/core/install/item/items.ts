@@ -202,7 +202,19 @@ export const Items = {
     return new Item({
       name: "Pépites d'or",
       description: '',
-      tags: ['gold', 'gold', 'gold', 'gold', 'gold', 'money', 'money', 'money', 'money', 'money'],
+      tags: [
+        'treasure',
+        'gold',
+        'gold',
+        'gold',
+        'gold',
+        'gold',
+        'money',
+        'money',
+        'money',
+        'money',
+        'money',
+      ],
       hidden: true,
     })
   },
@@ -211,8 +223,43 @@ export const Items = {
     return new Item({
       name: 'Couronne oublié',
       description: "La couronne d'un roi oublié",
-      tags: ['treasure', 'gold', 'money', 'money', 'money', 'money', 'money'],
+      tags: ['treasure', 'gold', 'gold', 'gold', 'gold', 'money', 'money', 'money', 'money'],
       hidden: true,
+    })
+  },
+
+  get OldStatuette() {
+    return new Item({
+      name: 'Petite statuette de chevalier en or',
+      description: '',
+      tags: ['treasure', 'gold', 'gold', 'money', 'money', 'money', 'money', 'money'],
+      hidden: true,
+    })
+  },
+
+  get GoldenEgg() {
+    return new Item({
+      name: 'Oeuf en or',
+      description: "Provider de la poule au oeufs d'or",
+      tags: ['treasure', 'gold', 'money', 'money', 'money'],
+      hidden: false,
+    })
+  },
+
+  get Egg() {
+    return new Item({
+      name: 'Oeuf',
+      description: 'Des oeufs frais',
+      tags: ['food'],
+      hidden: false,
+    })
+  },
+
+  get SacrificeDague() {
+    return new Item({
+      name: 'Dague à la lame rouge',
+      description: 'Une dague à la lame en forme vague dans un métal au rouge brillant',
+      tags: ['weapon', 'metal', 'iron', 'magic'],
     })
   },
 }
