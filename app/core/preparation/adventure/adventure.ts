@@ -23,7 +23,7 @@ export interface AdventurePaginationInput {
 export class AdventurePageLimit extends NumberValidation {
   constructor(limit: number) {
     super(limit, {
-      max: 100,
+      max: 1000,
       min: 1,
     })
   }

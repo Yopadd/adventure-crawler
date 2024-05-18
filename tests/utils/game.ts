@@ -3,7 +3,7 @@ import Adventure from '#app/core/install/adventure/adventure'
 import { Events } from '#app/core/install/event/events'
 import { Items } from '#app/core/install/item/items'
 import db from '@adonisjs/lucid/services/db'
-import sinon from 'sinon'
+import Sinon from 'sinon'
 
 function install() {
   return db.transaction(async (trx) => {
@@ -24,6 +24,6 @@ function install() {
   })
 }
 
-export function testInstaller() {
-  sinon.replace(game, 'install', install)
+export function gameInstallerForTest() {
+  Sinon.replace(game, 'install', install)
 }

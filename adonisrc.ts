@@ -73,6 +73,11 @@ export default defineConfig({
         name: 'functional',
         timeout: 30000,
       },
+      {
+        files: ['tests/monkey/**/*.spec(.ts|.js)'],
+        name: 'monkey',
+        timeout: 60000 * 10,
+      },
     ],
     forceExit: false,
   },

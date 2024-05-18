@@ -19,7 +19,7 @@ export default class ItemChallenge extends EventBase<Player> {
     const result = Math.min(Math.abs(this.challenge.get() - n), 10)
     const score = 10 - result
 
-    note.add(new Note(score.toString(), score))
+    note.add(new Note(n.toString(), score))
     return false
   }
 

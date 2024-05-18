@@ -34,7 +34,7 @@ export const Events = {
       const max = Array.from(value)
         .map((c) => c.charCodeAt(0))
         .reduce((a, b) => a + b, 0)
-      return randomInt(0, max)
+      return randomInt(max)
     }
     challenge = challenge ?? randomScoreMaxFrom('etaonihsrl'.repeat(5))
     return `Item Challenge:${challenge}`

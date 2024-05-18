@@ -2,11 +2,11 @@ import BackpackFullError from '#app/core/preparation/backpack/backpack-full.erro
 import Item from '#app/core/preparation/item/item'
 
 export default class Backpack {
-  private readonly size = 10
+  public static readonly size = 10
   private _items: Item[]
 
   constructor(items: Item[] = []) {
-    if (items.length > this.size) {
+    if (items.length > Backpack.size) {
       throw new BackpackFullError()
     }
     this._items = items
@@ -17,7 +17,7 @@ export default class Backpack {
   }
 
   public setItems(items: Item[]) {
-    if (items.length > this.size) {
+    if (items.length > Backpack.size) {
       throw new BackpackFullError()
     }
     this._items = items

@@ -73,7 +73,7 @@ function adventuresRandomiser(eventCount: number, adventureCount: number) {
     const allEvents = Object.values(Events)
     let events = []
     for (let i = 0; i < eventCount; i++) {
-      const [event] = allEvents.splice(randomInt(0, allEvents.length - 1), 1)
+      const [event] = allEvents.splice(randomInt(allEvents.length), 1)
       events.push(event)
     }
     const adventureName = faker.lorem.slug(6)

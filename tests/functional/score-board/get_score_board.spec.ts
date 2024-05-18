@@ -1,6 +1,5 @@
 import ReportModel from '#models/report.model'
 import env from '#start/env'
-import testUtils from '@adonisjs/core/services/test_utils'
 import { test } from '@japa/runner'
 import { randomUUID } from 'node:crypto'
 
@@ -43,4 +42,4 @@ test('get score board', async ({ client, expect }) => {
     ],
     updatedAt: expect.any(String),
   })
-}).setup(() => testUtils.db().truncate())
+})

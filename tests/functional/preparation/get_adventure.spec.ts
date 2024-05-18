@@ -1,5 +1,4 @@
 import env from '#start/env'
-import testUtils from '@adonisjs/core/services/test_utils'
 import { test } from '@japa/runner'
 
 test('get adventure list', async ({ client, expect }) => {
@@ -18,4 +17,4 @@ test('get adventure list', async ({ client, expect }) => {
     })
   })
   expect(body.total).toBe(1)
-}).setup(() => testUtils.db().truncate())
+})

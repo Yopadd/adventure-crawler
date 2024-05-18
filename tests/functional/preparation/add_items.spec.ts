@@ -1,5 +1,4 @@
 import env from '#start/env'
-import testUtils from '@adonisjs/core/services/test_utils'
 import { test } from '@japa/runner'
 
 test('add item', async ({ client, expect }) => {
@@ -35,4 +34,4 @@ test('add item', async ({ client, expect }) => {
   response = await client.get(`/preparation/backpack`).basicAuth(name, password)
   expect(response.status()).toBe(200)
   expect(response.body().items.length).toBeGreaterThan(0)
-}).setup(() => testUtils.db().truncate())
+})

@@ -4,7 +4,7 @@ import { apiClient } from '@japa/api-client'
 import { expect } from '@japa/expect'
 import { pluginAdonisJS } from '@japa/plugin-adonisjs'
 import type { Config } from '@japa/runner/types'
-import { testInstaller } from './utils/game.js'
+import { gameInstallerForTest } from './utils/game.js'
 
 /**
  * This file is imported by the "bin/test.ts" entrypoint file
@@ -34,9 +34,13 @@ export const runnerHooks: Required<Pick<Config, 'setup' | 'teardown'>> = {
  */
 export const configureSuite: Config['configureSuite'] = (suite) => {
   if (['browser', 'functional', 'e2e'].includes(suite.name)) {
+    suite.setup(() => gameInstallerForTest())
+  }
+  if (['browser', 'functional', 'e2e', 'monkey'].includes(suite.name)) {
     return suite
-      .setup(() => testUtils.db().migrate())
       .setup(() => testUtils.httpServer().start())
-      .setup(() => testInstaller())
+      .onTest((test) => {
+        test.setup(() => testUtils.db().truncate())
+      })
   }
 }

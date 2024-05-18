@@ -34,7 +34,7 @@ export default abstract class EventBase<T extends EventResolver> implements Adve
   }
 
   static randomPick<T>(arr: T[]): T {
-    const index = randomInt(0, arr.length - 1)
+    const index = randomInt(arr.length)
     return arr[index]
   }
 
