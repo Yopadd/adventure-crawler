@@ -8,19 +8,19 @@ export default class AdventureModel extends BaseModel {
   static selfAssignPrimaryKey = true
 
   @column({ isPrimary: true })
-  public name: string
+  declare name: string
 
   @column()
-  public events: string
+  declare events: string
 
   @hasMany(() => ReportModel, {
     foreignKey: 'playerName',
   })
-  public reports: HasMany<typeof ReportModel>
+  declare reports: HasMany<typeof ReportModel>
 
   @column.dateTime({ autoCreate: true })
-  public createdAt: DateTime
+  declare createdAt: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
-  public updatedAt: DateTime
+  declare updatedAt: DateTime
 }

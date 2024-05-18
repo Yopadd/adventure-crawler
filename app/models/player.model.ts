@@ -17,24 +17,24 @@ export default class PlayerModel extends compose(BaseModel, AuthFinder) {
   static selfAssignPrimaryKey = true
 
   @column({ isPrimary: true })
-  public name: string
+  declare name: string
 
   @column({ serializeAs: null })
-  public password: string
+  declare password: string
 
   @hasOne(() => BackpackModel, {
     foreignKey: 'playerName',
   })
-  public backpack: HasOne<typeof BackpackModel>
+  declare backpack: HasOne<typeof BackpackModel>
 
   @hasMany(() => ReportModel, {
     foreignKey: 'playerName',
   })
-  public reports: HasMany<typeof ReportModel>
+  declare reports: HasMany<typeof ReportModel>
 
   @column.dateTime({ autoCreate: true })
-  public createdAt: DateTime
+  declare createdAt: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
-  public updatedAt: DateTime
+  declare updatedAt: DateTime
 }

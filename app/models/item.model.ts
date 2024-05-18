@@ -6,20 +6,20 @@ export default class ItemModel extends BaseModel {
   static selfAssignPrimaryKey = true
 
   @column({ isPrimary: true })
-  public name: string
+  declare name: string
 
   @column()
-  public description: string
+  declare description: string
 
   @column.dateTime({ autoCreate: true })
-  public createdAt: DateTime
+  declare createdAt: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
-  public updatedAt: DateTime
+  declare updatedAt: DateTime
 
   @column()
-  public tags: string
+  declare tags: string
 
   @column()
-  public hidden: boolean
+  declare hidden: boolean
 }

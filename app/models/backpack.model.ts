@@ -8,7 +8,7 @@ export default class BackpackModel extends BaseModel {
   static selfAssignPrimaryKey = true
 
   @column({ columnName: 'player_name', isPrimary: true })
-  public playerName: string
+  declare playerName: string
 
   @manyToMany(() => ItemModel, {
     pivotTable: 'backpacks_items',
@@ -17,11 +17,11 @@ export default class BackpackModel extends BaseModel {
     relatedKey: 'name',
     pivotRelatedForeignKey: 'item_name',
   })
-  public items: ManyToMany<typeof ItemModel>
+  declare items: ManyToMany<typeof ItemModel>
 
   @column.dateTime({ autoCreate: true })
-  public createdAt: DateTime
+  declare createdAt: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
-  public updatedAt: DateTime
+  declare updatedAt: DateTime
 }

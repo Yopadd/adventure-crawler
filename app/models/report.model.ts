@@ -10,38 +10,38 @@ export default class ReportModel extends BaseModel {
   static selfAssignPrimaryKey = true
 
   @column({ isPrimary: true })
-  public id: string
+  declare id: string
 
   @column()
-  public adventureName: string
+  declare adventureName: string
 
   @belongsTo(() => AdventureModel, {
     foreignKey: 'adventureName',
   })
-  public adventure: BelongsTo<typeof AdventureModel>
+  declare adventure: BelongsTo<typeof AdventureModel>
 
   @column()
-  public playerName: string
+  declare playerName: string
 
   @belongsTo(() => PlayerModel, {
     foreignKey: 'playerName',
   })
-  public player: BelongsTo<typeof PlayerModel>
+  declare player: BelongsTo<typeof PlayerModel>
 
   @column()
-  public comment: string
+  declare comment: string
 
   @column()
-  public score: number
+  declare score: number
 
   @column()
-  public exploredAt: DateTime
+  declare exploredAt: DateTime
 
   @column.dateTime({ autoCreate: true })
-  public createdAt: DateTime
+  declare createdAt: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
-  public updatedAt: DateTime
+  declare updatedAt: DateTime
 
   @beforeCreate()
   static async assignId(model: ReportModel) {
