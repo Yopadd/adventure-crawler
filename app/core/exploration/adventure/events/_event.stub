@@ -1,0 +1,21 @@
+{{#var fileName = string(name).dashCase().ext('.ts').toString() }}
+{{#var className = string(name).pascalCase().toString() }}
+{{{
+  exports({
+    to: app.makePath('app/core/exploration/adventure/events/', fileName )
+  })
+}}}
+import EventBase from '#app/core/exploration/adventure/event-base'
+import Player from '#app/core/exploration/player/player'
+import Note from '#app/core/exploration/player/report/note/note'
+
+export default class {{className}} extends EventBase<Player> {
+  constructor() {
+    super('{{className}}', 'Event description')
+  }
+
+  public resolve(player: Player, note: Note): boolean {
+    super.resolve(player, note)
+    return false
+  }
+}

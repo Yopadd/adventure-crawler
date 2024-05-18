@@ -20,8 +20,8 @@ export default class Item {
     }
   }
 
-  public is(name: ItemName): boolean {
-    return this.name.equal(name)
+  public is(name: string): boolean {
+    return this.name.equal(new ItemName(name))
   }
 }
 

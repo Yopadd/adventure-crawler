@@ -21,8 +21,8 @@ export default class Player implements Explorer {
     return new Report(this, adventure, notes)
   }
 
-  public hasTag(tag: Tag): boolean {
-    return this.backpack.hasTag(tag)
+  public hasTag(...tags: Tag[]): boolean {
+    return tags.every((tag) => this.backpack.hasTag(tag))
   }
 
   public countTag(tag: Tag): number {

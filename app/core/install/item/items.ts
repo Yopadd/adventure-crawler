@@ -242,7 +242,7 @@ export const Items = {
       name: 'Oeuf en or',
       description: "Provider de la poule au oeufs d'or",
       tags: ['treasure', 'gold', 'money', 'money', 'money'],
-      hidden: false,
+      hidden: true,
     })
   },
 
@@ -251,7 +251,7 @@ export const Items = {
       name: 'Oeuf',
       description: 'Des oeufs frais',
       tags: ['food'],
-      hidden: false,
+      hidden: true,
     })
   },
 
@@ -259,7 +259,17 @@ export const Items = {
     return new Item({
       name: 'Dague à la lame rouge',
       description: 'Une dague à la lame en forme vague dans un métal au rouge brillant',
-      tags: ['weapon', 'metal', 'iron', 'magic'],
+      tags: ['weapon', 'metal', 'iron', 'magic', 'sacrifice'],
+      hidden: true,
+    })
+  },
+
+  get Goat() {
+    return new Item({
+      name: 'Chèvre',
+      description: 'Une chèvre trouvée pendant une aventure',
+      tags: ['animal', 'goat'],
+      hidden: true,
     })
   },
 }

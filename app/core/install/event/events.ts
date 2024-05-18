@@ -51,6 +51,9 @@ export const Events: Record<EventKey, (...args: any) => EventName> = {
   GoldOffering(): EventName {
     return 'Gold Offering'
   },
+  SacrificeRoom(): EventName {
+    return 'Sacrifice Room'
+  },
 }
 
 // Remove event to randomiser
@@ -59,6 +62,9 @@ Object.defineProperties(Events, {
     enumerable: false,
   },
   GoldOffering: {
+    enumerable: false,
+  },
+  SacrificeRoom: {
     enumerable: false,
   },
 })

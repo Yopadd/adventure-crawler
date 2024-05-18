@@ -5,7 +5,9 @@ import CrossingLavaRiver from '#app/core/exploration/adventure/events/crossing-l
 import Crypt from '#app/core/exploration/adventure/events/crypt'
 import Dragon from '#app/core/exploration/adventure/events/dragon'
 import FireCamp from '#app/core/exploration/adventure/events/fire-camp'
+import GoldOffering from '#app/core/exploration/adventure/events/gold-offering'
 import ItemChallenge from '#app/core/exploration/adventure/events/item-challenge'
+import SacrificeRoom from '#app/core/exploration/adventure/events/sacrifice-room'
 import Thief from '#app/core/exploration/adventure/events/thief'
 import TunnelInTheDark from '#app/core/exploration/adventure/events/tunnel-in-the-dark'
 import Vampire from '#app/core/exploration/adventure/events/vampire'
@@ -44,6 +46,8 @@ export default class AdventureRepositoryDatabase implements AdventureRepository 
       .with('Fire Camp', () => new FireCamp())
       .with('Dragon', () => new Dragon())
       .with('Crypt', () => new Crypt())
+      .with('Gold Offering', () => new GoldOffering())
+      .with('Sacrifice Room', () => new SacrificeRoom())
       .exhaustive()
   }
 }

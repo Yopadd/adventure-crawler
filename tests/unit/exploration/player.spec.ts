@@ -1,4 +1,5 @@
 import Adventure from '#app/core/exploration/adventure/adventure'
+import EventBase from '#app/core/exploration/adventure/event-base'
 import Collector from '#app/core/exploration/adventure/events/collector'
 import CrossingLavaRiver from '#app/core/exploration/adventure/events/crossing-lava-river'
 import Dragon from '#app/core/exploration/adventure/events/dragon'
@@ -46,15 +47,14 @@ Jour 5; Devant moi une rivière de lave, impossible de continuer sans traverser
     const backpack = new Backpack()
     const player = new Player('Le player', backpack)
 
-    backpack
-      .add(Items.Sword)
-      .add(Items.Dagger)
-      .add(Items.Rubies)
-      .add(Items.DriedMeat)
-      .add(Items.WaterBottle)
-      .add(Items.Torch)
-      .add(Items.FirePotion)
-      .add(Items.HoodedCape)
+    EventBase.addToBackpack(player, Items.Sword, () => {})
+    EventBase.addToBackpack(player, Items.Dagger, () => {})
+    EventBase.addToBackpack(player, Items.Rubies, () => {})
+    EventBase.addToBackpack(player, Items.DriedMeat, () => {})
+    EventBase.addToBackpack(player, Items.WaterBottle, () => {})
+    EventBase.addToBackpack(player, Items.Torch, () => {})
+    EventBase.addToBackpack(player, Items.FirePotion, () => {})
+    EventBase.addToBackpack(player, Items.HoodedCape, () => {})
 
     const report = player.explore(adventure)
 

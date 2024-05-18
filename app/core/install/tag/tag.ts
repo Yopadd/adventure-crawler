@@ -1,4 +1,5 @@
 export type Tag =
+  | 'animal'
   | 'armor'
   | 'care'
   | 'climbing'
@@ -6,6 +7,7 @@ export type Tag =
   | 'fire resistance'
   | 'fire'
   | 'food'
+  | 'goat'
   | 'gold'
   | 'hydration'
   | 'insect'
@@ -17,6 +19,7 @@ export type Tag =
   | 'metal'
   | 'money'
   | 'potion'
+  | 'sacrifice'
   | 'stealth'
   | 'sword'
   | 'treasure'
