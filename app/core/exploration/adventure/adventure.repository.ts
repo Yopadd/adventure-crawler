@@ -3,6 +3,7 @@ import Cliff from '#app/core/exploration/adventure/events/cliff'
 import Collector from '#app/core/exploration/adventure/events/collector'
 import CrossingLavaRiver from '#app/core/exploration/adventure/events/crossing-lava-river'
 import Crypt from '#app/core/exploration/adventure/events/crypt'
+import Demons from '#app/core/exploration/adventure/events/demons'
 import Dragon from '#app/core/exploration/adventure/events/dragon'
 import FireCamp from '#app/core/exploration/adventure/events/fire-camp'
 import GoldOffering from '#app/core/exploration/adventure/events/gold-offering'
@@ -48,6 +49,10 @@ export default class AdventureRepositoryDatabase implements AdventureRepository 
       .with('Crypt', () => new Crypt())
       .with('Gold Offering', () => new GoldOffering())
       .with('Sacrifice Room', () => new SacrificeRoom())
+      .with(P.string.startsWith('Demons'), (name) => {
+        const demonsCount = Number.parseInt(name.split(':')[1])
+        return new Demons(demonsCount)
+      })
       .exhaustive()
   }
 }

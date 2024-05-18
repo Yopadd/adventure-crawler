@@ -9,6 +9,7 @@ export type EventName =
   | 'Thief'
   | 'Tunnel In The Dark'
   | 'Vampire'
+  | `Demons:${number}`
   | `Item Challenge:${number}`
   | `Sacrifice Room`
   | `Wolfs:${number}`

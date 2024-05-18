@@ -167,7 +167,7 @@ export const Items = {
     return new Item({
       name: 'Arc',
       description: 'Très pratique avec un peu d’entraînement',
-      tags: ['weapon'],
+      tags: ['weapon', 'ranged weapon'],
     })
   },
 

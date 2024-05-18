@@ -54,6 +54,9 @@ export const Events: Record<EventKey, (...args: any) => EventName> = {
   SacrificeRoom(): EventName {
     return 'Sacrifice Room'
   },
+  Demons(demonCount: number): EventName {
+    return `Demons:${demonCount}`
+  },
 }
 
 // Remove event to randomiser

@@ -16,6 +16,7 @@ export const Adventures = [
   ...adventuresRandomiser(5, 7),
   ...itemChallengeAdventuresRandomiser(3),
   new Adventure('Aztec', [Events.GoldOffering()]),
+  new Adventure('666', [Events.CrossingLavaRiver(), Events.Demons(), Events.SacrificeRoom()]),
 ]
 
 function itemChallengeAdventuresRandomiser(count: number) {
