@@ -1,7 +1,7 @@
 import { EventResolver } from '#app/core/exploration/player/event-resolver'
 import Player from '#app/core/exploration/player/player'
 import Note from '#app/core/exploration/player/report/note/note'
-import { EventName } from '#app/core/install/event/event'
+import { EventName } from '#app/core/install/event/events'
 import { StringValidation } from '../../validations/string-validation.js'
 
 export default class Adventure<T extends EventResolver = Player> {

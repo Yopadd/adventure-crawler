@@ -12,11 +12,19 @@ export const Adventures = [
     Events.CrossingLavaRiver(),
     Events.Dragon(),
   ]),
-  ...adventuresRandomiser(3, 7),
-  ...adventuresRandomiser(5, 7),
-  ...itemChallengeAdventuresRandomiser(3),
+  ...adventuresRandomiser(3, 6),
+  ...adventuresRandomiser(4, 12),
+  ...adventuresRandomiser(5, 24),
+  ...adventuresRandomiser(6, 12),
+  ...adventuresRandomiser(7, 6),
+  ...itemChallengeAdventuresRandomiser(6),
   new Adventure('Aztec', [Events.GoldOffering()]),
-  new Adventure('666', [Events.CrossingLavaRiver(), Events.Demons(), Events.SacrificeRoom()]),
+  new Adventure('666', [
+    Events.MountainHiking(),
+    Events.CrossingLavaRiver(),
+    Events.Demons(),
+    Events.SacrificeRoom(),
+  ]),
 ]
 
 function itemChallengeAdventuresRandomiser(count: number) {

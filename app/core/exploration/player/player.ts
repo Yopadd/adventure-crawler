@@ -8,6 +8,7 @@ import { Explorer } from './explorer.js'
 
 export default class Player implements Explorer {
   public readonly name: PlayerName
+  public commands?: Record<string, any>
 
   constructor(
     name: string,

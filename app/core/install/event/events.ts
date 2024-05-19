@@ -1,41 +1,36 @@
-import { EventName } from '#app/core/install/event/event'
 import { randomInt } from 'node:crypto'
 
-export type EventKey<S = EventName> = S extends `${infer A} ${infer B}`
-  ? EventKey<`${A}${B}`>
-  : S extends `${infer C}:${any}`
-    ? C
-    : S
+export type EventName = ReturnType<(typeof Events)[keyof typeof Events]>
 
-export const Events: Record<EventKey, (...args: any) => EventName> = {
-  Cliff(): EventName {
-    return 'Cliff'
+export const Events = {
+  Cliff() {
+    return 'Cliff' as const
   },
-  Collector(): EventName {
-    return 'Collector'
+  Collector() {
+    return 'Collector' as const
   },
-  CrossingLavaRiver(): EventName {
-    return 'Crossing Lava River'
+  CrossingLavaRiver() {
+    return 'Crossing Lava River' as const
   },
-  Crypt(): EventName {
-    return 'Crypt'
+  Crypt() {
+    return 'Crypt' as const
   },
-  FireCamp(): EventName {
-    return 'Fire Camp'
+  FireCamp() {
+    return 'Fire Camp' as const
   },
-  Dragon(): EventName {
-    return 'Dragon'
+  Dragon() {
+    return 'Dragon' as const
   },
-  Thief(): EventName {
-    return 'Thief'
+  Thief() {
+    return 'Thief' as const
   },
-  TunnelInTheDark(): EventName {
-    return 'Tunnel In The Dark'
+  TunnelInTheDark() {
+    return 'Tunnel In The Dark' as const
   },
-  Vampire(): EventName {
-    return 'Vampire'
+  Vampire() {
+    return 'Vampire' as const
   },
-  ItemChallenge(challenge?: number): EventName {
+  ItemChallenge(challenge?: number) {
     function randomScoreMaxFrom(value: string): number {
       const max = Array.from(value)
         .map((c) => c.charCodeAt(0))
@@ -43,23 +38,32 @@ export const Events: Record<EventKey, (...args: any) => EventName> = {
       return randomInt(max)
     }
     challenge = challenge ?? randomScoreMaxFrom('etaonihsrl'.repeat(5))
-    return `Item Challenge:${challenge}`
+    return `Item Challenge:${challenge}` as const
   },
-  Wolfs(wolfCount: number = randomInt(1, 3)): EventName {
-    return `Wolfs:${wolfCount}`
+  Wolfs(wolfCount: number = randomInt(1, 3)) {
+    return `Wolfs:${wolfCount}` as const
   },
-  GoldOffering(): EventName {
-    return 'Gold Offering'
+  GoldOffering() {
+    return 'Gold Offering' as const
   },
-  SacrificeRoom(): EventName {
-    return 'Sacrifice Room'
+  SacrificeRoom() {
+    return 'Sacrifice Room' as const
   },
-  Demons(demonCount: number): EventName {
-    return `Demons:${demonCount}`
+  Demons() {
+    return 'Demons' as const
+  },
+  MountainHiking() {
+    return 'Mountain Hiking' as const
+  },
+  ForestHiking() {
+    return 'Forest Hiking' as const
+  },
+  Farm() {
+    return 'Farm' as const
   },
 }
 
-// Remove event to randomiser
+// Remove events of randomiser
 Object.defineProperties(Events, {
   ItemChallenge: {
     enumerable: false,

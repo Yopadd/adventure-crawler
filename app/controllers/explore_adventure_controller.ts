@@ -8,6 +8,7 @@ export default class ExploreAdventureController {
     const exploreResult = await game.exploreAdventure({
       adventureName: request.param('name'),
       playerName,
+      commands: request.hasBody() ? request.body() : undefined,
     })
 
     return { score: exploreResult.score, report: exploreResult.comment }

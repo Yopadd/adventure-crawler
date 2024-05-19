@@ -17,6 +17,7 @@ function install() {
           Events.CrossingLavaRiver(),
           Events.Dragon(),
         ]),
+        new Adventure('Farm', [Events.Farm()]),
       ],
       trx
     )

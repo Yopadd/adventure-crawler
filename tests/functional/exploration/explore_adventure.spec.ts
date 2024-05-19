@@ -1,12 +1,12 @@
 import env from '#start/env'
 import { test } from '@japa/runner'
 
-test('Explore adventure with a goods items in backpack and increase score', async ({
+test('Explore Aazzidy adventure, a simple adventure with several kind of event', async ({
   client,
   expect,
 }) => {
   await client.post('/install').bearerToken(env.get('APP_KEY'))
-  const name = 'test'
+  const name = 'Player'
   const password = '1234'
   await client.post('/inscription').json({ name, password })
 
@@ -21,17 +21,52 @@ test('Explore adventure with a goods items in backpack and increase score', asyn
     .basicAuth(name, password)
     .json({ itemsName: items.map((item) => item.name) })
 
-  const adventuresResp = await client.get('/preparation/adventures').qs({ limit: 1, page: 1 })
-  const { adventures } = adventuresResp.body()
-
   // Explore adventure
-  let response = await client
-    .post(`/exploration/adventures/${adventures.at(0).name}`)
-    .basicAuth(name, password)
+  let response = await client.post(`/exploration/adventures/Aazzidy`).basicAuth(name, password)
 
   expect(response.status()).toBe(200)
   expect(response.body()).toEqual({
     score: expect.any(Number),
     report: expect.any(String),
   })
+})
+
+test('Explore Farm adventure, an adventure that use commands', async ({ client, expect }) => {
+  await client.post('/install').bearerToken(env.get('APP_KEY'))
+  const name = 'Player'
+  const password = '1234'
+  await client.post('/inscription').json({ name, password })
+
+  // Explore without commands and money
+  let response = await client.post(`/exploration/adventures/Farm`).basicAuth(name, password)
+
+  expect(response.body().report).toBe(
+    "Jour 1; Une ferme tenue par un couple de personnes âgées; Le couple me propose d'acheter quelques produits; Je n'avais malheureusement pas de quoi leurs acheter des produits, ils m'ont quand même donner des oeufs\n"
+  )
+
+  // Explore without commands only
+  await client
+    .post(`/preparation/backpack`)
+    .basicAuth(name, password)
+    .json({ itemsName: ["Sac de pièce d'or"] })
+
+  response = await client.post(`/exploration/adventures/Farm`).basicAuth(name, password)
+
+  expect(response.body().report).toBe(
+    "Jour 1; Une ferme tenue par un couple de personnes âgées; Le couple me propose d'acheter quelques produits; POST {egg: boolean, cheese: boolean, bread: boolean, milk: boolean}; Je n'ai besoin de rien\n"
+  )
+
+  // Explore with commands and money
+  response = await client
+    .post(`/exploration/adventures/Farm`)
+    .basicAuth(name, password)
+    .json({ egg: true })
+
+  expect(response.body().report).toBe(
+    "Jour 1; Une ferme tenue par un couple de personnes âgées; Le couple me propose d'acheter quelques produits; POST {egg: boolean, cheese: boolean, bread: boolean, milk: boolean}; L'oeuf à une étrange couleur d'or\n"
+  )
+
+  response = await client.get(`/preparation/backpack`).basicAuth(name, password)
+
+  expect(response.body().items).toEqual(['Oeuf en or', "Sac de pièce d'or"])
 })

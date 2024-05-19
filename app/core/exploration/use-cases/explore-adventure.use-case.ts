@@ -6,6 +6,7 @@ import { UnitOfWork } from '#app/core/unit-of-work/unit-of-work'
 export interface ExploreAdventureUseCaseInput {
   adventureName: string
   playerName: string
+  commands?: Record<string, any>
 }
 
 export interface AdventureRepository {
@@ -32,6 +33,7 @@ export default class ExploreAdventureUseCase {
   public async apply(input: ExploreAdventureUseCaseInput): Promise<Report> {
     return this.unitOfWork.begin(async (unitOfWork) => {
       const player = await this.playerRepository.getByName(input.playerName, unitOfWork)
+      player.commands = input.commands
       const adventure = await this.adventureRepository.getByName(input.adventureName, unitOfWork)
       const report = player.explore(adventure)
       await this.reportRepository.save(report, unitOfWork)

@@ -3,8 +3,8 @@ import Player from '#app/core/exploration/player/player'
 import Note from '#app/core/exploration/player/report/note/note'
 
 export default class Demons extends EventBase<Player> {
-  constructor(demonCount: number) {
-    super(`Demons:${demonCount}`, 'Des créatures ailées des enfers me pourchassent')
+  constructor() {
+    super('Demons', 'Des créatures ailées des enfers me pourchassent')
   }
 
   public resolve(player: Player, note: Note): boolean {

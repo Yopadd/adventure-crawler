@@ -1,4 +1,4 @@
-import { EventName } from '#app/core/install/event/event'
+import { EventName } from '#app/core/install/event/events'
 import { StringValidation } from '#app/core/validations/string-validation'
 
 export default class Adventure {

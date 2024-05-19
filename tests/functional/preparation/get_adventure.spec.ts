@@ -10,11 +10,11 @@ test('get adventure list', async ({ client, expect }) => {
 
   expect(response.status()).toBe(200)
   const body = response.body()
-  expect(body.adventures.length).toBe(1)
+  expect(body.adventures.length).toBe(2)
   body.adventures.forEach((adventure: unknown) => {
     expect(adventure).toEqual({
       name: expect.any(String),
     })
   })
-  expect(body.total).toBe(1)
+  expect(body.total).toBe(2)
 })

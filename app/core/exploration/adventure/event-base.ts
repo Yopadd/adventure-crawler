@@ -8,7 +8,7 @@ import ExplorationItem from '#app/core/exploration/player/backpack/item/item'
 import { EventResolver } from '#app/core/exploration/player/event-resolver'
 import Player from '#app/core/exploration/player/player'
 import Note from '#app/core/exploration/player/report/note/note'
-import { EventName } from '#app/core/install/event/event'
+import { EventName } from '#app/core/install/event/events'
 import InstallItem from '#app/core/install/item/item'
 import { randomInt } from 'node:crypto'
 

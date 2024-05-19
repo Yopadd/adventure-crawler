@@ -155,6 +155,14 @@ export const Items = {
     })
   },
 
+  get Milk() {
+    return new Item({
+      name: 'Lait',
+      description: 'Une bouteille de lait',
+      tags: ['food', 'hydration'],
+    })
+  },
+
   get HoodedCape() {
     return new Item({
       name: 'Cape à capuche',
@@ -246,16 +254,16 @@ export const Items = {
     })
   },
 
-  get Egg() {
+  get Eggs() {
     return new Item({
-      name: 'Oeuf',
+      name: 'Oeufs',
       description: 'Des oeufs frais',
       tags: ['food'],
       hidden: true,
     })
   },
 
-  get SacrificeDague() {
+  get SacrificeDagger() {
     return new Item({
       name: 'Dague à la lame rouge',
       description: 'Une dague à la lame en forme vague dans un métal au rouge brillant',
