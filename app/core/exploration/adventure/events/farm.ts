@@ -25,10 +25,10 @@ export default class Farm extends EventBase<Player> {
     note.add(new Note('POST {egg: boolean, cheese: boolean, bread: boolean, milk: boolean}'))
     if (
       !player.commands ||
-      (!('egg' in player.commands) &&
-        !('cheese' in player.commands) &&
-        !('bread' in player.commands) &&
-        !('milk' in player.commands))
+      (!player.commands.egg &&
+        !player.commands.cheese &&
+        !player.commands.bread &&
+        !player.commands.milk)
     ) {
       note.add(new Note("Je n'ai besoin de rien"))
       return false

@@ -6,9 +6,16 @@ import { NumberValidation } from '../../validations/number-validation.js'
 import { StringValidation } from '../../validations/string-validation.js'
 import { Explorer } from './explorer.js'
 
+export type PlayerCommands = {
+  egg?: boolean
+  cheese?: boolean
+  bread?: boolean
+  milk?: boolean
+}
+
 export default class Player implements Explorer {
   public readonly name: PlayerName
-  public commands?: Record<string, any>
+  public commands?: PlayerCommands
 
   constructor(
     name: string,

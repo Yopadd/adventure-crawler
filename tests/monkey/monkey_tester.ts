@@ -1,3 +1,4 @@
+import { PlayerCommands } from '#app/core/exploration/player/player'
 import Backpack from '#app/core/preparation/backpack/backpack'
 import AdventureModel from '#models/adventure.model'
 import ItemModel from '#models/item.model'
@@ -89,7 +90,15 @@ export default class MonkeyTester {
     const adventures = await AdventureModel.all()
     const adventure = adventures[randomInt(adventures.length)]
     const { name, password } = this.getRandomPlayer()
-    return this.client.post(`/exploration/adventures/${adventure.name}`).basicAuth(name, password)
+    return this.client
+      .post(`/exploration/adventures/${adventure.name}`)
+      .basicAuth(name, password)
+      .json({
+        egg: faker.datatype.boolean(),
+        bread: faker.datatype.boolean(),
+        cheese: faker.datatype.boolean(),
+        milk: faker.datatype.boolean(),
+      } satisfies PlayerCommands)
   }
 
   private getRandomPlayer() {
