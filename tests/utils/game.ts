@@ -27,4 +27,7 @@ function install() {
 
 export function gameInstallerForTest() {
   Sinon.replace(game, 'install', install)
+  return () => {
+    Sinon.restore()
+  }
 }

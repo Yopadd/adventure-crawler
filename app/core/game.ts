@@ -1,28 +1,28 @@
-import { default as ExplorationAdventureRepositoryDatabase } from '#app/core/exploration/adventure/adventure.repository'
-import { default as ExplorationPlayerRepository } from '#app/core/exploration/player/player.repository'
+import ExplorationAdventureRepositoryDatabase from '#app/core/exploration/adventure/adventure.repository'
+import ExplorationPlayerRepository from '#app/core/exploration/player/player.repository'
 import ReportRepositoryDatabase from '#app/core/exploration/player/report/report.repository'
 import ExploreAdventureUseCase from '#app/core/exploration/use-cases/explore-adventure.use-case'
 import PlayerSheetRepositoryDatabase from '#app/core/inscription/player-sheet/player-sheet.repository'
 import AddPlayerUseCase from '#app/core/inscription/use-cases/add-player.use-case'
-import { default as InstallAventureRepositoryDatabase } from '#app/core/install/adventure/adventure.repository'
+import InstallAdventureRepositoryDatabase from '#app/core/install/adventure/adventure.repository'
 import InstallerStatusRepositoryDatabase from '#app/core/install/installer-status/installer-status.repository'
-import { default as InstallItemRepositoryDatabase } from '#app/core/install/item/item.repository'
+import InstallItemRepositoryDatabase from '#app/core/install/item/item.repository'
 import InstallUseCase from '#app/core/install/use-cases/install.use-case'
 import UninstallUseCase from '#app/core/install/use-cases/uninstall.use-case'
-import { default as PreparationAdventureRepositoryDatabase } from '#app/core/preparation/adventure/adventure.repository'
+import PreparationAdventureRepositoryDatabase from '#app/core/preparation/adventure/adventure.repository'
 import { BackPackRepositoryDatabase } from '#app/core/preparation/backpack/backpack.repository'
-import { default as PreparationItemRepositoryDatabase } from '#app/core/preparation/item/item.repository'
+import PreparationItemRepositoryDatabase from '#app/core/preparation/item/item.repository'
 import AddItemsUseCase from '#app/core/preparation/use-cases/add-items.use-case'
 import GetAdventuresUseCase from '#app/core/preparation/use-cases/get-adventures.use-case'
 import GetBackUseCase from '#app/core/preparation/use-cases/get-backpack.use-case'
 import GetItemsUseCase from '#app/core/preparation/use-cases/get-items.use-case'
-import { default as ScoreBoardPlayerRepositoryDatabase } from '#app/core/score-board/player/player.repository'
+import ScoreBoardPlayerRepositoryDatabase from '#app/core/score-board/player/player.repository'
 import GetScoreboardUseCase from '#app/core/score-board/use-case/get-score-board'
 import { UnitOfWorkLucid } from '#app/core/unit-of-work/unit-of-work'
 
 export const repositories = {
   install: {
-    adventureRepository: new InstallAventureRepositoryDatabase(),
+    adventureRepository: new InstallAdventureRepositoryDatabase(),
     itemRepository: new InstallItemRepositoryDatabase(),
     installerStatus: new InstallerStatusRepositoryDatabase(),
   },

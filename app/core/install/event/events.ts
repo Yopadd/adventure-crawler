@@ -61,6 +61,9 @@ export const Events = {
   Farm() {
     return 'Farm' as const
   },
+  Castel() {
+    return 'Castel' as const
+  },
 }
 
 // Remove events of randomiser

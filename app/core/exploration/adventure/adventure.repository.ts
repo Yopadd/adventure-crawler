@@ -1,4 +1,5 @@
 import Adventure from '#app/core/exploration/adventure/adventure'
+import Castel from '#app/core/exploration/adventure/events/castel'
 import Cliff from '#app/core/exploration/adventure/events/cliff'
 import Collector from '#app/core/exploration/adventure/events/collector'
 import CrossingLavaRiver from '#app/core/exploration/adventure/events/crossing-lava-river'
@@ -33,6 +34,7 @@ export default class AdventureRepositoryDatabase implements AdventureRepository 
 
   private static toAdventureEvent(name: string) {
     return match(name as EventName)
+      .with('Castel', () => new Castel())
       .with('Cliff', () => new Cliff())
       .with('Collector', () => new Collector())
       .with('Crossing Lava River', () => new CrossingLavaRiver())

@@ -87,7 +87,7 @@ export const Items = {
     return new Item({
       name: 'Bouclier en bois',
       description: 'Une simple planche de bois, mais souvent très utile',
-      tags: ['armor', 'wood'],
+      tags: ['armor', 'wood', 'shield'],
     })
   },
 
@@ -95,7 +95,7 @@ export const Items = {
     return new Item({
       name: 'Bouclier en fer',
       description: 'Une plaque de fer avec une poignée',
-      tags: ['armor', 'iron', 'metal'],
+      tags: ['armor', 'iron', 'metal', 'shield'],
     })
   },
 
@@ -182,8 +182,16 @@ export const Items = {
   get HealthPotion() {
     return new Item({
       name: 'Potion de soin',
-      description: "L'indispensable du kit de l'aventurier",
+      description: 'Simple et efficace',
       tags: ['care', 'magic'],
+    })
+  },
+
+  get SurvivalKit() {
+    return new Item({
+      name: 'Kit de premier soins',
+      description: "L'indispensable du kit de l'aventurier",
+      tags: ['care'],
     })
   },
 

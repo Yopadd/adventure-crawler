@@ -14,7 +14,7 @@ export default class Dragon extends EventBase<Player> {
   public resolve(player: Player, note: Note): boolean {
     super.resolve(player, note)
     if (player.hasTag('stealth')) {
-      EventBase.addToBackpack(player, Items.GoldNuggets, () => {
+      player.backpack.add(Items.GoldNuggets, () => {
         note.add(
           new Note("J'ai réussi à me faufiler. Mais je n'ai pas de place dans mon sac...", 1)
         )
@@ -26,7 +26,7 @@ export default class Dragon extends EventBase<Player> {
       player.hasTag('armor')
     ) {
       note.add(new Note("Le dragon c'est réveillé mais, j'ai réussi à le vaincre !", 2))
-      EventBase.addToBackpack(player, Items.GoldNuggets, () => {
+      player.backpack.add(Items.GoldNuggets, () => {
         note.add(new Note("Malheureusement je n'ai pas de place pour prendre mes récompenses", 0))
       })
     } else {

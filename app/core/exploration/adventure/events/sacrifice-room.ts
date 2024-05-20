@@ -32,7 +32,7 @@ export default class SacrificeRoom extends EventBase<Player> {
       return false
     }
     note.add(new Note("Ne sachant pas quoi faire, j'ai libéré la chèvre", 1))
-    EventBase.addToBackpack(player, Items.Goat, () => {
+    player.backpack.add(Items.Goat, () => {
       note.add(
         new Note(
           'Je ne peux malheureusement pas la prendre avec moi, je vais la laisser faire ça vie'

@@ -27,7 +27,7 @@ export default class GoldOffering extends EventBase<Player> {
           )
         )
         player.backpack.removeAllFromTag('gold')
-        EventBase.addToBackpack(player, Items.SacrificeDagger, () => {
+        player.backpack.add(Items.SacrificeDagger, () => {
           note.add(
             new Note("Je n'ai malheureusement pas de place pour emporter cette dague avec moi")
           )

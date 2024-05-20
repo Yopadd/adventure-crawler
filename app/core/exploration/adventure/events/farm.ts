@@ -17,7 +17,7 @@ export default class Farm extends EventBase<Player> {
           "Je n'avais malheureusement pas de quoi leurs acheter des produits, ils m'ont quand même donner des oeufs"
         )
       )
-      EventBase.addToBackpack(player, Items.Eggs, () => {
+      player.backpack.add(Items.Eggs, () => {
         note.add(new Note("Je n'ai pas de place dans mon sac pour les emporter"))
       })
       return false
@@ -35,25 +35,25 @@ export default class Farm extends EventBase<Player> {
     }
     if (player.commands.egg === true) {
       note.add(new Note("L'oeuf à une étrange couleur d'or", 1))
-      EventBase.addToBackpack(player, Items.GoldenEgg, () => {
+      player.backpack.add(Items.GoldenEgg, () => {
         note.add(new Note("Je n'ai pas de place dans mon sac pour l'emporter", -1))
       })
     }
     if (player.commands.cheese === true) {
       note.add(new Note('Je leur ai acheté du fromage', 1))
-      EventBase.addToBackpack(player, Items.Cheese, () => {
+      player.backpack.add(Items.Cheese, () => {
         note.add(new Note("Je n'ai pas de place dans mon sac pour l'emporter", -1))
       })
     }
     if (player.commands.bread === true) {
       note.add(new Note('Je leur ai acheté du pain', 1))
-      EventBase.addToBackpack(player, Items.Bread, () => {
+      player.backpack.add(Items.Bread, () => {
         note.add(new Note("Je n'ai pas de place dans mon sac pour l'emporter", -1))
       })
     }
     if (player.commands.milk === true) {
       note.add(new Note('Je leur ai acheté du pain', 1))
-      EventBase.addToBackpack(player, Items.Milk, () => {
+      player.backpack.add(Items.Milk, () => {
         note.add(new Note("Je n'ai pas de place dans mon sac pour l'emporter", -1))
       })
     }

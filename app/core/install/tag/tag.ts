@@ -21,6 +21,7 @@ export type Tag =
   | 'potion'
   | 'ranged weapon'
   | 'sacrifice'
+  | 'shield'
   | 'stealth'
   | 'sword'
   | 'treasure'

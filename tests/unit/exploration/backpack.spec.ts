@@ -12,13 +12,15 @@ test.group('Backpack', () => {
           .map((_, index) => new Item(index.toString(), index.toString(), []))
       )
     }).toThrowError(BackpackFullError)
+  })
 
-    expect(() => {
-      new Backpack(
-        Array(10)
-          .fill(undefined)
-          .map((_, index) => new Item(index.toString(), index.toString(), []))
-      ).add(new Item('10', '10', []))
-    }).toThrowError(BackpackFullError)
+  test('size is limited, add', ({ expect }) => {
+    const backpack = new Backpack(
+      Array(10)
+        .fill(undefined)
+        .map((_, index) => new Item(index.toString(), index.toString(), []))
+    ).add(new Item('10', '10', []), () => {})
+
+    expect(backpack.items.length).toEqual(10)
   })
 })

@@ -18,9 +18,10 @@ export default class Backpack implements EventResolver {
     return this._items
   }
 
-  public add(item: Item): this {
+  public add(item: Item, fallback: () => void): this {
     if (this._items.length === this.size) {
-      throw new BackpackFullError()
+      fallback()
+      return this
     }
     this._items.push(item)
     return this
