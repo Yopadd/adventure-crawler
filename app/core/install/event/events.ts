@@ -64,6 +64,9 @@ export const Events = {
   Castel() {
     return 'Castel' as const
   },
+  WizardHunt() {
+    return 'Wizard hunt' as const
+  },
 }
 
 // Remove events of randomiser

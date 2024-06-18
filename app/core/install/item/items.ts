@@ -25,6 +25,14 @@ export const Items = {
     })
   },
 
+  get FreezePotion() {
+    return new Item({
+      name: 'Potion de résistance au froid',
+      description: 'Protège contre le froid',
+      tags: ['potion', 'cold resistance'],
+    })
+  },
+
   get Coat() {
     return new Item({
       name: 'Manteau',
@@ -33,7 +41,7 @@ export const Items = {
     })
   },
 
-  get LittleBagOfGoldenPiece() {
+  get LittleBagOfGoldenPieces() {
     return new Item({
       name: "Sac de pièce d'or",
       description: 'Un peu de monnaies',
@@ -115,11 +123,19 @@ export const Items = {
     })
   },
 
-  get VialFilledWithFirefly() {
+  get VialFilledWithFireFlies() {
     return new Item({
       name: 'Fiole remplie de luciole',
       description: "C'est une source de lumière presque infini je m'en occupe bien",
       tags: ['light', 'potion', 'insect'],
+    })
+  },
+
+  get Worms() {
+    return new Item({
+      name: 'Vers',
+      description: 'Une poignée de vers dans un sac, utile pour la pêche',
+      tags: ['insect'],
     })
   },
 
@@ -199,6 +215,14 @@ export const Items = {
     return new Item({
       name: 'Parchemin de protection magique',
       description: 'Efficace contre tout types de magie',
+      tags: ['magic', 'magic resistance'],
+    })
+  },
+
+  get RationalThought() {
+    return new Item({
+      name: 'Une pensée de rationalité',
+      description: 'Je ne crois pas à la magie',
       tags: ['magic resistance'],
     })
   },
@@ -208,6 +232,31 @@ export const Items = {
       name: 'Fumigène',
       description: 'Pour échapper a des situations compliquées',
       tags: ['stealth'],
+    })
+  },
+
+  get Owl() {
+    return new Item({
+      name: 'Hibou',
+      description: 'Les hiboux sont connue pour être en lien avec le monde astral',
+      tags: ['animal', 'magic'],
+    })
+  },
+
+  get Rat() {
+    return new Item({
+      name: 'Rat',
+      description: "C'est juste un animal de compagnie",
+      tags: ['animal'],
+    })
+  },
+
+  get GolemArmor() {
+    return new Item({
+      name: 'Armure en pierre',
+      description:
+        "Une armure d'une ancienne civilisation, on raconte qu'il pouvait marcher dans les des forêts en feu avec",
+      tags: ['armor', 'fire resistance', 'rock'],
     })
   },
 

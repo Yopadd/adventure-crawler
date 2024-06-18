@@ -20,6 +20,7 @@ export type Tag =
   | 'money'
   | 'potion'
   | 'ranged weapon'
+  | 'rock'
   | 'sacrifice'
   | 'shield'
   | 'stealth'

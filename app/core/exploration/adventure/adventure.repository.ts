@@ -50,6 +50,7 @@ export default class AdventureRepositoryDatabase implements AdventureRepository 
       .with('Thief', () => new Thief())
       .with('Tunnel In The Dark', () => new TunnelInTheDark())
       .with('Vampire', () => new Vampire())
+      .with('Wizard hunt', () => new WizardHunt())
       .with(P.string.startsWith('Item Challenge'), (name) => {
         const challenge = Number.parseInt(name.split(':')[1])
         return new ItemChallenge(challenge)
