@@ -2,6 +2,7 @@ import Adventure from '#app/core/exploration/adventure/adventure'
 import Backpack from '#app/core/exploration/player/backpack/backpack'
 import Report from '#app/core/exploration/player/report/report'
 import { Tag } from '#app/core/install/tag/tag'
+import { DateTime } from 'luxon'
 import { NumberValidation } from '../../validations/number-validation.js'
 import { StringValidation } from '../../validations/string-validation.js'
 import { Explorer } from './explorer.js'
@@ -13,15 +14,20 @@ export type PlayerCommands = {
   milk?: boolean
 }
 
+export type AdventuresVisited = Map<string, { adventure: Adventure; visitedAt: DateTime }>
+
 export default class Player implements Explorer {
   public readonly name: PlayerName
   public commands?: PlayerCommands
+  private _adventuresVisited: AdventuresVisited
 
   constructor(
     name: string,
-    public readonly backpack: Backpack
+    public readonly backpack: Backpack,
+    adventuresVisited: AdventuresVisited = new Map()
   ) {
     this.name = new PlayerName(name)
+    this._adventuresVisited = adventuresVisited
   }
 
   public explore(adventure: Adventure): Report {
@@ -39,6 +45,17 @@ export default class Player implements Explorer {
 
   public getAllTags(): Tag[] {
     return this.backpack.getAllTags()
+  }
+
+  public visit(adventure: Adventure): Player {
+    this._adventuresVisited.set(adventure.name.get(), { adventure, visitedAt: DateTime.now() })
+    return this
+  }
+
+  get adventuresVisited() {
+    return Array.from(this._adventuresVisited.values())
+      .sort((a, b) => b.visitedAt.toMillis() - a.visitedAt.toMillis())
+      .slice(0, 19)
   }
 }
 

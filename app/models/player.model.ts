@@ -1,10 +1,11 @@
+import AdventureModel from '#models/adventure.model'
 import BackpackModel from '#models/backpack.model'
 import ReportModel from '#models/report.model'
 import { withAuthFinder } from '@adonisjs/auth/mixins/lucid'
 import { compose } from '@adonisjs/core/helpers'
 import hash from '@adonisjs/core/services/hash'
-import { BaseModel, column, hasMany, hasOne } from '@adonisjs/lucid/orm'
-import type { HasMany, HasOne } from '@adonisjs/lucid/types/relations'
+import { BaseModel, column, hasMany, hasOne, manyToMany } from '@adonisjs/lucid/orm'
+import type { HasMany, HasOne, ManyToMany } from '@adonisjs/lucid/types/relations'
 import { DateTime } from 'luxon'
 
 const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
@@ -31,6 +32,16 @@ export default class PlayerModel extends compose(BaseModel, AuthFinder) {
     foreignKey: 'playerName',
   })
   declare reports: HasMany<typeof ReportModel>
+
+  @manyToMany(() => AdventureModel, {
+    pivotTable: 'players_adventures',
+    localKey: 'name',
+    pivotForeignKey: 'player_name',
+    relatedKey: 'name',
+    pivotRelatedForeignKey: 'adventure_name',
+    pivotColumns: ['visited_at'],
+  })
+  declare adventuresVisited: ManyToMany<typeof AdventureModel>
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

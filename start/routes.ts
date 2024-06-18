@@ -22,7 +22,13 @@ router.post('/uninstall', [UninstallController]).use(middleware.adminGuard())
 
 router.post('/inscription', [InscriptionController])
 
-router.post('/exploration/adventures/:name', [ExploreAdventureController]).use(
+router.post('/exploration/adventures/:name', [ExploreAdventureController, 'explore']).use(
+  middleware.auth({
+    guards: ['basic'],
+  })
+)
+
+router.get('/exploration/adventures/:name', [ExploreAdventureController, 'visit']).use(
   middleware.auth({
     guards: ['basic'],
   })

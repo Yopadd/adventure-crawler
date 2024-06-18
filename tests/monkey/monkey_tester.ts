@@ -23,6 +23,7 @@ export default class MonkeyTester {
       this.addItems.bind(this),
       this.getScoreBoard.bind(this),
       this.exploration.bind(this),
+      this.visit.bind(this),
     ]
   }
 
@@ -87,8 +88,7 @@ export default class MonkeyTester {
 
   private async exploration(report: MonkeyReport) {
     report.requests.push('exploration')
-    const adventures = await AdventureModel.all()
-    const adventure = adventures[randomInt(adventures.length)]
+    const adventure = await this.getRandomAdventure()
     const { name, password } = this.getRandomPlayer()
     return this.client
       .post(`/exploration/adventures/${adventure.name}`)
@@ -101,6 +101,16 @@ export default class MonkeyTester {
       } satisfies PlayerCommands)
   }
 
+  private async visit(report: MonkeyReport) {
+    report.requests.push('visit')
+    const adventure = await this.getRandomAdventure()
+    const { name, password } = this.getRandomPlayer()
+    return this.client
+      .get(`/exploration/adventures/${adventure.name}`)
+      .basicAuth(name, password)
+      .send()
+  }
+
   private getRandomPlayer() {
     return this.players.length
       ? this.players[randomInt(this.players.length)]
@@ -108,5 +118,10 @@ export default class MonkeyTester {
           name: '',
           password: '',
         }
+  }
+
+  private async getRandomAdventure(): Promise<AdventureModel> {
+    const adventures = await AdventureModel.all()
+    return adventures[randomInt(adventures.length)]
   }
 }

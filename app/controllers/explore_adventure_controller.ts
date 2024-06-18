@@ -2,7 +2,7 @@ import { game } from '#app/core/game'
 import type { HttpContext } from '@adonisjs/core/http'
 
 export default class ExploreAdventureController {
-  async handle({ auth, request }: HttpContext) {
+  async explore({ auth, request }: HttpContext) {
     const playerName = auth.user!.name
 
     const exploreResult = await game.exploreAdventure({
@@ -12,5 +12,14 @@ export default class ExploreAdventureController {
     })
 
     return { score: exploreResult.score, report: exploreResult.comment }
+  }
+
+  async visit({ auth, request }: HttpContext) {
+    const playerName = auth.user!.name
+
+    await game.visitAdventure({
+      adventureName: request.param('name'),
+      playerName,
+    })
   }
 }

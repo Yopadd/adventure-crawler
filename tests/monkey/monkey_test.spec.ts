@@ -20,8 +20,10 @@ test('Monkey tests', async ({ client, expect }) => {
     }, {}),
     requestCount: report.requests.length,
   })
+
   const players = await PlayerModel.query()
     .preload('reports')
+    .preload('adventuresVisited')
     .preload('backpack', (backpack) => {
       backpack.preload('items')
     })
@@ -31,6 +33,16 @@ test('Monkey tests', async ({ client, expect }) => {
       backpack: p.backpack.items.map((i) => i.name).join(';'),
     }))
   )
+
+  console.table(
+    players.map((p) => ({
+      name: p.name,
+      visited: p.adventuresVisited
+        .map((a) => `(${a.name}, ${(a.$extras.pivot_visited_at as Date).toLocaleString()})`)
+        .join(';'),
+    }))
+  )
+
   console.table(
     players
       .flatMap((p) => p.reports)

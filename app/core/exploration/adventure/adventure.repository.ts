@@ -16,6 +16,7 @@ import SacrificeRoom from '#app/core/exploration/adventure/events/sacrifice-room
 import Thief from '#app/core/exploration/adventure/events/thief'
 import TunnelInTheDark from '#app/core/exploration/adventure/events/tunnel-in-the-dark'
 import Vampire from '#app/core/exploration/adventure/events/vampire'
+import WizardHunt from '#app/core/exploration/adventure/events/wizard-hunt'
 import Wolfs from '#app/core/exploration/adventure/events/wolfs'
 import { AdventureRepository } from '#app/core/exploration/use-cases/explore-adventure.use-case'
 import { EventName } from '#app/core/install/event/events'
@@ -26,6 +27,10 @@ import { match, P } from 'ts-pattern'
 export default class AdventureRepositoryDatabase implements AdventureRepository {
   public async getByName(name: string, client: TransactionClientContract) {
     const model = await AdventureModel.findOrFail(name, { client })
+    return AdventureRepositoryDatabase.toAdventure(model)
+  }
+
+  public static toAdventure(model: AdventureModel) {
     return new Adventure(
       model.name,
       model.events.split(';').map(AdventureRepositoryDatabase.toAdventureEvent)

@@ -2,6 +2,7 @@ import ExplorationAdventureRepositoryDatabase from '#app/core/exploration/advent
 import ExplorationPlayerRepository from '#app/core/exploration/player/player.repository'
 import ReportRepositoryDatabase from '#app/core/exploration/player/report/report.repository'
 import ExploreAdventureUseCase from '#app/core/exploration/use-cases/explore-adventure.use-case'
+import VisitAdventureUseCase from '#app/core/exploration/use-cases/visit-adventure.use-case'
 import PlayerSheetRepositoryDatabase from '#app/core/inscription/player-sheet/player-sheet.repository'
 import AddPlayerUseCase from '#app/core/inscription/use-cases/add-player.use-case'
 import InstallAdventureRepositoryDatabase from '#app/core/install/adventure/adventure.repository'
@@ -72,6 +73,14 @@ class Game {
       repositories.exploration.adventureRepository,
       repositories.exploration.playerRepository,
       repositories.exploration.reportRepository,
+      repositories.unitOfWork
+    ).apply(input)
+  }
+
+  visitAdventure(input: Parameters<VisitAdventureUseCase['apply']>[0]) {
+    return new VisitAdventureUseCase(
+      repositories.exploration.adventureRepository,
+      repositories.exploration.playerRepository,
       repositories.unitOfWork
     ).apply(input)
   }

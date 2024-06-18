@@ -69,4 +69,24 @@ Jour 5; Devant moi une rivière de lave, impossible de continuer sans traverser;
 Jour 6; Un dragon qui dort juste devant moi. Derrière lui se trouve un trésor d'une valeur inestimable. Repartir vivant avec quelques pierres précieuses, c'est l'assurance d'une vie paisible; J'ai réussi à me faufiler sans un bruit et à récupérer quelque chose
 `)
   })
+
+  test('visit', async ({ expect }) => {
+    const adventure = new Adventure('One')
+    const player = new Player('Le player', new Backpack())
+
+    player.visit(adventure).visit(adventure).visit(adventure)
+
+    expect(player.adventuresVisited).toEqual([adventure, adventure, adventure])
+  })
+
+  test('visit limit', async ({ expect }) => {
+    const adventures = Array(21)
+      .fill(undefined)
+      .map((_, index) => new Adventure(String(index)))
+    const player = new Player('Le player', new Backpack())
+
+    adventures.forEach((adventure) => player.visit(adventure))
+
+    expect(player.adventuresVisited.length).toBe(20)
+  })
 })
