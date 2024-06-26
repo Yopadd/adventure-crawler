@@ -9,6 +9,7 @@ import Backpack from '#app/core/exploration/player/backpack/backpack'
 import Player from '#app/core/exploration/player/player'
 import { Items } from '#app/core/install/item/items'
 import { test } from '@japa/runner'
+import { DateTime } from 'luxon'
 
 test.group('Player', () => {
   test('explore without items', async ({ expect }) => {
@@ -71,12 +72,18 @@ Jour 6; Un dragon qui dort juste devant moi. Derrière lui se trouve un trésor 
   })
 
   test('visit', async ({ expect }) => {
-    const adventure = new Adventure('One')
+    const adventureA = new Adventure('a')
+    const adventureB = new Adventure('b')
+    const adventureC = new Adventure('c')
     const player = new Player('Le player', new Backpack())
 
-    player.visit(adventure).visit(adventure).visit(adventure)
+    player.visit(adventureA).visit(adventureB).visit(adventureC)
 
-    expect(player.adventuresVisited).toEqual([adventure, adventure, adventure])
+    expect(player.adventuresVisited).toEqual([
+      { adventure: adventureA, visitedAt: expect.any(DateTime) },
+      { adventure: adventureB, visitedAt: expect.any(DateTime) },
+      { adventure: adventureC, visitedAt: expect.any(DateTime) },
+    ])
   })
 
   test('visit limit', async ({ expect }) => {
@@ -88,5 +95,27 @@ Jour 6; Un dragon qui dort juste devant moi. Derrière lui se trouve un trésor 
     adventures.forEach((adventure) => player.visit(adventure))
 
     expect(player.adventuresVisited.length).toBe(20)
+  })
+
+  test('get visit list', async ({ expect }) => {
+    const adventureA = new Adventure('a')
+    const adventureB = new Adventure('b')
+    const adventureC = new Adventure('c')
+
+    const player = new Player(
+      'Le player',
+      new Backpack(),
+      new Map([
+        ['a', { adventure: adventureA, visitedAt: DateTime.fromISO('00:00:15') }],
+        ['b', { adventure: adventureB, visitedAt: DateTime.fromISO('00:00:20') }],
+        ['c', { adventure: adventureC, visitedAt: DateTime.fromISO('00:00:10') }],
+      ])
+    )
+
+    expect(player.adventuresVisited).toEqual([
+      { adventure: adventureB, visitedAt: DateTime.fromISO('00:00:20') },
+      { adventure: adventureA, visitedAt: DateTime.fromISO('00:00:15') },
+      { adventure: adventureC, visitedAt: DateTime.fromISO('00:00:10') },
+    ])
   })
 })

@@ -55,7 +55,7 @@ export default class Player implements Explorer {
   get adventuresVisited() {
     return Array.from(this._adventuresVisited.values())
       .sort((a, b) => b.visitedAt.toMillis() - a.visitedAt.toMillis())
-      .slice(0, 19)
+      .slice(0, 20)
   }
 }
 

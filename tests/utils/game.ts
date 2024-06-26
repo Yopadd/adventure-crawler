@@ -9,15 +9,15 @@ function install() {
   return db.transaction(async (trx) => {
     await repositories.install.adventureRepository.createMany(
       [
-        new Adventure('Aazzidy', [
+        new Adventure('Aazzidy').setEvents([
           Events.Collector(),
           Events.Thief(),
-          Events.Wolfs(2),
+          Events.Wolfs(undefined, 2),
           Events.FireCamp(),
           Events.CrossingLavaRiver(),
           Events.Dragon(),
         ]),
-        new Adventure('Farm', [Events.Farm()]),
+        new Adventure('Farm').setEvents([Events.Farm()]),
       ],
       trx
     )

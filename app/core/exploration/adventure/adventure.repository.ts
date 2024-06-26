@@ -1,4 +1,4 @@
-import Adventure from '#app/core/exploration/adventure/adventure'
+import Adventure, { AdventureName } from '#app/core/exploration/adventure/adventure'
 import Castel from '#app/core/exploration/adventure/events/castel'
 import Cliff from '#app/core/exploration/adventure/events/cliff'
 import Collector from '#app/core/exploration/adventure/events/collector'
@@ -14,6 +14,7 @@ import ItemChallenge from '#app/core/exploration/adventure/events/item-challenge
 import MountainHiking from '#app/core/exploration/adventure/events/mountain-hiking'
 import SacrificeRoom from '#app/core/exploration/adventure/events/sacrifice-room'
 import Thief from '#app/core/exploration/adventure/events/thief'
+import TreasureHunter from '#app/core/exploration/adventure/events/treasure-hunter'
 import TunnelInTheDark from '#app/core/exploration/adventure/events/tunnel-in-the-dark'
 import Vampire from '#app/core/exploration/adventure/events/vampire'
 import WizardHunt from '#app/core/exploration/adventure/events/wizard-hunt'
@@ -59,6 +60,13 @@ export default class AdventureRepositoryDatabase implements AdventureRepository 
       .with(P.string.startsWith('Item Challenge'), (name) => {
         const challenge = Number.parseInt(name.split(':')[1])
         return new ItemChallenge(challenge)
+      })
+      .with(P.string.startsWith('TreasureHunter'), (name) => {
+        const adventureList = name
+          .split(':')[1]
+          .split(',')
+          .map((s) => new AdventureName(s))
+        return new TreasureHunter(adventureList)
       })
       .with(P.string.startsWith('Wolfs'), (name) => {
         const wolfsCount = Number.parseInt(name.split(':')[1])

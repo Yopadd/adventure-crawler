@@ -3,12 +3,15 @@ import { StringValidation } from '#app/core/validations/string-validation'
 
 export default class Adventure {
   public readonly name: AdventureName
+  public events: EventName[] = []
 
-  constructor(
-    name: string,
-    public readonly events: EventName[] = []
-  ) {
+  constructor(name: string) {
     this.name = new AdventureName(name)
+  }
+
+  setEvents(events: EventName[]) {
+    this.events = events
+    return this
   }
 }
 
