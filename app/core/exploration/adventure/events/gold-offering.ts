@@ -15,26 +15,28 @@ export default class GoldOffering extends EventBase<Player> {
       if (goldCount < 6) {
         note.add(
           new Note(
-            "J'ai déposé tout mes en objets en or, rien ne se passe. J'ai quand même un sentiment d'accomplissement mais je pense qu'il reste des choses à faire ici",
+            "J'ai déposé tous mes objets en or, rien ne se passe. J'ai quand même un sentiment d'accomplissement mais je pense qu'il reste des choses à faire ici",
             goldCount
           )
         )
       } else {
         note.add(
           new Note(
-            "Quand j'ai déposé tous mes objets en or la soucoupe c'est mise à briller de mille feu, quand la lumière c'est atténuée mes objets avez disparu, une dague à la lame rouge est apparue à la place",
+            "Quand j'ai déposé tous mes objets en or, la soucoupe s'est mise à briller de mille feux. Quand la lumière s'est atténuée, mes objets avaient disparu et une dague à la lame rouge est apparue à leur place",
             goldCount
           )
         )
         player.backpack.removeAllFromTag('gold')
         player.backpack.add(Items.SacrificeDagger, () => {
           note.add(
-            new Note("Je n'ai malheureusement pas de place pour emporter cette dague avec moi")
+            new Note("Je n'avais malheureusement pas de place pour emporter cette dague avec moi")
           )
         })
       }
     } else {
-      note.add(new Note("J'ai essayer de déposé des objets dans la soucoupe mais rien ne se passe"))
+      note.add(
+        new Note("J'ai essayé de déposer des objets dans la soucoupe mais rien ne s'est passé")
+      )
     }
     return false
   }

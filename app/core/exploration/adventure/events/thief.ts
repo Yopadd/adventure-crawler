@@ -10,10 +10,10 @@ export default class Thief extends EventBase<Player> {
   public resolve(player: Player, note: Note): boolean {
     super.resolve(player, note)
     if (player.hasTag('weapon')) {
-      note.add(new Note("J'ai de quoi me défendre !", 1))
+      note.add(new Note("J'avais de quoi me défendre !", 1))
     } else {
       player.backpack.empty()
-      note.add(new Note("Je n'ai rien pu faire il m'a tout pris !", 0))
+      note.add(new Note("Je n'ai rien pu faire, il m'a tout pris !", 0))
     }
     return false
   }

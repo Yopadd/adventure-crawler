@@ -10,15 +10,15 @@ export default class Farm extends EventBase<Player> {
 
   public resolve(player: Player, note: Note): boolean {
     super.resolve(player, note)
-    note.add(new Note("Le couple me propose d'acheter quelques produits"))
+    note.add(new Note("Le couple me proposait d'acheter quelques produits"))
     if (!player.hasTag('money')) {
       note.add(
         new Note(
-          "Je n'avais malheureusement pas de quoi leurs acheter des produits, ils m'ont quand même donner des oeufs"
+          "Je n'avais malheureusement pas de quoi leur acheter des produits, ils m'ont quand même donné des œufs"
         )
       )
       player.backpack.add(Items.Eggs, () => {
-        note.add(new Note("Je n'ai pas de place dans mon sac pour les emporter"))
+        note.add(new Note("Je n'avais pas de place dans mon sac pour les emporter"))
       })
       return false
     }
@@ -30,31 +30,31 @@ export default class Farm extends EventBase<Player> {
         !player.commands.bread &&
         !player.commands.milk)
     ) {
-      note.add(new Note("Je n'ai besoin de rien"))
+      note.add(new Note("Je n'avais besoin de rien"))
       return false
     }
     if (player.commands.egg === true) {
-      note.add(new Note("L'oeuf à une étrange couleur d'or", 1))
+      note.add(new Note("L'œuf avait une étrange couleur d'or", 1))
       player.backpack.add(Items.GoldenEgg, () => {
-        note.add(new Note("Je n'ai pas de place dans mon sac pour l'emporter", -1))
+        note.add(new Note("Je n'avais pas de place dans mon sac pour l'emporter", -1))
       })
     }
     if (player.commands.cheese === true) {
-      note.add(new Note('Je leur ai acheté du fromage', 1))
+      note.add(new Note('Je leur avais acheté du fromage', 1))
       player.backpack.add(Items.Cheese, () => {
-        note.add(new Note("Je n'ai pas de place dans mon sac pour l'emporter", -1))
+        note.add(new Note("Mais, je n'avais pas de place dans mon sac pour l'emporter", -1))
       })
     }
     if (player.commands.bread === true) {
-      note.add(new Note('Je leur ai acheté du pain', 1))
+      note.add(new Note('Je leur avais acheté du pain', 1))
       player.backpack.add(Items.Bread, () => {
-        note.add(new Note("Je n'ai pas de place dans mon sac pour l'emporter", -1))
+        note.add(new Note("Mais, je n'avais pas de place dans mon sac pour l'emporter", -1))
       })
     }
     if (player.commands.milk === true) {
-      note.add(new Note('Je leur ai acheté du pain', 1))
+      note.add(new Note('Je leur avais acheté du lait', 1))
       player.backpack.add(Items.Milk, () => {
-        note.add(new Note("Je n'ai pas de place dans mon sac pour l'emporter", -1))
+        note.add(new Note("Mais je n'avais pas de place dans mon sac pour l'emporter", -1))
       })
     }
     return false

@@ -4,7 +4,7 @@ import Note from '#app/core/exploration/player/report/note/note'
 
 export default class Collector extends EventBase<Player> {
   constructor() {
-    super('Collector', "Un collectionneur, il doit pouvoir m'acheter quelques broutilles")
+    super('Collector', "Un collectionneur, il devrait pouvoir m'acheter quelques broutilles")
   }
 
   public resolve(player: Player, note: Note): boolean {
@@ -13,12 +13,12 @@ export default class Collector extends EventBase<Player> {
     if (moneyCount > 0) {
       player.backpack.removeAllFromTag('money')
       if (moneyCount === 1) {
-        note.add(new Note(`Il est intéressé par un de mes objets de valeurs`, moneyCount))
+        note.add(new Note('Il était intéressé par un de mes objets de valeur', moneyCount))
       } else {
-        note.add(new Note(`Il est intéressé ${moneyCount} objets de valeurs`, moneyCount))
+        note.add(new Note(`Il était intéressé par ${moneyCount} objets de valeur`, moneyCount))
       }
     } else {
-      note.add(new Note("Je n'ai rien pour lui malheureusement"))
+      note.add(new Note("Je n'avais rien pour lui malheureusement"))
     }
     return false
   }

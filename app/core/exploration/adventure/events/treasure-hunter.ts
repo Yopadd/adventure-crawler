@@ -8,7 +8,7 @@ export default class TreasureHunter extends EventBase<Player> {
 
   constructor(adventureList: AdventureName[]) {
     const adventureListString = adventureList.map((name) => name.get()).join(';')
-    super(`TreasureHunter:${adventureListString}`, "Un chasseur de trésor s'est présenté à moi")
+    super(`TreasureHunter:${adventureListString}`, "Un chasseur de trésors s'est présenté à moi")
     this.treasureMap = new TreasureMap(adventureList)
   }
 
@@ -18,14 +18,14 @@ export default class TreasureHunter extends EventBase<Player> {
     if (this.treasureMap.compare(adventuresVisited)) {
       note.add(
         new Note(
-          "Je lui indiqué la piste que j'ai trouvé et il m'a remercié fortement pour mon aide",
+          "Je lui ai indiqué la piste que j'avais trouvée et il m'a remercié chaleureusement pour mon aide",
           this.treasureMap.length
         )
       )
     } else {
       note.add(
         new Note(
-          "Il m'a donner une carte au trésor, il me demande de revenir le voir si je trouve quelque chose"
+          "Il m'a donné une carte au trésor et m'a demandé de revenir le voir si je trouvais quelque chose"
         )
       )
       note.add(new Note(this.treasureMap.toString()))

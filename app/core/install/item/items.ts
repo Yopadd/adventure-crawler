@@ -86,7 +86,7 @@ export const Items = {
     return new Item({
       name: 'Torche',
       description:
-        "Utile à la tomber de la nuit ou pour visiter une veille demeure plongée dans l'obscurité",
+        "Utile à la tombée de la nuit ou pour visiter une veille demeure plongée dans l'obscurité",
       tags: ['wood', 'light', 'fire'],
     })
   },
@@ -126,7 +126,7 @@ export const Items = {
   get VialFilledWithFireFlies() {
     return new Item({
       name: 'Fiole remplie de luciole',
-      description: "C'est une source de lumière presque infini je m'en occupe bien",
+      description: "C'est une source de lumière presque infini si je m'en occupe bien",
       tags: ['light', 'potion', 'insect'],
     })
   },
@@ -150,7 +150,7 @@ export const Items = {
   get DriedMeat() {
     return new Item({
       name: 'Viandes séchées',
-      description: "Ce conserve bien et c'est plutôt bon",
+      description: 'Cela conserve bien',
       tags: ['food', 'meat'],
     })
   },
@@ -238,7 +238,7 @@ export const Items = {
   get Owl() {
     return new Item({
       name: 'Hibou',
-      description: 'Les hiboux sont connue pour être en lien avec le monde astral',
+      description: 'Les hiboux sont connus pour être en lien avec le monde astral',
       tags: ['animal', 'magic'],
     })
   },
@@ -305,7 +305,7 @@ export const Items = {
   get GoldenEgg() {
     return new Item({
       name: 'Oeuf en or',
-      description: "Provider de la poule au oeufs d'or",
+      description: "Provient de la poule au oeufs d'or",
       tags: ['treasure', 'gold', 'money', 'money', 'money'],
       hidden: true,
     })
@@ -323,7 +323,7 @@ export const Items = {
   get SacrificeDagger() {
     return new Item({
       name: 'Dague à la lame rouge',
-      description: 'Une dague à la lame en forme vague dans un métal au rouge brillant',
+      description: 'Une dague à la lame rouge vif',
       tags: ['weapon', 'metal', 'iron', 'magic', 'sacrifice'],
       hidden: true,
     })

@@ -11,21 +11,21 @@ export default class Vampire extends EventBase<Player> {
   public resolve(player: Player, note: Note): boolean {
     super.resolve(player, note)
     if (!player.hasTag('light')) {
-      note.add(new Note("Je ne vois rien dans cette obscurité... Mais qu'est-ce que...", 0))
-      return false
+      note.add(new Note('Je ne voyais rien dans cette obscurité...', 0))
+      return true
     }
     note.add(
       new Note(
-        "J'ai de quoi m'éclairer, je vais pouvoir avancer... Je crois avoir vu quelque chose bouger !",
+        "J'avais de quoi m'éclairer, j'ai pu avancer... Je crois avoir vu quelque chose bouger !",
         1
       )
     )
     if (!(player.hasTag('armor') && player.hasTag('weapon'))) {
-      note.add(new Note("Un vampire ! il est rapide, je n'ai aucune chance contre lui !", 0))
+      note.add(new Note("Un vampire ! Il était rapide, je n'avais aucune chance contre lui !", 0))
     } else if (player.hasTag('armor') && !player.hasTag('weapon')) {
-      note.add(new Note('Un vampire ! il est rapide, je pense pouvoir lui échapper', 1))
+      note.add(new Note('Un vampire ! Il était rapide, mais je lui ai échappé', 1))
     } else {
-      note.add(new Note("Un vampire, j'ai de quoi le combattre ...ça va le faire"))
+      note.add(new Note("Un vampire ! J'avais de quoi le combattre"))
     }
     return false
   }

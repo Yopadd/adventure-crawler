@@ -11,16 +11,16 @@ export default class WizardHunt extends EventBase<Player> {
     super.resolve(player, note)
     note.add(
       new Note(
-        'Il y a un grand bûcher au milieux du village, ils pratiquent la chasse aux sorciers'
+        'Il y avait un grand bûcher au milieu du village, où ils pratiquaient la chasse aux sorciers'
       )
     )
     if (player.hasTag('stealth', 'magic') || player.hasTag('stealth', 'potion')) {
-      note.add(new Note("En restant discret je n'ai rien à craindre", 1))
+      note.add(new Note("En restant discret, je n'avais rien à craindre", 1))
       const magicCount = player.countTag('magic')
       const potionCount = player.countTag('potion')
       if (magicCount + potionCount > 1) {
         note.add(
-          new Note('Mais je vais quand même abandonner quelques items pour ne pas faire attraper')
+          new Note("Mais j'ai quand même abandonné quelques items pour ne pas me faire attraper")
         )
         if (potionCount >= magicCount) {
           player.backpack.removeAllFromTag('potion')
@@ -32,7 +32,7 @@ export default class WizardHunt extends EventBase<Player> {
     }
     if (player.hasTag('potion', 'magic')) {
       note.add(
-        new Note("Ils ont trouvé du materiel de sorcier dans mes affaires, c'est fini pour moi !")
+        new Note("Ils ont trouvé du matériel de sorcier dans mes affaires, c'était fini pour moi !")
       )
       return true
     }

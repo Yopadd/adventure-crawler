@@ -6,14 +6,14 @@ export default class CrossingLavaRiver extends EventBase<Player> {
   constructor() {
     super(
       'Crossing Lava River',
-      'Devant moi une rivière de lave, impossible de continuer sans traverser'
+      'Devant moi se trouvait une rivière de lave, impossible de continuer sans traverser'
     )
   }
 
   public resolve(player: Player, note: Note): boolean {
     super.resolve(player, note)
     if (player.hasTag('fire resistance')) {
-      note.add(new Note("Heureusement, j'ai de quoi me protéger", 1))
+      note.add(new Note("Heureusement, j'avais de quoi me protéger", 1))
     } else {
       return true
     }

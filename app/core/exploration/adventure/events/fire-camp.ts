@@ -10,16 +10,16 @@ export default class FireCamp extends EventBase<Player> {
   public resolve(player: Player, note: Note): boolean {
     super.resolve(player, note)
     if (player.hasTag('fire')) {
-      note.add(new Note("J'ai pu rallumer ce vieux feu de camp", 1))
+      note.add(new Note("J'avais pu rallumer ce vieux feu de camp", 1))
     }
     if (player.hasTag('water') && player.hasTag('food')) {
-      note.add(new Note("C'est le bon moment pour un bon repas", 3))
+      note.add(new Note("C'était le bon moment pour un bon repas", 3))
     } else if (player.hasTag('water')) {
       note.add(new Note("Un peu d'eau avant de reprendre la route", 1))
     } else if (player.hasTag('food')) {
       note.add(new Note('Un petit casse-croûte avant de reprendre la route', 1))
     }
-    note.add(new Note('Il est temps de reprendre la route', 1))
+    note.add(new Note('Il était temps de reprendre la route', 1))
     return false
   }
 }

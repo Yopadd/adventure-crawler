@@ -16,7 +16,7 @@ export default class MountainHiking extends EventBase<Player> {
     if (score === 0) {
       note.add(
         new Note(
-          'La journée a était beaucoup trop difficile, je dois rentrer me reposer. Impossible de continuer dans ces conditions'
+          'La journée a été beaucoup trop difficile, je dois rentrer me reposer. Impossible de continuer dans ces conditions'
         )
       )
       return true

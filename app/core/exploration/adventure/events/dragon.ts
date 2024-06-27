@@ -7,7 +7,7 @@ export default class Dragon extends EventBase<Player> {
   constructor() {
     super(
       'Dragon',
-      "Un dragon qui dort juste devant moi. Derrière lui se trouve un trésor d'une valeur inestimable. Repartir vivant avec quelques pierres précieuses, c'est l'assurance d'une vie paisible"
+      "Un dragon dormait juste devant moi. Derrière lui se trouvait un trésor d'une valeur inestimable. Repartir vivant avec quelques pierres précieuses, c'était l'assurance d'une vie paisible"
     )
   }
 
@@ -16,7 +16,7 @@ export default class Dragon extends EventBase<Player> {
     if (player.hasTag('stealth')) {
       player.backpack.add(Items.GoldNuggets, () => {
         note.add(
-          new Note("J'ai réussi à me faufiler. Mais je n'ai pas de place dans mon sac...", 1)
+          new Note("J'ai réussi à me faufiler. Mais je n'avais pas de place dans mon sac...", 1)
         )
       })
       note.add(new Note("J'ai réussi à me faufiler sans un bruit et à récupérer quelque chose", 1))
@@ -25,12 +25,14 @@ export default class Dragon extends EventBase<Player> {
       player.hasTag('fire resistance') &&
       player.hasTag('armor')
     ) {
-      note.add(new Note("Le dragon c'est réveillé mais, j'ai réussi à le vaincre !", 2))
+      note.add(new Note("Le dragon s'est réveillé mais, j'ai réussi à le vaincre !", 2))
       player.backpack.add(Items.GoldNuggets, () => {
-        note.add(new Note("Malheureusement je n'ai pas de place pour prendre mes récompenses", 0))
+        note.add(
+          new Note("Malheureusement, je n'avais pas de place pour prendre mes récompenses", 0)
+        )
       })
     } else {
-      note.add(new Note("Je tiens à ma vie, il faut que je part rapidement d'ici", 0))
+      note.add(new Note("Je tenais à ma vie, il fallait que je parte rapidement d'ici", 0))
     }
     return false
   }

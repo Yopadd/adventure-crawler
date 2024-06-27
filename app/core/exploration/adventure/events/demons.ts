@@ -4,7 +4,7 @@ import Note from '#app/core/exploration/player/report/note/note'
 
 export default class Demons extends EventBase<Player> {
   constructor() {
-    super('Demons', 'Des créatures ailées des enfers me pourchassent')
+    super('Demons', 'Des créatures ailées des enfers me pourchassaient')
   }
 
   public resolve(player: Player, note: Note): boolean {
@@ -13,7 +13,7 @@ export default class Demons extends EventBase<Player> {
       const bonus = player.countTag('magic resistance')
       note.add(
         new Note(
-          "J'ai réussi à les tenir a distance elle devrais me laisser tranquille pour un moment",
+          "J'ai réussi à les tenir à distance, elles devraient me laisser tranquille pour un moment",
           1 + bonus
         )
       )
@@ -21,7 +21,7 @@ export default class Demons extends EventBase<Player> {
       const bonus = player.countTag('stealth')
       note.add(
         new Note(
-          "Je n'ai pu que fuir le plus vite possible et me cacher pendant plusieurs heures pour leurs échapper",
+          "Je n'ai pu que fuir le plus vite possible et me cacher pendant plusieurs heures pour leur échapper",
           bonus
         )
       )

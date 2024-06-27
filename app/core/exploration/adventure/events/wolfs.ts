@@ -15,15 +15,15 @@ export default class Wolfs extends EventBase<Player> {
   public resolve(player: Player, note: Note): boolean {
     super.resolve(player, note)
     if (!player.hasTag('weapon')) {
-      note.add(new Note("Fuir ! C'est la seul chose que je puise faire !"))
+      note.add(new Note("J'ai dû fuir ! C'était la seule chose que je pouvais faire !"))
       return false
     }
     if (player.countTag('weapon') === this.wolfsCount.get()) {
       note.add(
         new Note(
           this.wolfsCount.get() > 1
-            ? 'Je suis suffisamment armé pour leurs tenir tête'
-            : 'Je suis suffisamment armé pour lui tenir tête',
+            ? "J'étais suffisamment armé pour leur tenir tête"
+            : "J'étais suffisamment armé pour lui tenir tête",
           this.wolfsCount.get() * 2
         )
       )
@@ -31,15 +31,15 @@ export default class Wolfs extends EventBase<Player> {
     }
     note.add(
       new Note(
-        'Il sont trop nombreux pour moi... Je peux peut-être les calmer avec un peu de nourriture',
+        'Ils étaient trop nombreux pour moi... Peut-être que je pouvais les calmer avec un peu de nourriture',
         player.countTag('weapon')
       )
     )
     if (!player.hasTag('meat')) {
       player.backpack.removeAllFromTag('meat')
-      note.add(new Note('Voile de quoi les calmer un peu', 1))
+      note.add(new Note("J'avais de quoi les calmer un peu", 1))
     } else {
-      note.add(new Note("Je n'ai absolument rien je vais devoir me débrouiller", -1))
+      note.add(new Note("Je n'avais absolument rien, j'ai dû me débrouiller...", -1))
     }
     return false
   }
