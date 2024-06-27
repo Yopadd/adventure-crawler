@@ -28,11 +28,11 @@ test.group('Player', () => {
 
     expect(report.score).toEqual(1)
     expect(report.comment)
-      .toBe(`Jour 1; Un collectionneur, il doit pouvoir m'acheter quelques broutilles; Je n'ai rien pour lui malheureusement
-Jour 2; Au voleur !; Je n'ai rien pu faire il m'a tout pris !
-Jour 3; Des loups !; Fuir ! C'est la seul chose que je puise faire !
-Jour 4; Un bon endroit pour faire une pause; Il est temps de reprendre la route
-Jour 5; Devant moi une rivière de lave, impossible de continuer sans traverser
+      .toBe(`Jour 1; Un collectionneur, il devrait pouvoir m'acheter quelques broutilles; Je n'avais rien pour lui malheureusement
+Jour 2; Au voleur !; Je n'ai rien pu faire, il m'a tout pris !
+Jour 3; Des loups !; J'ai dû fuir ! C'était la seule chose que je pouvais faire !
+Jour 4; Un bon endroit pour faire une pause; Il était temps de reprendre la route
+Jour 5; Devant moi se trouvait une rivière de lave, impossible de continuer sans traverser
 `)
   })
   test('explore with several items', async ({ expect }) => {
@@ -62,12 +62,12 @@ Jour 5; Devant moi une rivière de lave, impossible de continuer sans traverser
     expect(report.score).toEqual(14)
     expect(player.backpack.items.map((item) => item.name.get())).toContain("Pépites d'or")
     expect(report.comment)
-      .toBe(`Jour 1; Un collectionneur, il doit pouvoir m'acheter quelques broutilles; Il est intéressé par un de mes objets de valeurs
-Jour 2; Au voleur !; J'ai de quoi me défendre !
-Jour 3; Des loups !; Je suis suffisamment armé pour leurs tenir tête
-Jour 4; Un bon endroit pour faire une pause; J'ai pu rallumer ce vieux feu de camp; C'est le bon moment pour un bon repas; Il est temps de reprendre la route
-Jour 5; Devant moi une rivière de lave, impossible de continuer sans traverser; Heureusement, j'ai de quoi me protéger; Un peu d'eau fraîche avec cette chaleur, un plaisir
-Jour 6; Un dragon qui dort juste devant moi. Derrière lui se trouve un trésor d'une valeur inestimable. Repartir vivant avec quelques pierres précieuses, c'est l'assurance d'une vie paisible; J'ai réussi à me faufiler sans un bruit et à récupérer quelque chose
+      .toBe(`Jour 1; Un collectionneur, il devrait pouvoir m'acheter quelques broutilles; Il était intéressé par un de mes objets de valeur
+Jour 2; Au voleur !; J'avais de quoi me défendre !
+Jour 3; Des loups !; J'étais suffisamment armé pour leur tenir tête
+Jour 4; Un bon endroit pour faire une pause; J'avais pu rallumer ce vieux feu de camp; C'était le bon moment pour un bon repas; Il était temps de reprendre la route
+Jour 5; Devant moi se trouvait une rivière de lave, impossible de continuer sans traverser; Heureusement, j'avais de quoi me protéger; Un peu d'eau fraîche avec cette chaleur, un plaisir
+Jour 6; Un dragon dormait juste devant moi. Derrière lui se trouvait un trésor d'une valeur inestimable. Repartir vivant avec quelques pierres précieuses, c'était l'assurance d'une vie paisible; J'ai réussi à me faufiler sans un bruit et à récupérer quelque chose
 `)
   })
 

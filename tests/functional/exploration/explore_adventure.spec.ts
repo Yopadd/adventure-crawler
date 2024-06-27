@@ -41,7 +41,7 @@ test('Explore Farm adventure, an adventure that use commands', async ({ client, 
   let response = await client.post(`/exploration/adventures/Farm`).basicAuth(name, password)
 
   expect(response.body().report).toBe(
-    "Jour 1; Une ferme tenue par un couple de personnes âgées; Le couple me propose d'acheter quelques produits; Je n'avais malheureusement pas de quoi leurs acheter des produits, ils m'ont quand même donner des oeufs\n"
+    "Jour 1; Une ferme tenue par un couple de personnes âgées; Le couple me proposait d'acheter quelques produits; Je n'avais malheureusement pas de quoi leur acheter des produits, ils m'ont quand même donné des œufs\n"
   )
 
   // Explore without commands only
@@ -53,7 +53,7 @@ test('Explore Farm adventure, an adventure that use commands', async ({ client, 
   response = await client.post(`/exploration/adventures/Farm`).basicAuth(name, password)
 
   expect(response.body().report).toBe(
-    "Jour 1; Une ferme tenue par un couple de personnes âgées; Le couple me propose d'acheter quelques produits; POST {egg: boolean, cheese: boolean, bread: boolean, milk: boolean}; Je n'ai besoin de rien\n"
+    "Jour 1; Une ferme tenue par un couple de personnes âgées; Le couple me proposait d'acheter quelques produits; POST {egg: boolean, cheese: boolean, bread: boolean, milk: boolean}; Je n'avais besoin de rien\n"
   )
 
   // Explore with commands and money
@@ -63,7 +63,7 @@ test('Explore Farm adventure, an adventure that use commands', async ({ client, 
     .json({ egg: true })
 
   expect(response.body().report).toBe(
-    "Jour 1; Une ferme tenue par un couple de personnes âgées; Le couple me propose d'acheter quelques produits; POST {egg: boolean, cheese: boolean, bread: boolean, milk: boolean}; L'oeuf à une étrange couleur d'or\n"
+    "Jour 1; Une ferme tenue par un couple de personnes âgées; Le couple me proposait d'acheter quelques produits; POST {egg: boolean, cheese: boolean, bread: boolean, milk: boolean}; L'œuf avait une étrange couleur d'or\n"
   )
 
   response = await client.get(`/preparation/backpack`).basicAuth(name, password)
