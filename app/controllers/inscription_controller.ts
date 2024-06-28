@@ -9,7 +9,7 @@ export default class InscriptionController {
     const payload = await addPlayerValidator.validate(request.all())
     try {
       await game.addPlayer(payload)
-      return { message: 'Bienvenu aventurier, aventurière. GET /preparation' }
+      return { message: 'Bienvenue aventurier, aventurière. GET /preparation' }
     } catch (err) {
       if (err instanceof MaxPlayerErrors) {
         throw new ForbiddenException(err.message)

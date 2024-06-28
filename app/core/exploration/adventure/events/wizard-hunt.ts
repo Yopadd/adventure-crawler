@@ -32,7 +32,7 @@ export default class WizardHunt extends EventBase<Player> {
     }
     if (player.hasTag('potion', 'magic')) {
       note.add(
-        new Note("Ils ont trouvé du matériel de sorcier dans mes affaires, c'était fini pour moi !")
+        new Note("Ils ont trouvé du matériel de sorcier dans mes affaires, c'est fini pour moi !")
       )
       return true
     }
