@@ -17,7 +17,7 @@ test.group('Treasure hunter Event', (group) => {
     adventureB = new Adventure('b')
     adventureC = new Adventure('c')
 
-    event = new TreasureHunter([adventureA.name, adventureB.name, adventureC.name])
+    event = new TreasureHunter([adventureA.name, adventureB.name, adventureC.name], 'F')
   })
 
   test('player has no visit', ({ expect }) => {
@@ -69,6 +69,6 @@ test.group('Treasure hunter Event', (group) => {
     const note = new Note()
     event.resolve(player, note)
 
-    expect(note.score.get()).toBe(3)
+    expect(note.score.get()).toBe(12)
   })
 })

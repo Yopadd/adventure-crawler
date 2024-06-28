@@ -3,9 +3,9 @@ import Player from '#app/core/exploration/player/player'
 import Note from '#app/core/exploration/player/report/note/note'
 
 export default class Vampire extends EventBase<Player> {
-  constructor() {
+  constructor(private readonly gender: 'F' | 'M') {
     const starter = ['Une cave sombre', 'Un petit bosquet dans la pénombre', 'Une grotte']
-    super('Vampire', EventBase.randomPick(starter))
+    super(`Vampire:${gender}`, EventBase.randomPick(starter))
   }
 
   public resolve(player: Player, note: Note): boolean {
@@ -20,12 +20,32 @@ export default class Vampire extends EventBase<Player> {
         1
       )
     )
-    if (!(player.hasTag('armor') && player.hasTag('weapon'))) {
-      note.add(new Note("Un vampire ! Il était rapide, je n'avais aucune chance contre lui !", 0))
+    if (player.hasTag('treasure')) {
+      const treasureCount = player.countTag('treasure')
+      note.add(
+        new Note(
+          `C'était ${this.gender === 'M' ? 'un' : 'une'} vampire ! Il m'a laissé·e la vie sauve contre mes trésor`,
+          treasureCount * 2
+        )
+      )
+    } else if (!(player.hasTag('armor') && player.hasTag('weapon'))) {
+      note.add(
+        new Note(
+          `${this.gender === 'M' ? 'Un' : 'Une'} vampire ! Il était rapide, je n'avais aucune chance contre lui !`,
+          0
+        )
+      )
     } else if (player.hasTag('armor') && !player.hasTag('weapon')) {
-      note.add(new Note('Un vampire ! Il était rapide, mais je lui ai échappé', 1))
+      note.add(
+        new Note(
+          `${this.gender === 'M' ? 'Un' : 'Une'} vampire ! Il était rapide, mais je lui ai échappé`,
+          1
+        )
+      )
     } else {
-      note.add(new Note("Un vampire ! J'avais de quoi le combattre"))
+      note.add(
+        new Note(`${this.gender === 'M' ? 'Un' : 'Une'} vampire ! J'avais de quoi le combattre`)
+      )
     }
     return false
   }

@@ -9,7 +9,9 @@ export default class Demons extends EventBase<Player> {
 
   public resolve(player: Player, note: Note): boolean {
     super.resolve(player, note)
-    if (player.hasTag('weapon', 'ranged weapon')) {
+    if (player.hasTag('goat')) {
+      note.add(new Note('Étrangement les démons sont restés a distance', 6))
+    } else if (player.hasTag('weapon', 'ranged weapon')) {
       const bonus = player.countTag('magic resistance')
       note.add(
         new Note(

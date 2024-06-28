@@ -324,7 +324,7 @@ export const Items = {
     return new Item({
       name: 'Dague à la lame rouge',
       description: 'Une dague à la lame rouge vif',
-      tags: ['weapon', 'metal', 'iron', 'magic', 'sacrifice'],
+      tags: ['treasure', 'weapon', 'metal', 'iron', 'magic', 'sacrifice'],
       hidden: true,
     })
   },

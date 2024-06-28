@@ -27,8 +27,8 @@ export const Events = {
   TunnelInTheDark(_?: string[]) {
     return 'Tunnel In The Dark' as const
   },
-  Vampire(_?: string[]) {
-    return 'Vampire' as const
+  Vampire(_?: string[], gender: 'F' | 'M' = randomGender()) {
+    return `Vampire:${gender}` as const
   },
   ItemChallenge(_?: string[], challenge?: number) {
     function randomScoreMaxFrom(value: string): number {
@@ -67,7 +67,7 @@ export const Events = {
   WizardHunt(_?: string[]) {
     return 'Wizard hunt' as const
   },
-  TreasureHunter(adventureList?: string[]) {
+  TreasureHunter(adventureList?: string[], gender: 'F' | 'M' = randomGender()) {
     const names: string[] = []
     if (adventureList) {
       for (let i = 0; i < randomInt(1, 10); i++) {
@@ -77,7 +77,7 @@ export const Events = {
         }
       }
     }
-    return `TreasureHunter:${names}` as const
+    return `TreasureHunter:${names}:${gender}` as const
   },
 }
 
@@ -93,3 +93,7 @@ Object.defineProperties(Events, {
     enumerable: false,
   },
 })
+
+function randomGender(): 'F' | 'M' {
+  return Math.random() * 100 > 50 ? 'F' : 'M'
+}

@@ -10,7 +10,11 @@ export default class Collector extends EventBase<Player> {
   public resolve(player: Player, note: Note): boolean {
     super.resolve(player, note)
     const moneyCount = player.countTag('money')
-    if (moneyCount > 0) {
+    if (player.hasTag('goat')) {
+      note.add(
+        new Note('À la vu de la chèvre le collectionneur a refusé de me parler et à fermé boutique')
+      )
+    } else if (moneyCount > 0) {
       player.backpack.removeAllFromTag('money')
       if (moneyCount === 1) {
         note.add(new Note('Il était intéressé par un de mes objets de valeur', moneyCount))

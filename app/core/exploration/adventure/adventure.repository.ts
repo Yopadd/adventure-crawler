@@ -55,7 +55,6 @@ export default class AdventureRepositoryDatabase implements AdventureRepository 
       .with('Sacrifice Room', () => new SacrificeRoom())
       .with('Thief', () => new Thief())
       .with('Tunnel In The Dark', () => new TunnelInTheDark())
-      .with('Vampire', () => new Vampire())
       .with('Wizard hunt', () => new WizardHunt())
       .with(P.string.startsWith('Item Challenge'), (name) => {
         const challenge = Number.parseInt(name.split(':')[1])
@@ -66,7 +65,12 @@ export default class AdventureRepositoryDatabase implements AdventureRepository 
           .split(':')[1]
           .split(',')
           .map((s) => new AdventureName(s))
-        return new TreasureHunter(adventureList)
+        const gender = name.split(':')[2] as 'F' | 'M'
+        return new TreasureHunter(adventureList, gender)
+      })
+      .with(P.string.startsWith('Vampire'), (name) => {
+        const gender = name.split(':')[1] as 'F' | 'M'
+        return new Vampire(gender)
       })
       .with(P.string.startsWith('Wolfs'), (name) => {
         const wolfsCount = Number.parseInt(name.split(':')[1])

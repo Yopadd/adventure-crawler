@@ -6,26 +6,41 @@ import Note from '#app/core/exploration/player/report/note/note'
 export default class TreasureHunter extends EventBase<Player> {
   private readonly treasureMap: TreasureMap
 
-  constructor(adventureList: AdventureName[]) {
+  constructor(
+    adventureList: AdventureName[],
+    private readonly gender: 'F' | 'M'
+  ) {
     const adventureListString = adventureList.map((name) => name.get()).join(';')
-    super(`TreasureHunter:${adventureListString}`, "Un chasseur de trésors s'est présenté à moi")
+    super(
+      `TreasureHunter:${adventureListString}:${gender}`,
+      `${gender === 'M' ? 'Un chasseur' : 'Une chasseuse'} de trésors s'est ${gender === 'M' ? 'présenté' : 'présentée'} à moi`
+    )
     this.treasureMap = new TreasureMap(adventureList)
   }
 
   public resolve(player: Player, note: Note): boolean {
     super.resolve(player, note)
     const adventuresVisited = player.adventuresVisited.map(({ adventure }) => adventure)
+    if (player.hasTag('treasure')) {
+      note.add(
+        new Note(
+          `${this.gender === 'M' ? 'Attiré' : 'Attirée'} et ${this.gender === 'M' ? 'impressionné' : 'impressionnée'} par mes trésors ${this.gender === 'M' ? 'il' : 'elle'} voulait discuter entre aventurier·e, ont à passé un bon moment`,
+          1
+        )
+      )
+      return false
+    }
     if (this.treasureMap.compare(adventuresVisited)) {
       note.add(
         new Note(
-          "Je lui ai indiqué la piste que j'avais trouvée et il m'a remercié chaleureusement pour mon aide",
-          this.treasureMap.length
+          `Je lui ai ${this.gender === 'M' ? 'indiqué' : 'indiquée'} indiqué la piste que j'avais trouvée et il m'a remercié chaleureusement pour mon aide`,
+          this.treasureMap.length * 4
         )
       )
     } else {
       note.add(
         new Note(
-          "Il m'a donné une carte au trésor et m'a demandé de revenir le voir si je trouvais quelque chose"
+          `${this.gender === 'M' ? 'Il' : 'Elle'} m'a ${this.gender === 'M' ? 'donné' : 'donnée'} une carte au trésor et m'a ${this.gender === 'M' ? 'demandé' : 'demandée'} de revenir ${this.gender === 'M' ? 'le' : 'la'} voir si je trouvais quelque chose`
         )
       )
       note.add(new Note(this.treasureMap.toString()))
