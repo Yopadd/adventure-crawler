@@ -35,15 +35,6 @@ test('Monkey tests', async ({ client, expect }) => {
   )
 
   console.table(
-    players.map((p) => ({
-      name: p.name,
-      visited: p.adventuresVisited
-        .map((a) => `(${a.name}, ${(a.$extras.pivot_visited_at as Date).toLocaleString()})`)
-        .join(';'),
-    }))
-  )
-
-  console.table(
     players
       .flatMap((p) => p.reports)
       .map((r) => ({
