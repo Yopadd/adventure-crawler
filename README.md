@@ -10,20 +10,43 @@ Read the code can spoil your experience if you want play.
 pnpm install
 ```
 
-2. Run tests
+2. Start API (development mode)
 
 ```
 docker compose up -d
 node ace migration:run
+pnpm dev
+```
+
+3. Install game
+
+```
+xh -v post http://localhost:3333/install Authorization:"Bearer [API_KEY]"
+```
+
+4. Add new events
+
+```
+node ace make:event-adventure MyNewAwesomeEvent
+```
+
+5. Run tests
+
+```
+docker compose up -d
 pnpm test
 ```
 
-3. Start API
+There are three king of tests
 
 ```
-npm start
+pnpm test unit
+pnpm test functional
+pnpm test monkey
 ```
 
-## Adonis documentation
+# Build docker image
 
-https://docs.adonisjs.com/guides/introduction
+```
+nixpacks build --name adventure-crawler .
+```
