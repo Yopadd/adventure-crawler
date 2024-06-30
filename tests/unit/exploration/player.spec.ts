@@ -29,7 +29,7 @@ test.group('Player', () => {
     expect(report.score).toEqual(1)
     expect(report.comment)
       .toBe(`Jour 1; Un collectionneur, il devrait pouvoir m'acheter quelques broutilles; Je n'avais rien pour lui malheureusement
-Jour 2; Au voleur !; Je n'ai rien pu faire, il m'a tout pris !
+Jour 2; Je me baladais dans un marché, au milieu de la foule, quand j'ai entendu un cri dans ma direction 'Au voleur !'; Je n'ai rien pu faire, il m'a tout pris !
 Jour 3; Des loups !; J'ai dû fuir ! C'était la seule chose que je pouvais faire !
 Jour 4; Un bon endroit pour faire une pause; Il était temps de reprendre la route
 Jour 5; Devant moi se trouvait une rivière de lave, impossible de continuer sans traverser
@@ -63,7 +63,7 @@ Jour 5; Devant moi se trouvait une rivière de lave, impossible de continuer san
     expect(player.backpack.items.map((item) => item.name.get())).toContain("Pépites d'or")
     expect(report.comment)
       .toBe(`Jour 1; Un collectionneur, il devrait pouvoir m'acheter quelques broutilles; Il était intéressé par un de mes objets de valeur
-Jour 2; Au voleur !; J'avais de quoi me défendre !
+Jour 2; Je me baladais dans un marché, au milieu de la foule, quand j'ai entendu un cri dans ma direction 'Au voleur !'; Heureusement, j'avais de quoi me défendre ! Il est reparti bredouille
 Jour 3; Des loups !; J'étais suffisamment armé pour leur tenir tête
 Jour 4; Un bon endroit pour faire une pause; J'avais pu rallumer ce vieux feu de camp; C'était le bon moment pour un bon repas; Il était temps de reprendre la route
 Jour 5; Devant moi se trouvait une rivière de lave, impossible de continuer sans traverser; Heureusement, j'avais de quoi me protéger; Un peu d'eau fraîche avec cette chaleur, un plaisir
