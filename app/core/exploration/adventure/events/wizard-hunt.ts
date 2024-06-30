@@ -11,7 +11,7 @@ export default class WizardHunt extends EventBase<Player> {
     super.resolve(player, note)
     note.add(
       new Note(
-        'Il y avait un grand bûcher au milieu du village, où ils pratiquaient la chasse aux sorciers'
+        "Il y avait un grand bûcher au milieu d'un village, où ils pratiquaient la chasse aux sorciers"
       )
     )
     if (player.hasTag('stealth', 'magic') || player.hasTag('stealth', 'potion')) {
@@ -35,7 +35,9 @@ export default class WizardHunt extends EventBase<Player> {
         new Note("Ils ont trouvé du matériel de sorcier dans mes affaires, c'est fini pour moi !")
       )
       return true
+    } else {
+      note.add(new Note('Je me suis reposé à la taverne du coin avant de repartir'))
+      return false
     }
-    return false
   }
 }
