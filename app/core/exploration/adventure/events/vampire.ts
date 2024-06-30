@@ -22,29 +22,32 @@ export default class Vampire extends EventBase<Player> {
     )
     if (player.hasTag('treasure')) {
       const treasureCount = player.countTag('treasure')
+      player.backpack.removeAllFromTag('treasure')
       note.add(
         new Note(
-          `C'était ${this.gender === 'M' ? 'un' : 'une'} vampire ! Il m'a laissé·e la vie sauve contre mes trésor`,
+          `C'était ${this.gender === 'M' ? 'un' : 'une'} vampire ! ${this.gender === 'M' ? 'Il' : 'Elle'} m'a ${this.gender === 'M' ? 'laissé' : 'laissée'} la vie sauve contre mes trésors`,
           treasureCount * 2
         )
       )
     } else if (!(player.hasTag('armor') && player.hasTag('weapon'))) {
       note.add(
         new Note(
-          `${this.gender === 'M' ? 'Un' : 'Une'} vampire ! Il était rapide, je n'avais aucune chance contre lui !`,
+          `${this.gender === 'M' ? 'Un' : 'Une'} vampire ! ${this.gender === 'M' ? 'Il' : 'Elle'} était rapide, je n'avais aucune chance contre ${this.gender === 'M' ? 'lui' : 'elle'} !`,
           0
         )
       )
     } else if (player.hasTag('armor') && !player.hasTag('weapon')) {
       note.add(
         new Note(
-          `${this.gender === 'M' ? 'Un' : 'Une'} vampire ! Il était rapide, mais je lui ai échappé`,
+          `${this.gender === 'M' ? 'Un' : 'Une'} vampire ! ${this.gender === 'M' ? 'Il' : 'Elle'} était rapide, mais je lui ai échappé`,
           1
         )
       )
     } else {
       note.add(
-        new Note(`${this.gender === 'M' ? 'Un' : 'Une'} vampire ! J'avais de quoi le combattre`)
+        new Note(
+          `${this.gender === 'M' ? 'Un' : 'Une'} vampire ! J'avais de quoi ${this.gender === 'M' ? 'le' : 'la'} combattre`
+        )
       )
     }
     return false
