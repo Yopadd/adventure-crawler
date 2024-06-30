@@ -29,8 +29,7 @@ export default class Wolfs extends EventBase<Player> {
     if (!player.hasTag('weapon')) {
       note.add(new Note("J'ai dû fuir ! C'était la seule chose que je pouvais faire !"))
       return false
-    }
-    if (player.countTag('weapon') === this.wolfsCount.get()) {
+    } else if (player.countTag('weapon') >= this.wolfsCount.get()) {
       note.add(
         new Note(
           this.wolfsCount.get() > 1
@@ -40,13 +39,14 @@ export default class Wolfs extends EventBase<Player> {
         )
       )
       return false
-    }
-    note.add(
-      new Note(
-        'Ils étaient trop nombreux pour moi... Peut-être que je pouvais les calmer avec un peu de nourriture',
-        player.countTag('weapon')
+    } else {
+      note.add(
+        new Note(
+          'Ils étaient trop nombreux pour moi... Peut-être que je pouvais les calmer avec un peu de nourriture',
+          player.countTag('weapon')
+        )
       )
-    )
+    }
 
     if (player.hasTag('animal')) {
       const animalCount = player.countTag('animal')
