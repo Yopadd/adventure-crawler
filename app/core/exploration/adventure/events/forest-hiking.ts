@@ -9,7 +9,6 @@ export default class ForestHiking extends EventBase<Player> {
 
   public resolve(player: Player, note: Note): boolean {
     super.resolve(player, note)
-    super.resolve(player, note)
     const score =
       player.countTag('hydration') +
       Number(player.hasTag('cold resistance')) +
