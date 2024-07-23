@@ -8,6 +8,7 @@
 */
 
 import { middleware } from '#start/kernel'
+import { throttle } from '#start/limiter'
 import router from '@adonisjs/core/services/router'
 
 const PreparationController = () => import('#controllers/preparation_controller')
@@ -22,11 +23,14 @@ router.post('/uninstall', [UninstallController]).use(middleware.adminGuard())
 
 router.post('/inscription', [InscriptionController])
 
-router.post('/exploration/adventures/:name', [ExploreAdventureController, 'explore']).use(
-  middleware.auth({
-    guards: ['basic'],
-  })
-)
+router
+  .post('/exploration/adventures/:name', [ExploreAdventureController, 'explore'])
+  .use(
+    middleware.auth({
+      guards: ['basic'],
+    })
+  )
+  .use(throttle)
 
 router.get('/exploration/adventures/:name', [ExploreAdventureController, 'visit']).use(
   middleware.auth({
@@ -49,6 +53,7 @@ router
           guards: ['basic'],
         })
       )
+      .use(throttle)
 
     router.get('/', [PreparationController, 'index'])
   })

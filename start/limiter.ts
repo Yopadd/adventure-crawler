@@ -12,9 +12,9 @@
 import env from '#start/env'
 import limiter from '@adonisjs/limiter/services/main'
 
-export const throttle = limiter.define('global', (ctx) => {
+export const throttle = limiter.define('api', (ctx) => {
   return limiter
     .allowRequests(env.get('RATE_LIMIT'))
     .every('1 minute')
-    .usingKey(`ip_${ctx.request.ip()}_user_${ctx.auth.user?.name}`)
+    .usingKey(`user_${ctx.auth.user?.name}`)
 })
