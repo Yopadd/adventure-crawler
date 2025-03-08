@@ -11,7 +11,7 @@ export default class ExploreAdventureController {
       commands: request.hasBody() ? request.body() : undefined,
     })
 
-    return { score: exploreResult.score, report: exploreResult.comment }
+    return { score: exploreResult.score, report: exploreResult.comment, path: exploreResult.path }
   }
 
   async visit({ auth, request }: HttpContext) {

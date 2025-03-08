@@ -1,4 +1,5 @@
 export type Tag =
+  | 'alert'
   | 'animal'
   | 'armor'
   | 'care'
@@ -24,9 +25,11 @@ export type Tag =
   | 'sacrifice'
   | 'shield'
   | 'stealth'
+  | 'strength'
   | 'sword'
   | 'treasure'
   | 'vegetal'
   | 'water'
   | 'weapon'
   | 'wood'
+  | 'pet'

@@ -15,17 +15,21 @@ export default class Adventure<T extends EventResolver = Player> {
   }
 
   public resolve(resolver: T): Note[] {
-    let notes = []
+    let notes: Note[] = []
     for (const index in this.events) {
       const event = this.events[index]
       const note = new Note(`Jour ${Number.parseInt(index) + 1}`)
-      const end = event.resolve(resolver, note)
+      const resolution = event.resolve(resolver, note)
       notes.push(note)
-      if (end) {
+      if (Resolution.EndOfAdventure === resolution) {
         break
       }
     }
     return notes
+  }
+
+  public get eventCount() {
+    return this.events.length
   }
 }
 
@@ -35,10 +39,15 @@ export class AdventureName extends StringValidation {
   }
 }
 
+export enum Resolution {
+  Continue,
+  EndOfAdventure,
+}
+
 export interface AdventureEvent<T extends EventResolver> {
   description: AdventureEventDescription
   name: EventName
-  resolve: (eventResolver: T, note: Note) => boolean
+  resolve: (eventResolver: T, note: Note) => Resolution
 }
 
 export class AdventureEventDescription extends StringValidation {

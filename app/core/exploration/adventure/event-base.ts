@@ -2,6 +2,7 @@ import ValidationError from '#app/core/errors/validation.error'
 import {
   AdventureEvent,
   AdventureEventDescription,
+  Resolution,
 } from '#app/core/exploration/adventure/adventure'
 import { EventResolver } from '#app/core/exploration/player/event-resolver'
 import Note from '#app/core/exploration/player/report/note/note'
@@ -25,9 +26,9 @@ export default abstract class EventBase<T extends EventResolver> implements Adve
     }
   }
 
-  public resolve(_: T, note: Note): boolean {
+  public resolve(_: T, note: Note) {
     note.add(new Note(this.description.get()))
-    return false
+    return Resolution.Continue
   }
 
   static randomPick<T>(arr: T[]): T {

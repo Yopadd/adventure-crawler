@@ -1,13 +1,14 @@
 import EventBase from '#app/core/exploration/adventure/event-base'
 import Player from '#app/core/exploration/player/player'
 import Note from '#app/core/exploration/player/report/note/note'
+import { Resolution } from '#app/core/exploration/adventure/adventure'
 
 export default class TunnelInTheDark extends EventBase<Player> {
   constructor() {
     super('Tunnel In The Dark', 'Il faisait vraiment très sombre ici')
   }
 
-  public resolve(player: Player, note: Note): boolean {
+  public resolve(player: Player, note: Note) {
     super.resolve(player, note)
     if (player.hasTag('light')) {
       note.add(new Note("J'avais de quoi m'éclairer", 1))
@@ -17,8 +18,8 @@ export default class TunnelInTheDark extends EventBase<Player> {
           "J'aurais mieux fait de ne pas m'aventurer ici, j'aurais dû chercher un autre chemin"
         )
       )
-      return true
+      return Resolution.EndOfAdventure
     }
-    return false
+    return Resolution.Continue
   }
 }

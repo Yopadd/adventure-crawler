@@ -1,13 +1,14 @@
 import EventBase from '#app/core/exploration/adventure/event-base'
 import Player from '#app/core/exploration/player/player'
 import Note from '#app/core/exploration/player/report/note/note'
+import { Resolution } from '#app/core/exploration/adventure/adventure'
 
 export default class Crypt extends EventBase<Player> {
   constructor() {
     super('Crypt', "Dans des ruines abandonnées, un escalier descendait dans l'obscurité")
   }
 
-  public resolve(player: Player, note: Note): boolean {
+  public resolve(player: Player, note: Note) {
     super.resolve(player, note)
     if (player.hasTag('light')) {
       note.add(new Note("L'exploration a été bien plus simple avec de la lumière", 1))
@@ -23,7 +24,7 @@ export default class Crypt extends EventBase<Player> {
       )
     } else {
       note.add(new Note('...', 0))
-      return true
+      return Resolution.EndOfAdventure
     }
     if (!player.hasTag('light')) {
       note.add(new Note('Je ne trouverais rien de plus ici', 0))
@@ -38,6 +39,6 @@ export default class Crypt extends EventBase<Player> {
         note.add(new Note("J'ai pu ouvrir la tombe sans problème", 2))
       }
     }
-    return false
+    return Resolution.Continue
   }
 }

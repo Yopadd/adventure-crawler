@@ -1,4 +1,4 @@
-import Adventure, { AdventureName } from '#app/core/exploration/adventure/adventure'
+import Adventure, { AdventureName, Resolution } from '#app/core/exploration/adventure/adventure'
 import EventBase from '#app/core/exploration/adventure/event-base'
 import Player from '#app/core/exploration/player/player'
 import Note from '#app/core/exploration/player/report/note/note'
@@ -18,7 +18,7 @@ export default class TreasureHunter extends EventBase<Player> {
     this.treasureMap = new TreasureMap(adventureList)
   }
 
-  public resolve(player: Player, note: Note): boolean {
+  public resolve(player: Player, note: Note) {
     super.resolve(player, note)
     const adventuresVisited = player.adventuresVisited.map(({ adventure }) => adventure)
     if (player.hasTag('treasure')) {
@@ -28,7 +28,7 @@ export default class TreasureHunter extends EventBase<Player> {
           1
         )
       )
-      return false
+      return Resolution.Continue
     }
     if (this.treasureMap.compare(adventuresVisited)) {
       note.add(
@@ -45,7 +45,7 @@ export default class TreasureHunter extends EventBase<Player> {
       )
       note.add(new Note(this.treasureMap.toString()))
     }
-    return false
+    return Resolution.Continue
   }
 }
 

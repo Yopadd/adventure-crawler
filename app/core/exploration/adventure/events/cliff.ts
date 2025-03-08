@@ -1,3 +1,4 @@
+import { Resolution } from '#app/core/exploration/adventure/adventure'
 import EventBase from '#app/core/exploration/adventure/event-base'
 import Player from '#app/core/exploration/player/player'
 import Note from '#app/core/exploration/player/report/note/note'
@@ -7,7 +8,7 @@ export default class Cliff extends EventBase<Player> {
     super('Cliff', 'Une falaise se dressait devant moi')
   }
 
-  public resolve(player: Player, note: Note): boolean {
+  public resolve(player: Player, note: Note) {
     super.resolve(player, note)
     if (player.countTag('climbing') > 1) {
       note.add(
@@ -21,6 +22,6 @@ export default class Cliff extends EventBase<Player> {
     } else {
       note.add(new Note('Je ferais mieux de trouver un nouveau passage'))
     }
-    return false
+    return Resolution.Continue
   }
 }

@@ -2,6 +2,7 @@ import EventBase from '#app/core/exploration/adventure/event-base'
 import Player from '#app/core/exploration/player/player'
 import Note from '#app/core/exploration/player/report/note/note'
 import { Items } from '#app/core/install/item/items'
+import { Resolution } from '#app/core/exploration/adventure/adventure'
 
 export default class SacrificeRoom extends EventBase<Player> {
   constructor() {
@@ -11,7 +12,7 @@ export default class SacrificeRoom extends EventBase<Player> {
     )
   }
 
-  public resolve(player: Player, note: Note): boolean {
+  public resolve(player: Player, note: Note) {
     super.resolve(player, note)
     if (player.hasTag('goat', 'sacrifice', 'magic', 'weapon')) {
       note.add(
@@ -20,7 +21,7 @@ export default class SacrificeRoom extends EventBase<Player> {
           666
         )
       )
-      return false
+      return Resolution.Continue
     }
     if (player.hasTag('sacrifice', 'magic', 'weapon')) {
       note.add(
@@ -29,7 +30,7 @@ export default class SacrificeRoom extends EventBase<Player> {
           10
         )
       )
-      return false
+      return Resolution.Continue
     }
     note.add(new Note("Ne sachant pas quoi faire, j'ai libéré la chèvre", 1))
     player.backpack.add(Items.Goat, () => {
@@ -39,6 +40,6 @@ export default class SacrificeRoom extends EventBase<Player> {
         )
       )
     })
-    return false
+    return Resolution.Continue
   }
 }

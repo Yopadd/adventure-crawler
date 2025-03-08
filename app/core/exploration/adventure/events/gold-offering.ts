@@ -2,13 +2,14 @@ import EventBase from '#app/core/exploration/adventure/event-base'
 import Player from '#app/core/exploration/player/player'
 import Note from '#app/core/exploration/player/report/note/note'
 import { Items } from '#app/core/install/item/items'
+import { Resolution } from '#app/core/exploration/adventure/adventure'
 
 export default class GoldOffering extends EventBase<Player> {
   constructor() {
     super('Gold Offering', 'Une énorme soucoupe en or maintenue par de grandes chaînes')
   }
 
-  public resolve(player: Player, note: Note): boolean {
+  public resolve(player: Player, note: Note) {
     super.resolve(player, note)
     if (player.hasTag('gold')) {
       const goldCount = player.countTag('gold')
@@ -38,6 +39,6 @@ export default class GoldOffering extends EventBase<Player> {
         new Note("J'ai essayé de déposer des objets dans la soucoupe mais rien ne s'est passé")
       )
     }
-    return false
+    return Resolution.Continue
   }
 }

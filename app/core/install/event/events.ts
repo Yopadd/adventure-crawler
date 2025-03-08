@@ -30,16 +30,6 @@ export const Events = {
   Vampire(_?: string[], gender: 'F' | 'M' = randomGender()) {
     return `Vampire:${gender}` as const
   },
-  ItemChallenge(_?: string[], challenge?: number) {
-    function randomScoreMaxFrom(value: string): number {
-      const max = Array.from(value)
-        .map((c) => c.charCodeAt(0))
-        .reduce((a, b) => a + b, 0)
-      return randomInt(max)
-    }
-    challenge = challenge ?? randomScoreMaxFrom('etaonihsrl'.repeat(5))
-    return `Item Challenge:${challenge}` as const
-  },
   Wolfs(_?: string[], wolfCount: number = randomInt(1, 3)) {
     return `Wolfs:${wolfCount}` as const
   },
@@ -78,6 +68,12 @@ export const Events = {
       }
     }
     return `TreasureHunter:${names}:${gender}` as const
+  },
+  DelicateBridge(_?: string[]) {
+    return 'Delicate Bridge' as const
+  },
+  OldRuins(_?: string[]) {
+    return 'Old Ruins' as const
   },
 }
 

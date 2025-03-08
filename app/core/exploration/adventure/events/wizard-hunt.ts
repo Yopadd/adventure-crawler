@@ -1,13 +1,14 @@
 import EventBase from '#app/core/exploration/adventure/event-base'
 import Player from '#app/core/exploration/player/player'
 import Note from '#app/core/exploration/player/report/note/note'
+import { Resolution } from '#app/core/exploration/adventure/adventure'
 
 export default class WizardHunt extends EventBase<Player> {
   constructor() {
     super('Wizard hunt', 'Un village')
   }
 
-  public resolve(player: Player, note: Note): boolean {
+  public resolve(player: Player, note: Note) {
     super.resolve(player, note)
     note.add(
       new Note(
@@ -28,16 +29,16 @@ export default class WizardHunt extends EventBase<Player> {
           player.backpack.removeAllFromTag('magic')
         }
       }
-      return false
+      return Resolution.Continue
     }
     if (player.hasTag('potion', 'magic')) {
       note.add(
         new Note("Ils ont trouvé du matériel de sorcier dans mes affaires, c'est fini pour moi !")
       )
-      return true
+      return Resolution.EndOfAdventure
     } else {
       note.add(new Note('Je me suis reposé à la taverne du coin avant de repartir'))
-      return false
+      return Resolution.Continue
     }
   }
 }

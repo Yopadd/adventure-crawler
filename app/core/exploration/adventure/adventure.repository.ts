@@ -4,14 +4,15 @@ import Cliff from '#app/core/exploration/adventure/events/cliff'
 import Collector from '#app/core/exploration/adventure/events/collector'
 import CrossingLavaRiver from '#app/core/exploration/adventure/events/crossing-lava-river'
 import Crypt from '#app/core/exploration/adventure/events/crypt'
+import DelicateBridge from '#app/core/exploration/adventure/events/delicate-bridge'
 import Demons from '#app/core/exploration/adventure/events/demons'
 import Dragon from '#app/core/exploration/adventure/events/dragon'
 import Farm from '#app/core/exploration/adventure/events/farm'
 import FireCamp from '#app/core/exploration/adventure/events/fire-camp'
 import ForestHiking from '#app/core/exploration/adventure/events/forest-hiking'
 import GoldOffering from '#app/core/exploration/adventure/events/gold-offering'
-import ItemChallenge from '#app/core/exploration/adventure/events/item-challenge'
 import MountainHiking from '#app/core/exploration/adventure/events/mountain-hiking'
+import OldRuins from '#app/core/exploration/adventure/events/old-ruins'
 import SacrificeRoom from '#app/core/exploration/adventure/events/sacrifice-room'
 import Thief from '#app/core/exploration/adventure/events/thief'
 import TreasureHunter from '#app/core/exploration/adventure/events/treasure-hunter'
@@ -56,10 +57,8 @@ export default class AdventureRepositoryDatabase implements AdventureRepository 
       .with('Thief', () => new Thief())
       .with('Tunnel In The Dark', () => new TunnelInTheDark())
       .with('Wizard hunt', () => new WizardHunt())
-      .with(P.string.startsWith('Item Challenge'), (name) => {
-        const challenge = Number.parseInt(name.split(':')[1])
-        return new ItemChallenge(challenge)
-      })
+      .with('Delicate Bridge', () => new DelicateBridge())
+      .with('Old Ruins', () => new OldRuins())
       .with(P.string.startsWith('TreasureHunter'), (name) => {
         const adventureList = name
           .split(':')[1]

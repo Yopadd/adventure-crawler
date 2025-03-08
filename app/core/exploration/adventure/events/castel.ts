@@ -2,13 +2,14 @@ import EventBase from '#app/core/exploration/adventure/event-base'
 import Player from '#app/core/exploration/player/player'
 import Note from '#app/core/exploration/player/report/note/note'
 import { Items } from '#app/core/install/item/items'
+import { Resolution } from '#app/core/exploration/adventure/adventure'
 
 export default class Castel extends EventBase<Player> {
   constructor() {
     super('Castel', "Un château abandonné au milieu d'une forêt")
   }
 
-  public resolve(player: Player, note: Note): boolean {
+  public resolve(player: Player, note: Note) {
     super.resolve(player, note)
     note.add(
       new Note(
@@ -63,7 +64,7 @@ export default class Castel extends EventBase<Player> {
             -1
           )
         )
-        return true
+        return Resolution.EndOfAdventure
       }
       note.add(
         new Note(
@@ -80,6 +81,6 @@ export default class Castel extends EventBase<Player> {
       )
     }
 
-    return false
+    return Resolution.Continue
   }
 }

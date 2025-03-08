@@ -2,6 +2,7 @@ import EventBase from '#app/core/exploration/adventure/event-base'
 import Player from '#app/core/exploration/player/player'
 import Note from '#app/core/exploration/player/report/note/note'
 import { NumberValidation } from '#app/core/validations/number-validation'
+import { Resolution } from '#app/core/exploration/adventure/adventure'
 
 export default class Wolfs extends EventBase<Player> {
   private readonly wolfsCount: WolfsCount
@@ -12,7 +13,7 @@ export default class Wolfs extends EventBase<Player> {
     this.wolfsCount = wc
   }
 
-  public resolve(player: Player, note: Note): boolean {
+  public resolve(player: Player, note: Note) {
     super.resolve(player, note)
     if (player.hasTag('goat')) {
       note.add(
@@ -23,12 +24,12 @@ export default class Wolfs extends EventBase<Player> {
           6
         )
       )
-      return false
+      return Resolution.Continue
     }
 
     if (!player.hasTag('weapon')) {
       note.add(new Note("J'ai dû fuir ! C'était la seule chose que je pouvais faire !"))
-      return false
+      return Resolution.Continue
     } else if (player.countTag('weapon') >= this.wolfsCount.get()) {
       note.add(
         new Note(
@@ -38,7 +39,7 @@ export default class Wolfs extends EventBase<Player> {
           this.wolfsCount.get() * 2
         )
       )
-      return false
+      return Resolution.Continue
     } else {
       note.add(new Note('Ils étaient trop nombreux pour moi...', player.countTag('weapon')))
     }
@@ -61,7 +62,7 @@ export default class Wolfs extends EventBase<Player> {
     } else {
       note.add(new Note("j'ai dû me débrouiller pour fuir...", -1))
     }
-    return false
+    return Resolution.Continue
   }
 }
 

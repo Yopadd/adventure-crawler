@@ -20,7 +20,6 @@ const builders: Array<[Adventure, (_: string[]) => EventName[]]> = [
   ...adventuresRandomiser(5, 24),
   ...adventuresRandomiser(6, 12),
   ...adventuresRandomiser(7, 6),
-  ...itemChallengeAdventuresRandomiser(6),
   [new Adventure('Aztec'), () => [Events.GoldOffering()]],
   [
     new Adventure('666'),
@@ -37,14 +36,6 @@ export const Adventures = builders.map(([adventure, eventsFactory], _, arr) => {
   const names = arr.map(([adventure]) => adventure.name.get())
   return adventure.setEvents(eventsFactory(names))
 })
-
-function itemChallengeAdventuresRandomiser(count: number) {
-  return adventuresFactory(() => {
-    const event = Events.ItemChallenge()
-    const title = event.split(':')[1]
-    return [new Adventure(title), () => [event]]
-  }, count)
-}
 
 function adventuresRandomiser(eventCount: number, adventureCount: number) {
   return adventuresFactory(() => {

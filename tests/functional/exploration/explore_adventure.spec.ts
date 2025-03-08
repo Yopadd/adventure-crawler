@@ -28,6 +28,7 @@ test('Explore Aazzidy adventure, a simple adventure with several kind of event',
   expect(response.body()).toEqual({
     score: expect.any(Number),
     report: expect.any(String),
+    path: "O-O-O-O-O-O"
   })
 })
 

@@ -17,6 +17,14 @@ export default class Report {
       .reduce((acc, note) => acc.concat(note.comment.get(), '\n'), '')
   }
 
+  public get path(): string {
+    const eventCount = this.adventure.eventCount
+    const eventResolvedCount = this.notes.length
+    return `${'O'.repeat(eventResolvedCount)}${'X'.repeat(eventCount - eventResolvedCount)}`
+      .split('')
+      .join('-')
+  }
+
   public get score(): number {
     return this.notes.reduce((acc, note) => acc + note.score.get(), 0)
   }

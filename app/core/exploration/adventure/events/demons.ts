@@ -1,13 +1,14 @@
 import EventBase from '#app/core/exploration/adventure/event-base'
 import Player from '#app/core/exploration/player/player'
 import Note from '#app/core/exploration/player/report/note/note'
+import { Resolution } from '#app/core/exploration/adventure/adventure'
 
 export default class Demons extends EventBase<Player> {
   constructor() {
     super('Demons', 'Des créatures ailées des enfers me pourchassaient')
   }
 
-  public resolve(player: Player, note: Note): boolean {
+  public resolve(player: Player, note: Note) {
     super.resolve(player, note)
     if (player.hasTag('goat')) {
       note.add(new Note('Étrangement les démons sont restés a distance', 6))
@@ -28,6 +29,6 @@ export default class Demons extends EventBase<Player> {
         )
       )
     }
-    return false
+    return Resolution.Continue
   }
 }

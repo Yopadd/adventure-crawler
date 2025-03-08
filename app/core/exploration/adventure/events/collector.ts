@@ -1,13 +1,14 @@
 import EventBase from '#app/core/exploration/adventure/event-base'
 import Player from '#app/core/exploration/player/player'
 import Note from '#app/core/exploration/player/report/note/note'
+import { Resolution } from '#app/core/exploration/adventure/adventure'
 
 export default class Collector extends EventBase<Player> {
   constructor() {
     super('Collector', "Un collectionneur, il devrait pouvoir m'acheter quelques broutilles")
   }
 
-  public resolve(player: Player, note: Note): boolean {
+  public resolve(player: Player, note: Note) {
     super.resolve(player, note)
     const moneyCount = player.countTag('money')
     if (player.hasTag('goat')) {
@@ -24,6 +25,6 @@ export default class Collector extends EventBase<Player> {
     } else {
       note.add(new Note("Je n'avais rien pour lui malheureusement"))
     }
-    return false
+    return Resolution.Continue
   }
 }

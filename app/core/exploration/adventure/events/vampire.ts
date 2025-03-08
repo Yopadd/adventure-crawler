@@ -1,6 +1,7 @@
 import EventBase from '#app/core/exploration/adventure/event-base'
 import Player from '#app/core/exploration/player/player'
 import Note from '#app/core/exploration/player/report/note/note'
+import { Resolution } from '#app/core/exploration/adventure/adventure'
 
 export default class Vampire extends EventBase<Player> {
   constructor(private readonly gender: 'F' | 'M') {
@@ -8,11 +9,11 @@ export default class Vampire extends EventBase<Player> {
     super(`Vampire:${gender}`, EventBase.randomPick(starter))
   }
 
-  public resolve(player: Player, note: Note): boolean {
+  public resolve(player: Player, note: Note) {
     super.resolve(player, note)
     if (!player.hasTag('light')) {
       note.add(new Note('Je ne voyais rien dans cette obscurité...', 0))
-      return true
+      return Resolution.EndOfAdventure
     }
     note.add(
       new Note(
@@ -50,6 +51,6 @@ export default class Vampire extends EventBase<Player> {
         )
       )
     }
-    return false
+    return Resolution.Continue
   }
 }

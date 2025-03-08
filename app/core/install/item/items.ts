@@ -5,7 +5,7 @@ export const Items = {
     return new Item({
       name: 'Épée',
       description: 'Un simple bout de métal un peu tranchant',
-      tags: ['weapon', 'sword', 'metal', 'iron'],
+      tags: ['weapon', 'sword', 'metal', 'iron', 'strength'],
     })
   },
 
@@ -103,7 +103,7 @@ export const Items = {
     return new Item({
       name: 'Bouclier en fer',
       description: 'Une plaque de fer avec une poignée',
-      tags: ['armor', 'iron', 'metal', 'shield'],
+      tags: ['armor', 'iron', 'metal', 'shield', 'strength'],
     })
   },
 
@@ -119,7 +119,7 @@ export const Items = {
     return new Item({
       name: 'Grappin',
       description: 'Si le chemin devient difficile',
-      tags: ['climbing', 'metal'],
+      tags: ['climbing', 'metal', 'strength'],
     })
   },
 
@@ -127,7 +127,7 @@ export const Items = {
     return new Item({
       name: 'Fiole remplie de luciole',
       description: "C'est une source de lumière presque infini si je m'en occupe bien",
-      tags: ['light', 'potion', 'insect'],
+      tags: ['light', 'potion', 'insect', 'alert'],
     })
   },
 
@@ -324,7 +324,7 @@ export const Items = {
     return new Item({
       name: 'Dague à la lame rouge',
       description: 'Une dague à la lame rouge vif',
-      tags: ['treasure', 'weapon', 'metal', 'iron', 'magic', 'sacrifice'],
+      tags: ['treasure', 'weapon', 'metal', 'iron', 'magic', 'sacrifice', 'alert'],
       hidden: true,
     })
   },
@@ -335,6 +335,22 @@ export const Items = {
       description: 'Une chèvre trouvée pendant une aventure',
       tags: ['animal', 'goat'],
       hidden: true,
+    })
+  },
+
+  get ScoutingBird() {
+    return new Item({
+      name: 'Oiseau éclaireur',
+      description: 'Un petit oiseau dressé qui vous prévient des dangers à proximité',
+      tags: ['alert', 'animal', 'pet'],
+    })
+  },
+
+  get ScentPotion() {
+    return new Item({
+      name: 'Potion olfactive',
+      description: 'Aiguise temporairement votre odorat pour détecter les dangers',
+      tags: ['alert', 'potion', 'magic'],
     })
   },
 }
