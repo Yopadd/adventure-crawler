@@ -3,9 +3,8 @@
   "version": "1.0.1.2",
   "private": true,
   "engines": {
-    "node": ">20.12.2"
+    "node": ">22.14.0"
   },
-  "packageManager": "pnpm@9.1.1",
   "scripts": {
     "dev": "node ace serve --watch",
     "build": "node ace build",
